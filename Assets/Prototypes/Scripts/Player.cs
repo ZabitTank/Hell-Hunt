@@ -32,11 +32,11 @@ public class Player : MonoBehaviour
     // Component
     Rigidbody2D rb;
     AudioSource audioSource;
-    // References
-
-    // Child References
+    
+    //References
     public Animator body;
     public Animator feet;
+    public AnimatorOverrideController[] animatorOverride;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -44,20 +44,49 @@ public class Player : MonoBehaviour
 
     public void Start()
     {
-        
+        //rb = GetComponentInChildren<Rigidbody2D>();
     }
     void Update()
     {
         GetPlayerInput();
         SetMovingState();
-        SetBodyMouseRotation();
-        SetFeetAnimation();
+        SetCharacterRotation();
+        SetMovingAnimation();
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            TriggerAnimation("Melee");
+        }
+        else if(Input.GetKeyDown(KeyCode.R)) {
+            TriggerAnimation("Reload");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            body.runtimeAnimatorController = animatorOverride[0];
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            body.runtimeAnimatorController = animatorOverride[1];
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            body.runtimeAnimatorController = animatorOverride[2];
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            body.runtimeAnimatorController = animatorOverride[3];
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            body.runtimeAnimatorController = animatorOverride[4];
+        }
+
+
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(movementSpeed * movingDirection * Time.fixedDeltaTime);
-        rb.MovePosition(transform.position);
+        transform.Translate(movementSpeed * Time.fixedDeltaTime * movingDirection);
+        //rb.MovePosition(transform.position);
     }
 
     private void GetPlayerInput()
@@ -83,22 +112,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SetBodyMouseRotation()
+    private void SetCharacterRotation()
     {
-        if (!isMouseChange) return;
-
-        float rotation = Mathf.Atan2(playerToMouse.y, playerToMouse.x) * Mathf.Rad2Deg;
-        body.transform.rotation = Quaternion.Euler(0, 0, rotation);
-    }
-
-    private void SetFeetAnimation()
-    {
-        feet.SetBool("isMoving", isMoving);
-        if (!isMoving) return;
-            Vector2 velocity = movingDirection;
-            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        if (isMouseChange)
+        {
+            float rotation = Mathf.Atan2(playerToMouse.y, playerToMouse.x) * Mathf.Rad2Deg;
+            body.transform.rotation = Quaternion.Euler(0, 0, rotation);
+        };
+        if (isMoving)
+        {
+            float angle = Mathf.Atan2(movingDirection.y, movingDirection.x) * Mathf.Rad2Deg;
             feet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
             if (feet.transform.localEulerAngles.z > 90 && feet.transform.localEulerAngles.z < 270)
             {
                 feet.transform.localScale = new(-1, -1, -1);
@@ -107,7 +131,23 @@ public class Player : MonoBehaviour
             {
                 feet.transform.localScale = new(1, 1, 1);
             }
+        };
 
+    }
+
+    private void SetMovingAnimation()
+    {
+        feet.SetBool("Move", isMoving);
+        body.SetBool("Move", isMoving);
+    }
+
+    private void TriggerAnimation(string name)
+    {
+        body.SetTrigger(name);
+    }
+
+    public void Shoot() {
+        body.SetTrigger("Shoot");
     }
 
     private void LogState()
