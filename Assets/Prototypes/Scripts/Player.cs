@@ -21,10 +21,12 @@ public class Player : MonoBehaviour
     // Input
     float horizontalInput;
     float verticalInput;
-    Vector2 mouseDirection;
-
+    Vector2 mousePosition;
+    Vector2 lastMousePosition;
+    Vector2 playerToMouse;
     // State
     bool isMoving;
+    bool isMouseChange;
     Vector2 movingDirection;
 
     // Component
@@ -46,7 +48,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        GetKeyBoardInput();
+        GetPlayerInput();
         SetMovingState();
         SetBodyMouseRotation();
         SetFeetAnimation();
@@ -58,40 +60,43 @@ public class Player : MonoBehaviour
         rb.MovePosition(transform.position);
     }
 
-    private void GetKeyBoardInput()
+    private void GetPlayerInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        //float distance = Vector3.Distance(gameObject.transform.position, Camera.main.ScreenToWorldPoint(mousePosition));
+        mousePosition = Input.mousePosition;
     }
 
     private void SetMovingState()
     {
         movingDirection = new(horizontalInput, verticalInput);
         isMoving = movingDirection.magnitude > 0.00f;
+        
+        if(mousePosition != lastMousePosition)
+        {
+            lastMousePosition = mousePosition;
+            isMouseChange = true;
+            playerToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            playerToMouse.Normalize();
+        }
     }
 
     private void SetBodyMouseRotation()
     {
-        Vector3 mousePosition = Input.mousePosition;
+        if (!isMouseChange) return;
 
-        float distance = Vector3.Distance(gameObject.transform.position, Camera.main.ScreenToWorldPoint(mousePosition));
-
-        Vector3 facingDirection = Camera.main.ScreenToWorldPoint(mousePosition) - transform.position;
-
-
-        facingDirection.Normalize();
-
-        float rotation = Mathf.Atan2(facingDirection.y, facingDirection.x) * Mathf.Rad2Deg;
+        float rotation = Mathf.Atan2(playerToMouse.y, playerToMouse.x) * Mathf.Rad2Deg;
         body.transform.rotation = Quaternion.Euler(0, 0, rotation);
     }
 
     private void SetFeetAnimation()
     {
         feet.SetBool("isMoving", isMoving);
-        if (isMoving)
-        {
+        if (!isMoving) return;
             Vector2 velocity = movingDirection;
-            float angle = Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
             feet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
             if (feet.transform.localEulerAngles.z > 90 && feet.transform.localEulerAngles.z < 270)
@@ -102,7 +107,6 @@ public class Player : MonoBehaviour
             {
                 feet.transform.localScale = new(1, 1, 1);
             }
-        }     
 
     }
 
