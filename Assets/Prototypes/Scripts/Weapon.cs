@@ -4,49 +4,56 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    //TODO: Apply ScriptAble Object for WeaponData
     public int damege;
     public float fireRate;
     public int currentAmmo;
     public int ammoCap;
     public int reloadTime;
 
-    public Transform gun;
+    [SerializeField] 
+    private GameObject bullet;
 
-    [SerializeField] private GameObject bullet;
-
-    private Player player;
+    // state
     float timeToFire = 0;
     private bool isReloading; 
     public Animator body;
+    private Transform muzzlePosition;
 
     [SerializeField]
-    private Animator muzzleFlash;
+    private Animator muzzleFlash; // change if weapon type change
+
+    // references
+    private Player player;
+
     void Start()
     {
         isReloading = false;
         player = GetComponent<Player>();
+
+        muzzlePosition = muzzleFlash.transform; ;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isReloading) return;
-        if (currentAmmo <= 0)
-        {
-            StartCoroutine(Reload());
-            return;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Mouse0) && Time.time > timeToFire)
+        Debug.Log(isReloading);
+        if(Input.GetKeyDown(KeyCode.Mouse0) && Time.time > timeToFire && !isReloading)
         {
             timeToFire = Time.time + 1 / fireRate;
             Fire();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+            return;
         }
     }
 
     void Fire()
     {
-        player.Shoot();
+        player.body.SetTrigger("Shoot");
         SpawnBulleet();
     }
 
@@ -54,14 +61,11 @@ public class Weapon : MonoBehaviour
     {
         isReloading = true;
         player.body.Play("Reload");
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(1/  player.body.GetFloat("ReloadSpeed"));
         currentAmmo = ammoCap;
-
         isReloading = false;
 
-
     }
-
 
     void SpawnBulleet()
     {
@@ -69,10 +73,9 @@ public class Weapon : MonoBehaviour
         {
             return;
         }
-
-        GameObject shot = Instantiate(bullet, gun.position, gun.rotation);
+        // Todo: Apply Object pooler or using raycast
+        GameObject shot = Instantiate(bullet, muzzlePosition.position, muzzlePosition.rotation);
         shot.GetComponent<Bullet>().damage = damege;
-
         muzzleFlash.SetTrigger("Shoot");
     }
 }

@@ -56,9 +56,6 @@ public class Player : MonoBehaviour
         {
             TriggerAnimation("Melee");
         }
-        else if(Input.GetKeyDown(KeyCode.R)) {
-            TriggerAnimation("Reload");
-        }
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             body.runtimeAnimatorController = animatorOverride[0];
