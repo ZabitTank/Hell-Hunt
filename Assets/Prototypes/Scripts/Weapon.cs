@@ -4,34 +4,15 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    //TODO: Apply ScriptAble Object for WeaponData
-    public int damege;
-    public float fireRate;
-    public int currentAmmo;
-    public int ammoCap;
-    public int reloadTime;
-
-    [SerializeField] 
-    private GameObject bullet;
-
-    // state
-    float timeToFire = 0;
-    private bool isReloading; 
-    public Animator body;
-    private Transform muzzlePosition;
-
+    IWeaponBehavior weapon;
     [SerializeField]
     private Animator muzzleFlash; // change if weapon type change
 
     // references
     private Player player;
-
     void Start()
     {
-        isReloading = false;
-        player = GetComponent<Player>();
-
-        muzzlePosition = muzzleFlash.transform; ;
+        weapon = new GunBehaviour();
     }
 
     // Update is called once per frame
@@ -75,7 +56,7 @@ public class Weapon : MonoBehaviour
         }
         // Todo: Apply Object pooler or using raycast
         GameObject shot = Instantiate(bullet, muzzlePosition.position, muzzlePosition.rotation);
-        shot.GetComponent<Bullet>().damage = damege;
+        shot.GetComponent<Bullet>().damage = weaponDamage;
         muzzleFlash.SetTrigger("Shoot");
     }
 }
