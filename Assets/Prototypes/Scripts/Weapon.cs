@@ -12,8 +12,6 @@ public class Weapon : MonoBehaviour
 
     public Transform gun;
 
-    [SerializeField]
-    private GameObject muzzleFlash;
     [SerializeField] private GameObject bullet;
 
     private Player player;
@@ -21,7 +19,8 @@ public class Weapon : MonoBehaviour
     private bool isReloading; 
     public Animator body;
 
-
+    [SerializeField]
+    private Animator muzzleFlash;
     void Start()
     {
         isReloading = false;
@@ -74,6 +73,6 @@ public class Weapon : MonoBehaviour
         GameObject shot = Instantiate(bullet, gun.position, gun.rotation);
         shot.GetComponent<Bullet>().damage = damege;
 
-        Instantiate(muzzleFlash, gun.position, gun.rotation);
+        muzzleFlash.SetTrigger("Shoot");
     }
 }
