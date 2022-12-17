@@ -2,3 +2,5 @@ tds_zombie - opengameart
 Top_Down_Survivor - opengameart
 zombie_01 - opengameart
 HLM1 sprite files - internet
+
+References Script manager architecture = tarodev/https://www.youtube.com/watch?v=tE1qH8OxO2Y

@@ -15,10 +15,6 @@ public class BaseWeapon : MonoBehaviour
         weaponBehavior = gunBehaviour;
     }
 
-    private void SetWeapon()
-    {
-
-    }
 
     private void Update()
     {

@@ -18,13 +18,16 @@ public class Player : MonoBehaviour
     [Header("Current HP of character")]
     private int currentHP;
 
+    public Inventory inventory;
+
     // Input
     float horizontalInput;
     float verticalInput;
     Vector2 mousePosition;
     Vector2 lastMousePosition;
     Vector2 playerToMouse;
-    // State
+
+    // Moving State
     bool isMoving;
     bool isMouseChange;
     Vector2 movingDirection;
@@ -41,7 +44,6 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
     public void Start()
     {
         //rb = GetComponentInChildren<Rigidbody2D>();
@@ -52,32 +54,6 @@ public class Player : MonoBehaviour
         SetMovingState();
         SetCharacterRotation();
         SetMovingAnimation();
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            body.SetTrigger("Melee");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            body.runtimeAnimatorController = animatorOverride[0];
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            body.runtimeAnimatorController = animatorOverride[1];
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            body.runtimeAnimatorController = animatorOverride[2];
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            body.runtimeAnimatorController = animatorOverride[3];
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            body.runtimeAnimatorController = animatorOverride[4];
-        }
-
-
     }
 
     private void FixedUpdate()
@@ -138,4 +114,14 @@ public class Player : MonoBehaviour
         body.SetBool("Move", isMoving);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Hit");
+        BaseItem item = collision.GetComponent<BaseItem>();
+        if (item)
+        {
+            inventory.AddItem(item.item, 1);
+            Destroy(item.gameObject);
+        }
+    }
 }

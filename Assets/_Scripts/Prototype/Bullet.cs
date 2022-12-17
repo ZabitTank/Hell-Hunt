@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed;
+    public float force;
     public int damage;
     public Rigidbody2D rb;
     private void Awake()
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     public void InitState(float speed, int damage, float spread)
     {
-        this.speed = speed;
+        this.force = speed;
         this.damage = damage;
         transform.Rotate(Vector3.forward, spread);
     }
@@ -22,16 +22,17 @@ public class Bullet : MonoBehaviour
     public int timer = 1;
     void Start()
     {
-        Destroy(gameObject, timer);
+        rb.AddForce(transform.right * force * 50);
+        Destroy(gameObject, 3);
     }
 
-    void Update()
-    {
-        transform.position += transform.right * Time.deltaTime * speed;
-    }
+    //void Update()
+    //{
+    //    transform.position += transform.right * Time.deltaTime * force;
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        Destroy(gameObject);
     }
 }

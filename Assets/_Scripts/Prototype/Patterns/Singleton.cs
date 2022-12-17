@@ -1,34 +1,33 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+// Replace existed Instance with new instance
+public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T instance;
+    public static T Instance { get; private set; }
+    protected virtual void Awake() => Instance = this as T;
 
-    public static T Instance
+    protected virtual void OnApplicationQuit()
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType(typeof(T)) as T;
-
-                if (instance == null)
-                {
-                    instance = new GameObject().AddComponent<T>();
-                    instance.gameObject.name = instance.GetType().Name;
-                }
-            }
-            return instance;
-        }
+        Instance = null;
+        Destroy(gameObject);
     }
+}
 
-    public void Reset()
+// Delete existed Instance 
+public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour
+{
+    protected override void Awake()
     {
-        instance = null;
+        if (Instance != null) Destroy(gameObject);
+        base.Awake();
     }
+}
 
-    public static bool Exists()
+public abstract class PersistentSingleton<T> : Singleton<T> where T : MonoBehaviour
+{
+    protected override void Awake()
     {
-        return (instance != null);
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
     }
 }

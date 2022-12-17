@@ -1,15 +1,19 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
+    // test
     public float spread;
 
-    GunData _gunData;
-    Animator _bodyAnimator;
-    Animator _muzzleAnimator;
+    GunData gunData;
+    Animator bodyAnimator;
+    Animator muzzleAnimator;
 
-    // State
+    GunAttribute gunAttribute;
+    MeleeWeaponAttribute meleeAttribute;
+    // Logic State
     Transform muzzlePosition;
     int currentAmmo;
     bool isReloading;
@@ -17,27 +21,30 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     float timeToMelee;
     float currentSpread;
 
-    // player's state
+    // Player's Stats
     int totalAmmo;
     float playerAcurateState;
 
     public void InitState(GunData gunData, Animator bodyAnimator, Animator muzzleAnimator)
     {
-        _gunData = gunData;
-        _bodyAnimator = bodyAnimator;
-        _muzzleAnimator = muzzleAnimator;
+        this.gunData = gunData;
+        this.bodyAnimator = bodyAnimator;
+        this.muzzleAnimator = muzzleAnimator;
 
-        muzzlePosition = _muzzleAnimator.transform;
-        muzzlePosition.localPosition = _gunData.localMuzzlePosition;
+        gunAttribute = gunData.gunAttribute;
+        meleeAttribute = gunData.meleeAttribute;
 
-        _bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
-        _muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
-        _bodyAnimator.SetFloat("ReloadSpeed", 1 / _gunData.reloadTime);
-        _bodyAnimator.SetFloat("FireRate", _gunData.fireRate);
-        _bodyAnimator.SetFloat("MeleeSpeed",  _gunData.attackRate);
-        _muzzleAnimator.SetFloat("EffectSpeed", _gunData.fireRate);
+        muzzlePosition = this.muzzleAnimator.transform;
+        muzzlePosition.localPosition = this.gunData.localMuzzlePosition;
 
-        currentAmmo = gunData.ammoCap;
+        this.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
+        this.muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
+        this.bodyAnimator.SetFloat("ReloadSpeed", gunAttribute.reloadSpeed);
+        this.bodyAnimator.SetFloat("FireRate", gunAttribute.fireRate);
+        this.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.weaponSpeed);
+        this.muzzleAnimator.SetFloat("EffectSpeed", gunAttribute.fireRate);
+
+        currentAmmo = gunAttribute.ammoCap;
         totalAmmo = currentAmmo * 100;
         isReloading = false;
         timeToFire = Time.time;
@@ -62,29 +69,29 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
             PreparePrimaryAttack();
             return;
         }
-        timeToFire = Time.time + 1 / _gunData.fireRate;
-        _bodyAnimator.SetTrigger("Shoot");
+        timeToFire = Time.time + 1 / gunAttribute.fireRate;
+        bodyAnimator.SetTrigger("Shoot");
 
         SpawnBullet();
     }
 
     private void SpawnBullet()
     {
-        if (_gunData.bulletPrefab == null)
+        if (gunData.bulletPrefab == null)
         {
             return;
         }
 
-        GameObject bullet = Instantiate(_gunData.bulletPrefab, _muzzleAnimator.transform.position, _muzzleAnimator.transform.rotation);
-        bullet.GetComponent<Bullet>().InitState(_gunData.fireForce, _gunData.bulletDamage,caculateSpread());
-        _muzzleAnimator.SetTrigger("Shoot");
+        GameObject bullet = Instantiate(gunData.bulletPrefab, muzzleAnimator.transform.position, muzzleAnimator.transform.rotation);
+        bullet.GetComponent<Bullet>().InitState(gunAttribute.fireForce, gunAttribute.bulletDamage, caculateSpread());
+        muzzleAnimator.SetTrigger("Shoot");
         currentAmmo--;
     }
 
     public void SecondaryAttack()
     {
-        timeToMelee = Time.time + 1 / _gunData.attackRate;
-
+        timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
+        bodyAnimator.SetTrigger("Melee");
     }
 
     public void PreparePrimaryAttack()
@@ -96,10 +103,10 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     IEnumerator Reload()
     {
         isReloading = true;
-        _bodyAnimator.Play("Reload");
-        yield return new WaitForSeconds(1 / _bodyAnimator.GetFloat("ReloadSpeed"));
-        currentAmmo = (totalAmmo < _gunData.ammoCap) ? totalAmmo : _gunData.ammoCap;
-        totalAmmo = Mathf.Clamp(totalAmmo - _gunData.ammoCap, 0, int.MaxValue);
+        bodyAnimator.Play("Reload");
+        yield return new WaitForSeconds(1 / bodyAnimator.GetFloat("ReloadSpeed"));
+        currentAmmo = (totalAmmo < gunAttribute.ammoCap) ? totalAmmo : gunAttribute.ammoCap;
+        totalAmmo = Mathf.Clamp(totalAmmo - gunAttribute.ammoCap, 0, int.MaxValue);
         isReloading = false;
     }
 

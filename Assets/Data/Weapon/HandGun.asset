@@ -9,21 +9,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21d7a5ddd7e9abd4b9de7410ef2ddf43, type: 3}
-  m_Name: HandGun-1911
+  m_Script: {fileID: 11500000, guid: 250698e951c4a944c9739c3fbca99ed7, type: 3}
+  m_Name: HandGun
   m_EditorClassIdentifier: 
-  name: 1911
+  name: 
   type: 0
+  stackLimit: 1
+  prefabs: {fileID: 0}
+  description: 
   localMuzzlePosition: {x: 1.783, y: -0.56}
   muzzlEffectAnimatorOverride: {fileID: 22100000, guid: d72e9efc47288024eaf580379c8148da, type: 2}
   weaponAnimatorOverride: {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
   bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
-  meleeDamage: 0
-  weaponSpeed: 1
-  attackRate: 3
-  bulletDamage: 0
-  reloadTime: 0.5
-  fireRate: 30
-  fireForce: 50
-  ammoCap: 100
-  accurate: 10
+  meleeAttribute:
+    damage: 1
+    weaponSpeed: 2
+    attackRate: 3
+  gunAttribute:
+    bulletDamage: 1
+    reloadSpeed: 2
+    fireRate: 2
+    fireForce: 100
+    ammoCap: 20
+    accurateStat: 5
