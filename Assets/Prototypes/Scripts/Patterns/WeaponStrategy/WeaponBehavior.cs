@@ -1,4 +1,4 @@
-public interface IWeaponBehavior
+public interface IWeaponAttackBehaviour
 {
     void PrimaryAttack();
     void SecondaryAttack();

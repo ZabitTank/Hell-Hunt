@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7126338485711725346}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: HandGunMuzzlePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

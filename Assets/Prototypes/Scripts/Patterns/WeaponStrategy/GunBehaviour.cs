@@ -1,18 +1,25 @@
 using System.Collections;
 using UnityEngine;
 
-public class GunBehaviour : MonoBehaviour,IWeaponBehavior
+public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
+    public float spread;
+
     GunData _gunData;
     Animator _bodyAnimator;
     Animator _muzzleAnimator;
+
     // State
     Transform muzzlePosition;
-    int ammoStack;
     int currentAmmo;
     bool isReloading;
     float timeToFire;
     float timeToMelee;
+    float currentSpread;
+
+    // player's state
+    int totalAmmo;
+    float playerAcurateState;
 
     public void InitState(GunData gunData, Animator bodyAnimator, Animator muzzleAnimator)
     {
@@ -20,15 +27,18 @@ public class GunBehaviour : MonoBehaviour,IWeaponBehavior
         _bodyAnimator = bodyAnimator;
         _muzzleAnimator = muzzleAnimator;
 
+        muzzlePosition = _muzzleAnimator.transform;
+        muzzlePosition.localPosition = _gunData.localMuzzlePosition;
+
         _bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
         _muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
         _bodyAnimator.SetFloat("ReloadSpeed", 1 / _gunData.reloadTime);
-        _bodyAnimator.SetFloat("FireRate", 1 / _gunData.fireRate);
-        _bodyAnimator.SetFloat("MeleeSpeed", 1 / _gunData.attackRate);
-        _muzzleAnimator.SetFloat("EffectSpeed", 1 / _gunData.fireRate);
+        _bodyAnimator.SetFloat("FireRate", _gunData.fireRate);
+        _bodyAnimator.SetFloat("MeleeSpeed",  _gunData.attackRate);
+        _muzzleAnimator.SetFloat("EffectSpeed", _gunData.fireRate);
 
-        ammoStack = 1;
-        currentAmmo = 0;
+        currentAmmo = gunData.ammoCap;
+        totalAmmo = currentAmmo * 100;
         isReloading = false;
         timeToFire = Time.time;
         timeToMelee = Time.time;
@@ -37,7 +47,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponBehavior
 
     public bool CanDoPrimaryAttack()
     {
-        return (Time.time > timeToFire && !isReloading && currentAmmo > 0);
+        return (Time.time >= timeToFire && !isReloading);
     }
 
     public bool CanDoSecondaryAttack()
@@ -47,16 +57,28 @@ public class GunBehaviour : MonoBehaviour,IWeaponBehavior
 
     public void PrimaryAttack()
     {
+        if (currentAmmo <= 0)
+        {
+            PreparePrimaryAttack();
+            return;
+        }
         timeToFire = Time.time + 1 / _gunData.fireRate;
         _bodyAnimator.SetTrigger("Shoot");
 
+        SpawnBullet();
+    }
+
+    private void SpawnBullet()
+    {
         if (_gunData.bulletPrefab == null)
         {
             return;
         }
-        // Todo: Apply Object pooler or using raycast
-        GameObject shot = Instantiate(_gunData.bulletPrefab, _gunData.muzzlePosition.position, _gunData.muzzlePosition.rotation);
+
+        GameObject bullet = Instantiate(_gunData.bulletPrefab, _muzzleAnimator.transform.position, _muzzleAnimator.transform.rotation);
+        bullet.GetComponent<Bullet>().InitState(_gunData.fireForce, _gunData.bulletDamage,caculateSpread());
         _muzzleAnimator.SetTrigger("Shoot");
+        currentAmmo--;
     }
 
     public void SecondaryAttack()
@@ -67,7 +89,8 @@ public class GunBehaviour : MonoBehaviour,IWeaponBehavior
 
     public void PreparePrimaryAttack()
     {
-        StartCoroutine(Reload());
+        if(totalAmmo > 0)
+            StartCoroutine(Reload());
     }
 
     IEnumerator Reload()
@@ -75,13 +98,15 @@ public class GunBehaviour : MonoBehaviour,IWeaponBehavior
         isReloading = true;
         _bodyAnimator.Play("Reload");
         yield return new WaitForSeconds(1 / _bodyAnimator.GetFloat("ReloadSpeed"));
-        currentAmmo = _gunData.ammoCap;
+        currentAmmo = (totalAmmo < _gunData.ammoCap) ? totalAmmo : _gunData.ammoCap;
+        totalAmmo = Mathf.Clamp(totalAmmo - _gunData.ammoCap, 0, int.MaxValue);
         isReloading = false;
-
     }
 
-    public void InitWeaponData(Item item)
+    float caculateSpread()
     {
-        throw new System.NotImplementedException();
+        float s = Random.Range(-spread, spread);
+
+        return s - s/100*playerAcurateState;
     }
 }

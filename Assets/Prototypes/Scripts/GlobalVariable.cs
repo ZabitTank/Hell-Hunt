@@ -23,7 +23,6 @@ public class GlobalVariable : Singleton<MonoBehaviour>
         HandGun,
     }
     Dictionary<GunType, Vector2> m_Gun_RifflePos = new Dictionary<GunType, Vector2>();
-
     private void Awake()
     {
         m_Gun_RifflePos.Add(GunType.ShotGun, SHOTGUN_MUZZLE_POSITION);

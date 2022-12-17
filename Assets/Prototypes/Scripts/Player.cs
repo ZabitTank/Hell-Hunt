@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
         SetMovingAnimation();
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            TriggerAnimation("Melee");
+            body.SetTrigger("Melee");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(movementSpeed * Time.fixedDeltaTime * movingDirection);
+        transform.Translate(movementSpeed * Time.fixedDeltaTime * movingDirection,Space.World);
         //rb.MovePosition(transform.position);
     }
 
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
         if (isMouseChange)
         {
             float rotation = Mathf.Atan2(playerToMouse.y, playerToMouse.x) * Mathf.Rad2Deg;
-            body.transform.rotation = Quaternion.Euler(0, 0, rotation);
+            transform.rotation = Quaternion.Euler(0, 0, rotation);
         };
         if (isMoving)
         {
@@ -136,21 +136,6 @@ public class Player : MonoBehaviour
     {
         feet.SetBool("Move", isMoving);
         body.SetBool("Move", isMoving);
-    }
-
-    private void TriggerAnimation(string name)
-    {
-        body.SetTrigger(name);
-    }
-
-    public void Shoot() {
-        body.SetTrigger("Shoot");
-    }
-
-    private void LogState()
-    {
-        Debug.Log("Movement " + isMoving.ToString());
-
     }
 
 }

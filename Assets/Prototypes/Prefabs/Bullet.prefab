@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5940413065578541137}
   - component: {fileID: 4274845279096304612}
   - component: {fileID: 891035042719303940}
+  - component: {fileID: 2882346358899069991}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -97,9 +98,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0.9401128, g: 1, b: 0, a: 1}
+      key1: {r: 0.85653096, g: 0.8867924, b: 0.50530434, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -114,8 +115,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 46646
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -124,8 +125,8 @@ TrailRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 1
+    numCapVertices: 1
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
@@ -171,6 +172,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb543b6b61c1904694c3b769a9e8a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
   speed: 50
+  rb: {fileID: 0}
   timer: 1
+--- !u!50 &2882346358899069991
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298305275904787233}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

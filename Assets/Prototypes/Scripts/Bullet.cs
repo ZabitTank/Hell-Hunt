@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int damage = 10;
-    public int speed = 50;
+    public float speed;
+    public int damage;
+    public Rigidbody2D rb;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void InitState(float speed, int damage, float spread)
+    {
+        this.speed = speed;
+        this.damage = damage;
+        transform.Rotate(Vector3.forward, spread);
+    }
 
     public int timer = 1;
     void Start()
@@ -16,5 +28,10 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position += transform.right * Time.deltaTime * speed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 }
