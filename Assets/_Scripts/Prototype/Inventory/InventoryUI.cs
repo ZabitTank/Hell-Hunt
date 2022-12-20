@@ -18,17 +18,14 @@ public class InventoryUI : MonoBehaviour
 
     public Vector3 START_POSITION;
 
-    Dictionary<InventorySlot, GameObject> itemsDisplay;
+    Dictionary<GameObject, InventorySlot> itemsDisplay = new Dictionary<GameObject, InventorySlot>() ;
 
     public Image selectItemImage;
     public TextMeshProUGUI selectItemAttributeText;
     public TextMeshProUGUI selectItemGeneralInfo;
 
     InventorySlot currentSelectSlot;
-    private void Awake()
-    {
-        itemsDisplay = new Dictionary<InventorySlot, GameObject>();
-    }
+
     void Start()
     {
         CreateDisplay();
@@ -36,47 +33,50 @@ public class InventoryUI : MonoBehaviour
 
     void Update()
     {
-        UpdateDisplay();
+        foreach (KeyValuePair<GameObject, InventorySlot> slot in itemsDisplay)
+        {
+            if (slot.Value.id >= 0)
+            {
+                slot.Key.GetComponentsInChildren<Image>()[1].sprite = inventory.database.getItem[slot.Value.id].prefabs.GetComponent<SpriteRenderer>().sprite;
+                slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = slot.Value.amount.ToString();
+
+            }
+            else
+            {
+                slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "0";
+            }
+        }
     }
 
 
     private void CreateDisplay()
     {
-        for (int i = 0; i < inventory.container.Count; i++)
+        itemsDisplay = new Dictionary<GameObject, InventorySlot>();
+        for(int i = 0; i < inventory.container.Length; i++)
         {
-            InventorySlot slot = inventory.container[i];
-            AddSlot(i, slot);
+            GameObject itemSlotUI = Instantiate(slotPrefabs, Vector3.zero, Quaternion.identity, transform);
+            itemSlotUI.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            itemsDisplay.Add(itemSlotUI, inventory.container[i]);
+
+            AddEvent(itemSlotUI, EventTriggerType.PointerClick, delegate { OnPointClick(itemSlotUI); });
+
         }
     }
-    private void UpdateDisplay()
-    {
-        for (int i = 0; i < inventory.container.Count; i++)
-        {
-            InventorySlot slot = inventory.container[i];
-            if (itemsDisplay.ContainsKey(slot))
-            {
-                itemsDisplay[slot].GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString();
-            }
-            else
-            {
-                AddSlot(i, slot);
-            }
-        }
-    }
-    private GameObject AddSlot(int index, InventorySlot itemSlot)
-    {
-        var itemSlotUI = Instantiate(slotPrefabs, Vector3.zero, Quaternion.identity, transform);
 
-        itemSlotUI.GetComponent<RectTransform>().localPosition = GetPosition(index);
-        itemSlotUI.GetComponentInChildren<TextMeshProUGUI>().text = itemSlot.amount.ToString();
-        itemSlotUI.GetComponentsInChildren<Image>()[1].sprite = inventory.database.getItem[itemSlot.id].prefabs.GetComponent<SpriteRenderer>().sprite;
-        AddEvent(itemSlotUI, EventTriggerType.PointerClick, delegate { OnPointClick(itemSlot); });
+    //private GameObject AddSlot(int index, InventorySlot itemSlot)
+    //{
+    //    var itemSlotUI = Instantiate(slotPrefabs, Vector3.zero, Quaternion.identity, transform);
+
+    //    itemSlotUI.GetComponent<RectTransform>().localPosition = GetPosition(i);
+    //    itemSlotUI.GetComponentInChildren<TextMeshProUGUI>().text = itemSlot.amount.ToString();
+    //    itemSlotUI.GetComponentsInChildren<Image>()[1].sprite = inventory.database.getItem[itemSlot.id].prefabs.GetComponent<SpriteRenderer>().sprite;
+    //    AddEvent(itemSlotUI, EventTriggerType.PointerClick, delegate { OnPointClick(itemSlot); });
 
 
-        itemsDisplay.Add(itemSlot, itemSlotUI);
+    //    itemsDisplay.Add(itemSlot, itemSlotUI);
 
-        return itemSlotUI;
-    }
+    //    return itemSlotUI;
+    //}
 
     public Vector3 GetPosition(int index)
     {
@@ -99,10 +99,10 @@ public class InventoryUI : MonoBehaviour
         selectItemAttributeText.text = item.DisplayAttribute();
     }
 
-    public void OnPointClick(InventorySlot slot)
+    public void OnPointClick(GameObject slotUI)
     {
-        currentSelectSlot = slot;
-        Item item = inventory.database.getItem[slot.itemRef.id];
+        currentSelectSlot = itemsDisplay[slotUI] ;
+        Item item = inventory.database.getItem[currentSelectSlot.id];
         selectItemImage.sprite = item.prefabs.GetComponent<SpriteRenderer>().sprite;
         selectItemAttributeText.text = item.DisplayAttribute();
         selectItemGeneralInfo.text = item.DisplayGeneralInfo();

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: Revolverv2
   m_EditorClassIdentifier: 
-  id: 0
+  id: 5
   name: Revolver
   type: 0
   stackLimit: 1

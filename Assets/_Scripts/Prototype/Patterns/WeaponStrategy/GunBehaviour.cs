@@ -32,7 +32,9 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
 
-        this.muzzleAnimator.transform.localPosition = GlobalVariable.muzzlePosition[this.gunData.gunType];
+        this.muzzleAnimator.transform.localPosition = new(gunData.localMuzzlePosition.x,gunData.localMuzzlePosition.y,0);
+        //this.muzzleAnimator.transform.localPosition = GlobalV ariable.HANDGUN_MUZZLE_POSITION;
+
 
         this.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
         this.muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: HandGun 1911
   m_EditorClassIdentifier: 
-  name: 
+  id: 2
+  name: 1911
   type: 0
   stackLimit: 1
   prefabs: {fileID: 2017791563651794296, guid: bf4a17aaa79e71646bf9849dc13e7693, type: 3}

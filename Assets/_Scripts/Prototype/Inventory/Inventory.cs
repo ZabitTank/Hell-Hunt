@@ -13,25 +13,54 @@ public class Inventory : ScriptableObject
 {
     public string savePath;
     public ItemDatabase database;
-    public List<InventorySlot> container;
-
-    Inventory()
-    {
-        container = new List<InventorySlot>();
-    }
-
+    public InventorySlot[] container;
     public void AddItem(ItemRef itemRef, int amount)
     {
-        foreach(InventorySlot itemSlot in container)
+        for(int i = 0; i < container.Length; i++)
         {
-            if(itemSlot.itemRef.id == itemRef.id)
+            InventorySlot itemSlot = container[i];
+            if (itemSlot.id == itemRef.id)
             {
                 itemSlot.AddAmount(amount);
                 return;
             }
         }
-        container.Add(new(itemRef.id,itemRef, amount));
+        AddIntoEmptySlot(itemRef, amount);
     }
+
+    public InventorySlot AddIntoEmptySlot(ItemRef itemRef, int amount)
+    {
+        for (int i = 0; i < container.Length; i++)
+        {
+            if (container[i].id == -1)
+            {
+                container[i].UpdateSlot(itemRef.id, itemRef, amount);
+                return container[i];
+            }
+        }
+        // full
+        return null;
+    }
+
+    public void MoveItem(InventorySlot item1, InventorySlot item2)
+    {
+        InventorySlot temp = new InventorySlot(item2.id, item2.itemRef, item2.amount);
+        item2.UpdateSlot(item1.id, item1.itemRef, item1.amount);
+        item1.UpdateSlot(temp.id, temp.itemRef, temp.amount);
+    }
+
+
+    public void RemoveItem(ItemRef item)
+    {
+        for (int i = 0; i < container.Length; i++)
+        {
+            if (container[i].itemRef == item)
+            {
+                container[i].UpdateSlot(-1, null, 0);
+            }
+        }
+    }
+
 
     [ContextMenu("Save")]
     public void Save()
@@ -64,7 +93,7 @@ public class Inventory : ScriptableObject
 
     public void OnAfterDeserialize()
     {
-        for(int i = 0; i < container.Count; i++)
+        for(int i = 0; i < container.Length; i++)
         {
             container[i].itemRef = new ItemRef(database.getItem[container[i].id]);
         }
@@ -82,6 +111,13 @@ public class InventorySlot
     public int id;
     public ItemRef itemRef;
     public int amount;
+
+    public InventorySlot()
+    {
+        id = -1;
+        itemRef = null;
+        amount = 0;
+    }
     public InventorySlot(int id,ItemRef item, int amount)
     {
         this.id = id;
@@ -92,5 +128,12 @@ public class InventorySlot
     {
         int totalItem = this.amount + amount;
         this.amount = (totalItem > itemRef.stackLimit) ? itemRef.stackLimit : totalItem;
+    }
+
+    public void UpdateSlot(int id, ItemRef itemRef,int amount)
+    {
+        this.itemRef = itemRef;
+        this.id = id;
+        this.amount = amount;
     }
 }

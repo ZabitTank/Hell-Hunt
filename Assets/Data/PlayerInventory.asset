@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   savePath: /quicksave.save
-  inventory: []
+  database: {fileID: 11400000, guid: bab60d44ea4256f4aad5a9d477d21c84, type: 2}
+  container: []

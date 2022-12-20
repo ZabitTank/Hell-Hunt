@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     bool isMouseChange;
     Vector2 movingDirection;
     bool isShowInventory;
+    bool isPickupItem;
 
     // Component
     Rigidbody2D rb;
@@ -71,6 +72,18 @@ public class Player : MonoBehaviour
             isShowInventory = !isShowInventory;
             inventoryUI.SetActive(isShowInventory);
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            InventorySlot inventorySlot = new InventorySlot();
+            inventory.RemoveItem(inventorySlot.itemRef);
+            Instantiate(inventory.database.getItem[inventorySlot.id].prefabs, transform.transform.position, Quaternion.identity, null);
+        }
+        //if (Input.GetKeyDown(KeyCode.F)) {
+        //    isPickupItem = true;
+        //} else
+        //{
+        //    isPickupItem = false;
+        //}
     }
 
     private void FixedUpdate()
@@ -133,17 +146,17 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit");
-        BaseItem item = collision.GetComponent<BaseItem>();
-        if (item)
+        BaseItem baseItem = collision.GetComponent<BaseItem>();
+        if (baseItem)
         {
-            inventory.AddItem(new ItemRef(item.item), 1);
-            Destroy(item.gameObject);
+            ItemRef itemRef = new(baseItem.item);
+            inventory.AddItem(itemRef, 1);
+            Destroy(baseItem.gameObject);
         }
     }
 
     private void OnApplicationQuit()
     {
-        inventory.container.Clear();
+        inventory.container = new InventorySlot[16];
     }
 }

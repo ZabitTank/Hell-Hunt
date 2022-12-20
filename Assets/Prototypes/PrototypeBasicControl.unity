@@ -2165,10 +2165,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4753830148054607979, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4753830148054607981, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
       propertyPath: m_Name
       value: Dog

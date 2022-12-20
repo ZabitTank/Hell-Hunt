@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: Ak102
   m_EditorClassIdentifier: 
-  name: 
+  id: 0
+  name: AK-102
   type: 0
   stackLimit: 1
   prefabs: {fileID: 477340140497917514, guid: 9fe73ca96f037b14abda3f6b983239de, type: 3}

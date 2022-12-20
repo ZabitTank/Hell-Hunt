@@ -12,6 +12,8 @@ public class Item : ScriptableObject
 
     [Header("Gameobject")]
     public GameObject prefabs;
+    [Header("Gameobject")]
+    public Sprite sprite;
     [TextArea(1,5)]
     public string description;
 
@@ -47,6 +49,11 @@ public class ItemRef
     public int id;
     public string name;
     public int stackLimit;
+
+    public ItemRef()
+    {
+        id = -1;
+    }
     public ItemRef(Item item)
     {
         id = item.id;
