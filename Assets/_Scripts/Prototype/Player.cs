@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     }
     public void Start()
     {
-        //rb = GetComponentInChildren<Rigidbody2D>();
+        rb = GetComponentInChildren<Rigidbody2D>();
     }
     void Update()
     {
@@ -123,5 +123,10 @@ public class Player : MonoBehaviour
             inventory.AddItem(item.item, 1);
             Destroy(item.gameObject);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.inventory.Clear();
     }
 }

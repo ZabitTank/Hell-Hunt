@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
+  m_Name: Ak102
+  m_EditorClassIdentifier: 
+  name: 
+  type: 0
+  stackLimit: 1
+  prefabs: {fileID: 477340140497917514, guid: 9fe73ca96f037b14abda3f6b983239de, type: 3}
+  description: 
+  localMuzzlePosition: {x: 0, y: 0}
+  muzzlEffectAnimatorOverride: {fileID: 22100000, guid: ae491c6cbb5322843b1149eb711e315a, type: 2}
+  weaponAnimatorOverride: {fileID: 22100000, guid: d60c3a11cf4f17646836bfea4e9f41aa, type: 2}
+  bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
+  meleeAttribute:
+    damage: 1
+    weaponSpeed: 1
+    attackRate: 1
+  gunAttribute:
+    bulletDamage: 20
+    reloadSpeed: 1
+    fireRate: 30
+    fireForce: 50
+    ammoCap: 60
+    accurateStat: 10
