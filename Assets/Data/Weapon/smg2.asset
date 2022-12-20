@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
-  m_Name: Ak204
+  m_Name: smg2
   m_EditorClassIdentifier: 
-  name: AK-204
+  id: 0
+  name: Revolver
   type: 0
   stackLimit: 1
-  prefabs: {fileID: 3875439762200291482, guid: 5498031057fa0c048bd9af06cf0651e1, type: 3}
+  prefabs: {fileID: 686500326339692212, guid: abca906b32d0f5245b8d109d958f2f95, type: 3}
   description: 
-  localMuzzlePosition: {x: 0, y: 0}
+  localMuzzlePosition: {x: 1.701, y: -0.59}
   muzzlEffectAnimatorOverride: {fileID: 22100000, guid: ae491c6cbb5322843b1149eb711e315a, type: 2}
   weaponAnimatorOverride: {fileID: 22100000, guid: d60c3a11cf4f17646836bfea4e9f41aa, type: 2}
-  bulletPrefab: {fileID: 3875439762200291482, guid: 5498031057fa0c048bd9af06cf0651e1, type: 3}
+  bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
   meleeAttribute:
     damage: 1
     weaponSpeed: 1
@@ -28,8 +29,8 @@ MonoBehaviour:
   gunType: 1
   gunAttribute:
     bulletDamage: 30
-    reloadSpeed: 0.5
-    fireRate: 10
+    reloadSpeed: 2
+    fireRate: 4
     fireForce: 75
-    ammoCap: 60
-    accurateStat: 10
+    ammoCap: 10
+    accurateStat: 5

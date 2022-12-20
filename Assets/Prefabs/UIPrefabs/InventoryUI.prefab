@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.8301887, g: 0.73933786, b: 0.73933786, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 5bc71b962fd3b594bbef39615b528266, type: 2}
   slotPrefabs: {fileID: 469855162223378093, guid: 8878362f3dcea634cbd0ac3e210da916, type: 3}
-  HORIZONTAL_SPACE_BETWEEN_ITEM: 152
+  HORIZONTAL_SPACE_BETWEEN_ITEM: 150
   VERTICAL_SPACE_BETWEEN_ITEM: 200
   NUMBER_ITEMS_IN_ROW: 4
   START_POSITION: {x: 82.95642, y: -81.68939, z: 0}

@@ -13,8 +13,6 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     GunAttribute gunAttribute;
     MeleeWeaponAttribute meleeAttribute;
-    // Logic State
-    Transform muzzlePosition;
     int currentAmmo;
     bool isReloading;
     float timeToFire;
@@ -34,8 +32,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
 
-        muzzlePosition = this.muzzleAnimator.transform;
-        muzzlePosition.localPosition = this.gunData.localMuzzlePosition;
+        this.muzzleAnimator.transform.localPosition = GlobalVariable.muzzlePosition[this.gunData.gunType];
 
         this.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
         this.muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;

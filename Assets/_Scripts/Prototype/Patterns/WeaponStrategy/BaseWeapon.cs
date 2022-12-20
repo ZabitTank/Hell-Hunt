@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BaseWeapon : MonoBehaviour
 {
@@ -7,23 +8,25 @@ public class BaseWeapon : MonoBehaviour
 
     [SerializeField] Animator bodyAnimator;
     [SerializeField] Animator muzzleAnimator;
-    [SerializeField] GunData defaultGun;
+
+    [SerializeField] GunData defaultWeapon;
     private void Awake()
     {
         GunBehaviour gunBehaviour = gameObject.AddComponent<GunBehaviour>();
-        gunBehaviour.InitState(defaultGun, bodyAnimator, muzzleAnimator);
+        gunBehaviour.InitState(defaultWeapon, bodyAnimator, muzzleAnimator);
+
         weaponBehavior = gunBehaviour;
     }
 
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && weaponBehavior.CanDoPrimaryAttack())
+        if (Input.GetKey(KeyCode.Mouse0) && weaponBehavior.CanDoPrimaryAttack() && !EventSystem.current.IsPointerOverGameObject())
         {
             weaponBehavior.PrimaryAttack();
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1) && weaponBehavior.CanDoSecondaryAttack())
+        if (Input.GetKeyDown(KeyCode.Mouse1) && weaponBehavior.CanDoSecondaryAttack())
         {
             weaponBehavior.SecondaryAttack();
         }

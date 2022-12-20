@@ -10,4 +10,10 @@ public class HealItem : Item
         type = ItemType.HealItem;
         stackLimit = 99;
     }
+    public override string DisplayAttribute()
+    {
+        return string.Concat(
+            "Amount:    ", healAmount, "\n"
+            );
+    }
 }

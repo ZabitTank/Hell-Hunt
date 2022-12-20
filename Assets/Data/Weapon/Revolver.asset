@@ -10,26 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
-  m_Name: Ak102
+  m_Name: Revolver
   m_EditorClassIdentifier: 
-  name: 
+  id: 0
+  name: Revolver
   type: 0
   stackLimit: 1
-  prefabs: {fileID: 477340140497917514, guid: 9fe73ca96f037b14abda3f6b983239de, type: 3}
+  prefabs: {fileID: 4643072146870419827, guid: 475d2bc38f8cfb44ea2147042aa057ee, type: 3}
   description: 
-  localMuzzlePosition: {x: 0, y: 0}
-  muzzlEffectAnimatorOverride: {fileID: 22100000, guid: ae491c6cbb5322843b1149eb711e315a, type: 2}
-  weaponAnimatorOverride: {fileID: 22100000, guid: d60c3a11cf4f17646836bfea4e9f41aa, type: 2}
+  localMuzzlePosition: {x: 1.701, y: -0.59}
+  muzzlEffectAnimatorOverride: {fileID: 22100000, guid: d72e9efc47288024eaf580379c8148da, type: 2}
+  weaponAnimatorOverride: {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
   bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
   meleeAttribute:
     damage: 1
     weaponSpeed: 1
     attackRate: 1
-  gunType: 1
+  gunType: 2
   gunAttribute:
-    bulletDamage: 20
-    reloadSpeed: 1
-    fireRate: 30
-    fireForce: 50
-    ammoCap: 60
-    accurateStat: 10
+    bulletDamage: 12
+    reloadSpeed: 2
+    fireRate: 4
+    fireForce: 75
+    ammoCap: 10
+    accurateStat: 1

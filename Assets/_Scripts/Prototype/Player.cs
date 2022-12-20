@@ -27,10 +27,11 @@ public class Player : MonoBehaviour
     Vector2 lastMousePosition;
     Vector2 playerToMouse;
 
-    // Moving State
+    //State
     bool isMoving;
     bool isMouseChange;
     Vector2 movingDirection;
+    bool isShowInventory;
 
     // Component
     Rigidbody2D rb;
@@ -40,9 +41,11 @@ public class Player : MonoBehaviour
     public Animator body;
     public Animator feet;
     public AnimatorOverrideController[] animatorOverride;
+    public GameObject inventoryUI;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        isShowInventory = true;
     }
     public void Start()
     {
@@ -54,6 +57,20 @@ public class Player : MonoBehaviour
         SetMovingState();
         SetCharacterRotation();
         SetMovingAnimation();
+
+        if (Input.GetKeyDown(KeyCode.Home))
+        {
+            inventory.Save();
+        }
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            inventory.Load();
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            isShowInventory = !isShowInventory;
+            inventoryUI.SetActive(isShowInventory);
+        }
     }
 
     private void FixedUpdate()
@@ -120,13 +137,13 @@ public class Player : MonoBehaviour
         BaseItem item = collision.GetComponent<BaseItem>();
         if (item)
         {
-            inventory.AddItem(item.item, 1);
+            inventory.AddItem(new ItemRef(item.item), 1);
             Destroy(item.gameObject);
         }
     }
 
     private void OnApplicationQuit()
     {
-        inventory.inventory.Clear();
+        inventory.container.Clear();
     }
 }

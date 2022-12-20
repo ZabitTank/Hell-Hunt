@@ -7,7 +7,6 @@ public class MeleeWeaponData : Item
 {
     public AnimatorOverrideController animatorOverride;
 
-    [SerializeField]
     [Header("Melee's Attribute")]
     public MeleeWeaponAttribute attribute;
 
@@ -16,8 +15,6 @@ public class MeleeWeaponData : Item
         type = ItemType.MeleeWeapon;
         stackLimit = 1;
     }
-
-
 }
 
 [Serializable]

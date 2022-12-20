@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
+  m_Name: HandGun 1911 V2
+  m_EditorClassIdentifier: 
+  id: 0
+  name: 1911-v2
+  type: 0
+  stackLimit: 1
+  prefabs: {fileID: 2848651630210383350, guid: dfcca7a690e1f7643b33b5570ecb3b0e, type: 3}
+  description: 
+  localMuzzlePosition: {x: 0, y: 0}
+  muzzlEffectAnimatorOverride: {fileID: 22100000, guid: d72e9efc47288024eaf580379c8148da, type: 2}
+  weaponAnimatorOverride: {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
+  bulletPrefab: {fileID: 0}
+  meleeAttribute:
+    damage: 0
+    weaponSpeed: 0
+    attackRate: 0
+  gunType: 2
+  gunAttribute:
+    bulletDamage: 60
+    reloadSpeed: 2
+    fireRate: 5
+    fireForce: 60
+    ammoCap: 30
+    accurateStat: 10

@@ -9,11 +9,11 @@ public class GunData : Item
     public AnimatorOverrideController weaponAnimatorOverride;
     public GameObject bulletPrefab;
 
-    [SerializeField]
     [Header("Melee's Attribute")]
     public MeleeWeaponAttribute meleeAttribute;
 
-    [SerializeField]
+    public GunType gunType;
+
     [Header("Gun's Attribute")]
     public GunAttribute gunAttribute;
 
@@ -21,6 +21,15 @@ public class GunData : Item
     {
         type = ItemType.Gun;
         stackLimit = 1;
+    }
+
+    public override string DisplayAttribute()
+    {
+        return string.Concat(
+            "Damage:    ", gunAttribute.bulletDamage, "\n",
+            "Reload:    ", gunAttribute.reloadSpeed, "\n",
+            "Fire rate: ", gunAttribute.fireRate, "\n",
+            "Accurate:  ", gunAttribute.reloadSpeed);
     }
 
 }
