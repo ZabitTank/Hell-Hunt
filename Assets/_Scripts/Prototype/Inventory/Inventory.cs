@@ -14,6 +14,9 @@ public class Inventory : ScriptableObject
     public string savePath;
     public ItemDatabase database;
     public InventorySlot[] container;
+
+    public InventorySlot currentSelectSlot;
+    public InventorySlot currentSeletedWeapon;
     public void AddItem(ItemRef itemRef, int amount)
     {
         for(int i = 0; i < container.Length; i++)
@@ -44,7 +47,7 @@ public class Inventory : ScriptableObject
 
     public void MoveItem(InventorySlot item1, InventorySlot item2)
     {
-        InventorySlot temp = new InventorySlot(item2.id, item2.itemRef, item2.amount);
+        InventorySlot temp = new(item2.id, item2.itemRef, item2.amount);
         item2.UpdateSlot(item1.id, item1.itemRef, item1.amount);
         item1.UpdateSlot(temp.id, temp.itemRef, temp.amount);
     }

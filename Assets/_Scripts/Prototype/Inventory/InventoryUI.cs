@@ -18,13 +18,11 @@ public class InventoryUI : MonoBehaviour
 
     public Vector3 START_POSITION;
 
-    Dictionary<GameObject, InventorySlot> itemsDisplay = new Dictionary<GameObject, InventorySlot>() ;
+    Dictionary<GameObject, InventorySlot> itemsDisplay = new() ;
 
     public Image selectItemImage;
     public TextMeshProUGUI selectItemAttributeText;
     public TextMeshProUGUI selectItemGeneralInfo;
-
-    InventorySlot currentSelectSlot;
 
     void Start()
     {
@@ -43,6 +41,7 @@ public class InventoryUI : MonoBehaviour
             }
             else
             {
+                slot.Key.GetComponentsInChildren<Image>()[1].sprite = null;
                 slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "0";
             }
         }
@@ -101,8 +100,12 @@ public class InventoryUI : MonoBehaviour
 
     public void OnPointClick(GameObject slotUI)
     {
-        currentSelectSlot = itemsDisplay[slotUI] ;
-        Item item = inventory.database.getItem[currentSelectSlot.id];
+        inventory.currentSelectSlot = itemsDisplay[slotUI];
+        Item item = inventory.database.getItem[inventory.currentSelectSlot.id];
+        if(item.type == ItemType.Gun || item.type == ItemType.MeleeWeapon)
+        {
+            inventory.currentSeletedWeapon = inventory.currentSelectSlot;
+        }
         selectItemImage.sprite = item.prefabs.GetComponent<SpriteRenderer>().sprite;
         selectItemAttributeText.text = item.DisplayAttribute();
         selectItemGeneralInfo.text = item.DisplayGeneralInfo();

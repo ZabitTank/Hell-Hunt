@@ -8,12 +8,13 @@ public class BaseWeapon : MonoBehaviour
 
     [SerializeField] Animator bodyAnimator;
     [SerializeField] Animator muzzleAnimator;
+    [SerializeField] Item currentWeapon;
 
-    [SerializeField] GunData defaultWeapon;
+    public Inventory inventory;
     private void Awake()
     {
         GunBehaviour gunBehaviour = gameObject.AddComponent<GunBehaviour>();
-        gunBehaviour.InitState(defaultWeapon, bodyAnimator, muzzleAnimator);
+        gunBehaviour.InitState((GunData)currentWeapon, bodyAnimator, muzzleAnimator);
 
         weaponBehavior = gunBehaviour;
     }

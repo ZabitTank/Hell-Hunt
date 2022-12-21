@@ -13,5 +13,101 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   savePath: /quicksave.save
-  database: {fileID: 11400000, guid: bab60d44ea4256f4aad5a9d477d21c84, type: 2}
-  container: []
+  database: {fileID: 11400000, guid: 02e08a3496f92d74da67ddbdbd5fd76e, type: 2}
+  container:
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0

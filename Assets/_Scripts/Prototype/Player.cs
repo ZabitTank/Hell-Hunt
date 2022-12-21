@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -72,18 +73,15 @@ public class Player : MonoBehaviour
             isShowInventory = !isShowInventory;
             inventoryUI.SetActive(isShowInventory);
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            PickupItem();
+        }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            InventorySlot inventorySlot = new InventorySlot();
-            inventory.RemoveItem(inventorySlot.itemRef);
-            Instantiate(inventory.database.getItem[inventorySlot.id].prefabs, transform.transform.position, Quaternion.identity, null);
+            DropSelectItem();
         }
-        //if (Input.GetKeyDown(KeyCode.F)) {
-        //    isPickupItem = true;
-        //} else
-        //{
-        //    isPickupItem = false;
-        //}
+
     }
 
     private void FixedUpdate()
@@ -155,8 +153,35 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void PickupItem()
+    {
+        if(Physics.Raycast(transform.position, -Vector3.up, out RaycastHit hit, 10))
+        {
+            Debug.Log(hit.collider.gameObject);
+            if(hit.collider.gameObject.CompareTag("Item"))
+            {
+                BaseItem baseItem = hit.collider.gameObject.GetComponent<BaseItem>();
+                if (baseItem)
+                {
+                    inventory.AddItem(new(baseItem.item), 1);
+                    Destroy(baseItem.gameObject);
+                }
+            }
+        }
+    }
+
+    private void DropSelectItem()
+    {
+        ItemRef itemRef = inventory.currentSelectSlot.itemRef;
+        Item item = inventory.database.getItem[itemRef.id];
+        inventory.RemoveItem(itemRef);
+        Instantiate(item.prefabs, transform.position, Quaternion.identity);
+    }
+
     private void OnApplicationQuit()
     {
         inventory.container = new InventorySlot[16];
     }
+
+
 }
