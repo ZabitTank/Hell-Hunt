@@ -111,3 +111,17 @@ MonoBehaviour:
       name: 
       stackLimit: 0
     amount: 0
+  currentSelectSlot:
+    id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  currentSeletedWeapon:
+    id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0

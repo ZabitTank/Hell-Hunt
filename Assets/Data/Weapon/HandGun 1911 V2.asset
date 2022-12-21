@@ -17,8 +17,9 @@ MonoBehaviour:
   type: 0
   stackLimit: 1
   prefabs: {fileID: 2848651630210383350, guid: dfcca7a690e1f7643b33b5570ecb3b0e, type: 3}
+  sprite: {fileID: 0}
   description: 
-  localMuzzlePosition: {x: 0, y: 0}
+  localMuzzlePosition: {x: 1.701, y: -0.59}
   muzzlEffectAnimatorOverride: {fileID: 22100000, guid: d72e9efc47288024eaf580379c8148da, type: 2}
   weaponAnimatorOverride: {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
   bulletPrefab: {fileID: 0}

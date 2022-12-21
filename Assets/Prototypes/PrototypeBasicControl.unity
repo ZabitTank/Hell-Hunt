@@ -171,7 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyAnimator: {fileID: 572943309}
   muzzleAnimator: {fileID: 1653417735}
-  defaultWeapon: {fileID: 11400000, guid: 54f6c80fcc8a298449e6ec84b91371e7, type: 2}
+  currentWeapon: {fileID: 11400000, guid: ad7d4f8129de5f7468069ff0a1de3ae1, type: 2}
+  inventory: {fileID: 11400000, guid: 5bc71b962fd3b594bbef39615b528266, type: 2}
 --- !u!4 &126872989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2117252512952911890, guid: 475d2bc38f8cfb44ea2147042aa057ee, type: 3}

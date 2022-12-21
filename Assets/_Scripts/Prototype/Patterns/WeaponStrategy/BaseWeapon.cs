@@ -22,6 +22,18 @@ public class BaseWeapon : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(KeyCode.E)) {
+            if (inventory.currentSeletedWeapon != null)
+            {
+                Item itemData = inventory.database.getItem[inventory.currentSeletedWeapon.itemRef.id];
+                GunBehaviour gunBehaviour = gameObject.AddComponent<GunBehaviour>();
+                gunBehaviour.InitState((GunData)itemData, bodyAnimator, muzzleAnimator);
+
+                weaponBehavior = gunBehaviour;
+            }
+
+        }
+
         if (Input.GetKey(KeyCode.Mouse0) && weaponBehavior.CanDoPrimaryAttack() && !EventSystem.current.IsPointerOverGameObject())
         {
             weaponBehavior.PrimaryAttack();
