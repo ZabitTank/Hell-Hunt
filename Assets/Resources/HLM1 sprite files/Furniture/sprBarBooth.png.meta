@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -115,7 +115,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: sprBarBooth_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 42.666664
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0b5bcca3951d6408a692546af476a7
+      internalID: -1207093288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprBarBooth_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 42.666664
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aa5e0cc5d0f6c3468881fb9b9c484e7
+      internalID: 374931101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprBarBooth_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 42.666664
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0487f55d6966a1a4681cf0d20e4bf332
+      internalID: 1486060952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprBarBooth_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 21.666666
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fdcdc69d66f4ef4e94be3b5a772f48b
+      internalID: 831708763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprBarBooth_4
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 21.666666
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8c591dca69190e459d6fd4896cd0a58
+      internalID: 789573411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprBarBooth_5
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 21.666666
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad8bade46548c6148ab6a4d534057ea5
+      internalID: 365447535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprBarBooth_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.66666603
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46a360743642abf4f8086ec9a3c1d1c8
+      internalID: -1048022258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprBarBooth_7
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0.66666603
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1501e2908b9861743a3a33f9339bebc0
+      internalID: -181019671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprBarBooth_8
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0.66666603
+        width: 24
+        height: 21.333334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b154115d54c4eff469d8ab573390ce02
+      internalID: -2131734713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +315,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sprBarBooth_6: -1048022258
+      sprBarBooth_5: 365447535
+      sprBarBooth_7: -181019671
+      sprBarBooth_0: -1207093288
+      sprBarBooth_8: -2131734713
+      sprBarBooth_4: 789573411
+      sprBarBooth_1: 374931101
+      sprBarBooth_3: 831708763
+      sprBarBooth_2: 1486060952
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
