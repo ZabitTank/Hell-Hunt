@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.EventSystems;
 
 public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
@@ -53,12 +54,12 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     public bool CanDoPrimaryAttack()
     {
-        return (Time.time >= timeToFire && !isReloading);
+        return (Time.time >= timeToFire && !isReloading && !EventSystem.current.IsPointerOverGameObject());
     }
 
     public bool CanDoSecondaryAttack()
     {
-        return (Time.time > timeToMelee);
+        return (Time.time > timeToMelee && !EventSystem.current.IsPointerOverGameObject());
     }
 
     public void PrimaryAttack()

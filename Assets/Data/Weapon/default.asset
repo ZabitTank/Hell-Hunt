@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: default
   m_EditorClassIdentifier: 
   id: -1
-  name: Ugrade Knife
+  name: Default Knife
   type: 1
   stackLimit: 1
   prefabs: {fileID: 3038172622383399066, guid: 25bd10e5bac8b274aae3912e865a7940, type: 3}
   sprite: {fileID: 0}
   description: 
-  animatorOverride: {fileID: 22100000, guid: f426d541319492b47a10491bcba60775, type: 2}
+  animatorOverride: {fileID: 22100000, guid: fcd6f342fd93ecb49805e1d2ce23fd9f, type: 2}
   attribute:
-    damage: 30
-    weaponSpeed: 20
-    attackRate: 10
+    damage: 10
+    weaponSpeed: 2
+    attackRate: 1

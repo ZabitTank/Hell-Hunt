@@ -101,13 +101,17 @@ public class InventoryUI : MonoBehaviour
     {
         inventory.currentSelectSlot = itemsDisplay[slotUI];
         Item item = inventory.database.getItem[inventory.currentSelectSlot.id];
-        if(item.type == ItemType.Gun || item.type == ItemType.MeleeWeapon)
+        if (item.type == ItemType.Gun || item.type == ItemType.MeleeWeapon)
         {
             inventory.currentSeletedWeapon = inventory.currentSelectSlot;
         }
+        DisplaySelectItem(item);
+    }
+
+    private void DisplaySelectItem(Item item)
+    {
         selectItemImage.sprite = item.prefabs.GetComponent<SpriteRenderer>().sprite;
         selectItemAttributeText.text = item.DisplayAttribute();
         selectItemGeneralInfo.text = item.DisplayGeneralInfo();
     }
-
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0862f0cf11e4214d95c13fa1f845969, type: 3}
   m_Name: knifev2
   m_EditorClassIdentifier: 
-  id: -1
+  id: 9
   name: Ugrade Knife
   type: 1
   stackLimit: 1
@@ -23,4 +23,4 @@ MonoBehaviour:
   attribute:
     damage: 30
     weaponSpeed: 20
-    attackRate: 10
+    attackRate: 3

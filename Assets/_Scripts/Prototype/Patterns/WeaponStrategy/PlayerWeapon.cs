@@ -30,13 +30,13 @@ public class PlayerWeapon : MonoBehaviour
             }
 
         }
-
-        if (Input.GetKey(KeyCode.Mouse0) && weaponBehavior.CanDoPrimaryAttack() && !EventSystem.current.IsPointerOverGameObject())
+        
+        if (Input.GetKey(KeyCode.Mouse0) && weaponBehavior.CanDoPrimaryAttack())
         {
             weaponBehavior.PrimaryAttack();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && weaponBehavior.CanDoSecondaryAttack() && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetKeyDown(KeyCode.Mouse1) && weaponBehavior.CanDoSecondaryAttack())
         {
             weaponBehavior.SecondaryAttack();
         }

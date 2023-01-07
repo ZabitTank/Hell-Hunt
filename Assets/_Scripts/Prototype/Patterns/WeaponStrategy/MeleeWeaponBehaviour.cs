@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.EventSystems;
 
 public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
@@ -30,7 +31,7 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     public bool CanDoPrimaryAttack()
     {
-        return (Time.time >= timeToMelee);
+        return (Time.time >= timeToMelee && !EventSystem.current.IsPointerOverGameObject());
     }
 
     public bool CanDoSecondaryAttack()
