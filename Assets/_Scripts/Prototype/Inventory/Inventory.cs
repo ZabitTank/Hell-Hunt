@@ -17,6 +17,12 @@ public class Inventory : ScriptableObject
 
     public InventorySlot currentSelectSlot;
     public InventorySlot currentSeletedWeapon;
+
+    private void Awake()
+    {
+        currentSeletedWeapon = null;
+        currentSelectSlot = null;
+    }
     public void AddItem(ItemRef itemRef, int amount)
     {
         for(int i = 0; i < container.Length; i++)

@@ -22,7 +22,7 @@ MonoBehaviour:
   localMuzzlePosition: {x: 1.701, y: -0.59}
   muzzlEffectAnimatorOverride: {fileID: 22100000, guid: d72e9efc47288024eaf580379c8148da, type: 2}
   weaponAnimatorOverride: {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
   meleeAttribute:
     damage: 0
     weaponSpeed: 0

@@ -40,10 +40,12 @@ public class Player : MonoBehaviour
     AudioSource audioSource;
     
     //References
-    public Animator body;
-    public Animator feet;
+    public Animator bodyAnimator;
+    public Animator feetAnimator;
     public AnimatorOverrideController[] animatorOverride;
+
     public GameObject inventoryUI;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour
     }
     public void Start()
     {
-        rb = GetComponentInChildren<Rigidbody2D>();
+
     }
     void Update()
     {
@@ -75,6 +77,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
+            // try raycast
             PickupItem();
         }
         if (Input.GetKeyDown(KeyCode.G))
@@ -123,14 +126,14 @@ public class Player : MonoBehaviour
         if (isMoving)
         {
             float angle = Mathf.Atan2(movingDirection.y, movingDirection.x) * Mathf.Rad2Deg;
-            feet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            if (feet.transform.localEulerAngles.z > 90 && feet.transform.localEulerAngles.z < 270)
+            feetAnimator.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            if (feetAnimator.transform.localEulerAngles.z > 90 && feetAnimator.transform.localEulerAngles.z < 270)
             {
-                feet.transform.localScale = new(-1, -1, -1);
+                feetAnimator.transform.localScale = new(-1, -1, -1);
             }
             else
             {
-                feet.transform.localScale = new(1, 1, 1);
+                feetAnimator.transform.localScale = new(1, 1, 1);
             }
         };
 
@@ -138,8 +141,8 @@ public class Player : MonoBehaviour
 
     private void SetMovingAnimation()
     {
-        feet.SetBool("Move", isMoving);
-        body.SetBool("Move", isMoving);
+        feetAnimator.SetBool("Move", isMoving);
+        bodyAnimator.SetBool("Move", isMoving);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -152,7 +155,6 @@ public class Player : MonoBehaviour
             Destroy(baseItem.gameObject);
         }
     }
-
     private void PickupItem()
     {
         if(Physics.Raycast(transform.position, -Vector3.up, out RaycastHit hit, 10))
@@ -174,7 +176,7 @@ public class Player : MonoBehaviour
     {
         ItemRef itemRef = inventory.currentSelectSlot.itemRef;
         Item item = inventory.database.getItem[itemRef.id];
-        inventory.RemoveItem(itemRef);
+        inventory.RemoveItem(inventory.currentSelectSlot.itemRef);
         Instantiate(item.prefabs, transform.position, Quaternion.identity);
     }
 

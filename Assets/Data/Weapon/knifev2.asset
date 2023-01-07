@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0862f0cf11e4214d95c13fa1f845969, type: 3}
+  m_Name: knifev2
+  m_EditorClassIdentifier: 
+  id: -1
+  name: Ugrade Knife
+  type: 1
+  stackLimit: 1
+  prefabs: {fileID: 3038172622383399066, guid: 25bd10e5bac8b274aae3912e865a7940, type: 3}
+  sprite: {fileID: 0}
+  description: 
+  animatorOverride: {fileID: 22100000, guid: f426d541319492b47a10491bcba60775, type: 2}
+  attribute:
+    damage: 30
+    weaponSpeed: 20
+    attackRate: 10

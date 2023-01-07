@@ -15,7 +15,6 @@ public class InventoryUI : MonoBehaviour
     public float HORIZONTAL_SPACE_BETWEEN_ITEM;
     public float VERTICAL_SPACE_BETWEEN_ITEM;
     public int NUMBER_ITEMS_IN_ROW;
-
     public Vector3 START_POSITION;
 
     Dictionary<GameObject, InventorySlot> itemsDisplay = new() ;
