@@ -32,8 +32,6 @@ public class Player : MonoBehaviour
     bool isMoving;
     bool isMouseChange;
     Vector2 movingDirection;
-    bool isShowInventory;
-    bool isPickupItem;
 
     // Component
     Rigidbody2D rb;
@@ -44,12 +42,13 @@ public class Player : MonoBehaviour
     public Animator feetAnimator;
     public AnimatorOverrideController[] animatorOverride;
 
-    public GameObject inventoryUI;
+    public InventoryUI inventoryUI;
+
+    public PlayerWeapon playerWeapon;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        isShowInventory = true;
     }
     public void Start()
     {
@@ -72,8 +71,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            isShowInventory = !isShowInventory;
-            inventoryUI.SetActive(isShowInventory);
+            inventoryUI.SwapActiveUnActive();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -83,6 +81,14 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             DropSelectItem();
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            if (inventory.currentSeletedWeapon != null)
+            {
+                Item weapon = inventory.database.getItem[inventory.currentSeletedWeapon.itemRef.id];
+                playerWeapon.ChangeWeapon(weapon);
+            }
         }
 
     }
@@ -176,6 +182,10 @@ public class Player : MonoBehaviour
     {
         ItemRef itemRef = inventory.currentSelectSlot.itemRef;
         Item item = inventory.database.getItem[itemRef.id];
+        if(inventory.currentSeletedWeapon == inventory.currentSelectSlot)
+        {
+            playerWeapon.ChangeWeapon(null);
+        }
         inventory.RemoveItem(inventory.currentSelectSlot.itemRef);
         Instantiate(item.prefabs, transform.position, Quaternion.identity);
     }

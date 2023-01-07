@@ -41,6 +41,8 @@ public enum ItemType
     Gold,
     HealItem,
     SpellCard,
+    Headgear,
+    Armor
 }
 
 [Serializable]

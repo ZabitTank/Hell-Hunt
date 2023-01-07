@@ -19,18 +19,6 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.E)) {
-            if (inventory.currentSeletedWeapon != null)
-            {
-                Item weapon = inventory.database.getItem[inventory.currentSeletedWeapon.itemRef.id];
-                ChangeWeapon(weapon);
-            } else
-            {
-                ChangeWeapon(defaultWeapon);
-            }
-
-        }
-        
         if (Input.GetKey(KeyCode.Mouse0) && weaponBehavior.CanDoPrimaryAttack())
         {
             weaponBehavior.PrimaryAttack();
@@ -48,9 +36,14 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-    private void ChangeWeapon(Item weapon)
+    public void ChangeWeapon(Item weapon)
     {
-        switch(weapon.type)
+        if(weapon == null)
+        {
+            ChangeWeapon(defaultWeapon);
+            return;
+        }
+        switch (weapon.type)
         {
             case ItemType.Gun:
                 GunBehaviour gunBehaviour = gameObject.AddComponent<GunBehaviour>();

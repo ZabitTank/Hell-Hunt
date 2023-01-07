@@ -23,6 +23,14 @@ public class InventoryUI : MonoBehaviour
     public TextMeshProUGUI selectItemAttributeText;
     public TextMeshProUGUI selectItemGeneralInfo;
 
+    public EquipmentUI equipmentUI;
+
+    private bool isShowInventory = false;
+    public void SwapActiveUnActive()
+    {
+        isShowInventory = !isShowInventory;
+        gameObject.SetActive(isShowInventory);
+    }
     void Start()
     {
         CreateDisplay();
@@ -57,8 +65,8 @@ public class InventoryUI : MonoBehaviour
             itemsDisplay.Add(itemSlotUI, inventory.container[i]);
 
             AddEvent(itemSlotUI, EventTriggerType.PointerClick, delegate { OnPointClick(itemSlotUI); });
-
         }
+        SetEquimentEvent();
     }
 
     //private GameObject AddSlot(int index, InventorySlot itemSlot)
@@ -80,6 +88,12 @@ public class InventoryUI : MonoBehaviour
     {
         return START_POSITION + new Vector3(HORIZONTAL_SPACE_BETWEEN_ITEM * (index % NUMBER_ITEMS_IN_ROW), -VERTICAL_SPACE_BETWEEN_ITEM * (index / NUMBER_ITEMS_IN_ROW), 0f);
     }
+
+    private void SetEquimentEvent()
+    {
+        //AddEvent(equipmentUI.armorImage, EventTriggerType.PointerClick, delegate { OnPointClick(); });
+    }
+
 
     private void AddEvent(GameObject gameObject, EventTriggerType type, UnityAction<BaseEventData> action)
     {
@@ -108,10 +122,16 @@ public class InventoryUI : MonoBehaviour
         DisplaySelectItem(item);
     }
 
+    public void OnPointClick(Item item)
+    {
+        DisplaySelectItem(item);
+    }
+
     private void DisplaySelectItem(Item item)
     {
         selectItemImage.sprite = item.prefabs.GetComponent<SpriteRenderer>().sprite;
         selectItemAttributeText.text = item.DisplayAttribute();
         selectItemGeneralInfo.text = item.DisplayGeneralInfo();
     }
+
 }
