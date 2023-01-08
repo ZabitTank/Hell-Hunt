@@ -35,7 +35,6 @@ public abstract class InventoryUI : MonoBehaviour
     }
 
     public abstract void UpdateInventorySlots();
-
     public abstract void CreateDisplay();
     protected void SetItemSlotEvent(GameObject itemSlotUI)
     {
@@ -57,6 +56,7 @@ public abstract class InventoryUI : MonoBehaviour
     private void OnPointClick(GameObject slotUI)
     {
         inventory.currentSelectSlot = itemsDisplay[slotUI];
+        if (inventory.currentSelectSlot.id == -1) return;
         Item item = inventory.database.getItem[inventory.currentSelectSlot.id];
         if (item.type == ItemType.Gun || item.type == ItemType.MeleeWeapon)
         {
@@ -109,6 +109,10 @@ public abstract class InventoryUI : MonoBehaviour
         if (mouseItem.hoverObj)
         {
             inventory.MoveItem(itemsDisplay[itemSlotUI], mouseItem.hoverItem.parent.itemsDisplay[mouseItem.hoverObj]);
+            if (mouseItem.hoverItem.parent is StaticInventoryUI)
+                mouseItem.hoverItem.parent.UpdateInventorySlots();
+            else if (this is StaticInventoryUI)
+                this.UpdateInventorySlots();
         } else
         {
             //inventory.RemoveItem(itemsDisplay[itemSlotUI].itemRef);

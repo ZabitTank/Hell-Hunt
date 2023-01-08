@@ -23,14 +23,26 @@ public class StaticInventoryUI : InventoryUI
         for (int i = 0; i < slots.Length; i++)
         {
             this.SetItemSlotEvent(slots[i]);
-
             itemsDisplay.Add(slots[i], inventory.container[i]);
         }
     }
 
     public override void UpdateInventorySlots()
     {
-        return;
+        foreach (KeyValuePair<GameObject, InventorySlot> slot in itemsDisplay)
+        {
+            var img = slot.Key.GetComponentsInChildren<Image>()[1];
+            if (slot.Value.id >= 0)
+            {
+                img.sprite = inventory.database.getItem[slot.Value.id].GetSprite();
+                img.color = new(img.color.r, img.color.g, img.color.b,1f);
+            }
+            else
+            {
+                img.sprite = null;
+                img.color = new(img.color.r, img.color.g, img.color.b, 0);
+            }
+        }
     }
 
     public void updateUI(ItemType type, Item item)

@@ -51,12 +51,11 @@ public class DynamicInventoryUI : InventoryUI
             {
                 slot.Key.GetComponentsInChildren<Image>()[1].sprite = inventory.database.getItem[slot.Value.id].GetSprite();
                 slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = slot.Value.amount.ToString();
-
             }
             else
             {
                 slot.Key.GetComponentsInChildren<Image>()[1].sprite = null;
-                slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "0";
+                slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
             }
         }
     }
