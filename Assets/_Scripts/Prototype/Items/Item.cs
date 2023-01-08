@@ -42,7 +42,8 @@ public enum ItemType
     HealItem,
     SpellCard,
     Headgear,
-    Armor
+    Armor,
+    Ammunition,
 }
 
 [Serializable]
