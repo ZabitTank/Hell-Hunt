@@ -17,6 +17,11 @@ public class Item : ScriptableObject
     [TextArea(1,5)]
     public string description;
 
+    public Sprite GetSprite()
+    {
+        if (sprite != null) return sprite;
+        return prefabs.GetComponent<SpriteRenderer>().sprite;
+    }
     public String DisplayGeneralInfo()
     {
         return String.Concat(

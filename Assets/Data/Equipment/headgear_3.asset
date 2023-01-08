@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e1a3bc8ced30745a1f2a1ef7f9c551, type: 3}
   m_Name: headgear_3
   m_EditorClassIdentifier: 
-  id: 0
-  name: 
-  type: 0
-  stackLimit: 0
-  prefabs: {fileID: 0}
+  id: 16
+  name: Steel Hat
+  type: 5
+  stackLimit: 1
+  prefabs: {fileID: 3320096073419834399, guid: a9d9de6533b35b048a5081766a9bdd69, type: 3}
   sprite: {fileID: 0}
-  description: 
+  description: A good quality head gear
   buffs:
   - attribute: 0
-    value: 0
+    value: 20
+    min: 0
+    max: 0
+  - attribute: 1
+    value: -5
     min: 0
     max: 0
   - attribute: 0
-    value: 0
-    min: 0
-    max: 0
-  - attribute: 0
-    value: 0
+    value: 2
     min: 0
     max: 0

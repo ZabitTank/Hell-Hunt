@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 0
   stackLimit: 1
   prefabs: {fileID: 477340140497917514, guid: 9fe73ca96f037b14abda3f6b983239de, type: 3}
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 06276b7daef34cf409560add84307746, type: 3}
   description: 
   localMuzzlePosition: {x: 1.387, y: -0.546}
   muzzlEffectAnimatorOverride: {fileID: 22100000, guid: ae491c6cbb5322843b1149eb711e315a, type: 2}
