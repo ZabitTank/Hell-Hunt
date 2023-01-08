@@ -98,7 +98,7 @@ public abstract class InventoryUI : MonoBehaviour
 
     private void OnDrag(GameObject itemSlotUI)
     {
-       if(mouseItem.obj != null)
+       if(mouseItem.obj)
         {
             mouseItem.obj.GetComponent<RectTransform>().position = Input.mousePosition;
         }
@@ -106,13 +106,23 @@ public abstract class InventoryUI : MonoBehaviour
 
     private void OnEndDrag(GameObject itemSlotUI)
     {
+        // prevent drag empty slot
+        if (itemsDisplay[itemSlotUI].id == -1) return;
+
         if (mouseItem.hoverObj)
         {
-            inventory.MoveItem(itemsDisplay[itemSlotUI], mouseItem.hoverItem.parent.itemsDisplay[mouseItem.hoverObj]);
-            if (mouseItem.hoverItem.parent is StaticInventoryUI)
-                mouseItem.hoverItem.parent.UpdateInventorySlots();
-            else if (this is StaticInventoryUI)
-                this.UpdateInventorySlots();
+            var desSlot = mouseItem.hoverItem;
+            var srcSlot = itemsDisplay[itemSlotUI];
+
+            if (desSlot.AllowedPlaceInSlot(inventory.database.getItem[srcSlot.id])
+                && (desSlot.id== -1 || srcSlot.AllowedPlaceInSlot(inventory.database.getItem[desSlot.id])))
+            {
+                inventory.MoveItem(srcSlot, desSlot.parent.itemsDisplay[mouseItem.hoverObj]);
+                if (desSlot.parent is StaticInventoryUI)
+                    desSlot.parent.UpdateInventorySlots();
+                else if (this is StaticInventoryUI)
+                    this.UpdateInventorySlots();
+            }
         } else
         {
             //inventory.RemoveItem(itemsDisplay[itemSlotUI].itemRef);

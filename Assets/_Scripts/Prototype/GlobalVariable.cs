@@ -23,8 +23,8 @@ public class GlobalVariable :Singleton<GlobalVariable>
 
     protected override void OnApplicationQuit()
     {
-        playerInventory.container = new InventorySlot[16];
-        playerEquipment.container = new InventorySlot[4];
+        playerInventory.clear();
+        playerEquipment.clear();
         base.OnApplicationQuit();
     }
 }

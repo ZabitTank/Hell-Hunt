@@ -16,19 +16,19 @@ MonoBehaviour:
   name: Steel Armor
   type: 6
   stackLimit: 0
-  prefabs: {fileID: 3303000926772675669, guid: a902f19d7239848438c2d549b58691d2, type: 3}
+  prefabs: {fileID: 2445957502844794499, guid: b434ea962ecc61349aab7909bfb6e070, type: 3}
   sprite: {fileID: 0}
   description: A good quality armor
   buffs:
   - attribute: 0
-    value: 20
+    value: 0
     min: 0
     max: 0
-  - attribute: 1
-    value: 5
+  - attribute: 0
+    value: 0
     min: 0
     max: 0
-  - attribute: 2
-    value: 3
+  - attribute: 0
+    value: 0
     min: 0
     max: 0

@@ -99,23 +99,32 @@ public class Inventory : ScriptableObject
         }
     }
 
-    public void OnAfterDeserialize()
+    [ContextMenu("Clear")]
+    public void clear()
     {
-        for(int i = 0; i < container.Length; i++)
+        foreach(var itemSlot in container)
         {
-            container[i].itemRef = new ItemRef(database.getItem[container[i].id]);
+            itemSlot.UpdateSlot(-1, new(), 0);
         }
     }
+    //public void OnAfterDeserialize()
+    //{
+    //    for(int i = 0; i < container.Length; i++)
+    //    {
+    //        container[i].itemRef = new ItemRef(database.getItem[container[i].id]);
+    //    }
+    //}
 
-    public void OnBeforeSerialize()
-    {
-        return;
-    }
+    //public void OnBeforeSerialize()
+    //{
+    //    return;
+    //}
 }
 
 [Serializable]
 public class InventorySlot
 {
+    public ItemType[] AllowedItems = new ItemType[0];
     public int id;
     public ItemRef itemRef;
     public int amount;
@@ -145,5 +154,15 @@ public class InventorySlot
         this.itemRef = itemRef;
         this.id = id;
         this.amount = amount;
+    }
+
+    public bool AllowedPlaceInSlot(Item item)
+    {
+        if (AllowedItems.Length == 0) return true;
+        foreach(var type in AllowedItems)
+        {
+            if (item.type == type) return true;
+        }
+        return false;
     }
 }
