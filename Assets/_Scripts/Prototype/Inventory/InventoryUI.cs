@@ -8,30 +8,15 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public abstract class InventoryUI : MonoBehaviour
 {
     // References inventory
     public Inventory inventory;
 
-    // UI
-    Dictionary<GameObject, InventorySlot> itemsDisplay = new();
-    public GameObject slotPrefabs;
+    protected Dictionary<GameObject, InventorySlot> itemsDisplay = new();
+    protected MouseItem mouseItem;
 
-    // Highlight Info
-    public Image selectItemImage;
-    public TextMeshProUGUI selectItemAttributeText;
-    public TextMeshProUGUI selectItemGeneralInfo;
-
-    public EquipmentUI equipmentUI;
-
-    //Item Slot UI location setting
-    public float HORIZONTAL_SPACE_BETWEEN_ITEM;
-    public float VERTICAL_SPACE_BETWEEN_ITEM;
-    public int NUMBER_ITEMS_IN_ROW;
-    public Vector3 START_POSITION;
-
-    // Mouse
-    public MouseItem mouseItem;
+    public ItemInfoUI infoUI;
 
     private bool isActive = false;
     public void SwapActiveUnActive()
@@ -39,49 +24,20 @@ public class InventoryUI : MonoBehaviour
         isActive = !isActive;
         gameObject.SetActive(isActive);
     }
-    private void Awake()
-    {
-        mouseItem = new();
-    }
     void Start()
     {
+        mouseItem = GlobalVariable.mouseItem;
+        foreach(var slot in inventory.container)
+        {
+            slot.parent = this;
+        }
         CreateDisplay();
     }
 
-    void Update()
-    {
-        foreach (KeyValuePair<GameObject, InventorySlot> slot in itemsDisplay)
-        {
-            if (slot.Value.id >= 0)
-            {
-                slot.Key.GetComponentsInChildren<Image>()[1].sprite = inventory.database.getItem[slot.Value.id].GetSprite();
-                slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = slot.Value.amount.ToString();
+    public abstract void UpdateInventorySlots();
 
-            }
-            else
-            {
-                slot.Key.GetComponentsInChildren<Image>()[1].sprite = null;
-                slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "0";
-            }
-        }
-    }
-
-
-    private void CreateDisplay()
-    {
-        itemsDisplay = new Dictionary<GameObject, InventorySlot>();
-        for(int i = 0; i < inventory.container.Length; i++)
-        {
-            GameObject itemSlotUI = Instantiate(slotPrefabs, Vector3.zero, Quaternion.identity, transform);
-            itemSlotUI.GetComponent<RectTransform>().localPosition = GetPosition(i);
-
-            itemsDisplay.Add(itemSlotUI, inventory.container[i]);
-
-            SetItemSlotEvent(itemSlotUI);
-        }
-        // set equiment slot event
-    }
-    private void SetItemSlotEvent(GameObject itemSlotUI)
+    public abstract void CreateDisplay();
+    protected void SetItemSlotEvent(GameObject itemSlotUI)
     {
         AddEvent(itemSlotUI, EventTriggerType.PointerClick, delegate { OnPointClick(itemSlotUI); });
         AddEvent(itemSlotUI, EventTriggerType.PointerEnter, delegate { OnPointEnter(itemSlotUI); });
@@ -90,22 +46,6 @@ public class InventoryUI : MonoBehaviour
         AddEvent(itemSlotUI, EventTriggerType.Drag, delegate { OnDrag(itemSlotUI); });
         AddEvent(itemSlotUI, EventTriggerType.EndDrag, delegate { OnEndDrag(itemSlotUI); });
     }
-
-    //private GameObject AddSlot(int index, InventorySlot item)
-    //{
-    //    var itemSlotUI = Instantiate(slotPrefabs, Vector3.zero, Quaternion.identity, transform);
-
-    //    itemSlotUI.GetComponent<RectTransform>().localPosition = GetPosition(i);
-    //    itemSlotUI.GetComponentInChildren<TextMeshProUGUI>().text = item.amount.ToString();
-    //    itemSlotUI.GetComponentsInChildren<Image>()[1].sprite = inventory.database.getItem[item.id].prefabs.GetComponent<SpriteRenderer>().sprite;
-    //    AddEvent(itemSlotUI, EventTriggerType.PointerClick, delegate { OnPointClick(item); });
-
-
-    //    itemsDisplay.Add(item, itemSlotUI);
-
-    //    return itemSlotUI;
-    //}
-
     private void AddEvent(GameObject gameObject, EventTriggerType type, UnityAction<BaseEventData> action)
     {
         EventTrigger trigger = gameObject.GetComponent<EventTrigger>();
@@ -114,15 +54,7 @@ public class InventoryUI : MonoBehaviour
         eventTrigger.callback.AddListener(action);
         trigger.triggers.Add(eventTrigger);
     }
-
-    public void SelectItem(Item item)
-    {
-        selectItemImage.sprite = item.GetSprite();
-        selectItemGeneralInfo.text = item.DisplayGeneralInfo();
-        selectItemAttributeText.text = item.DisplayAttribute();
-    }
-
-    public void OnPointClick(GameObject slotUI)
+    private void OnPointClick(GameObject slotUI)
     {
         inventory.currentSelectSlot = itemsDisplay[slotUI];
         Item item = inventory.database.getItem[inventory.currentSelectSlot.id];
@@ -137,7 +69,7 @@ public class InventoryUI : MonoBehaviour
         mouseItem.hoverObj = itemSlotUI;
         if (itemsDisplay.ContainsKey(itemSlotUI))
         {
-            mouseItem.hoverItem = itemsDisplay[itemSlotUI];
+            GlobalVariable.mouseItem.hoverItem = itemsDisplay[itemSlotUI];
         }
     }
 
@@ -151,7 +83,7 @@ public class InventoryUI : MonoBehaviour
     {
         var mouseObject = new GameObject();
         var reactTranform = mouseObject.AddComponent<RectTransform>();
-        reactTranform.sizeDelta = new Vector2(50, 50);
+        reactTranform.sizeDelta = new Vector2(100, 100);
         mouseObject.transform.SetParent(transform.parent);
 
         if (itemsDisplay[itemSlotUI].id >= 0)
@@ -176,33 +108,16 @@ public class InventoryUI : MonoBehaviour
     {
         if (mouseItem.hoverObj)
         {
-            inventory.MoveItem(itemsDisplay[itemSlotUI], mouseItem.hoverItem);
+            inventory.MoveItem(itemsDisplay[itemSlotUI], mouseItem.hoverItem.parent.itemsDisplay[mouseItem.hoverObj]);
         } else
         {
-            inventory.RemoveItem(itemsDisplay[itemSlotUI].itemRef);
+            //inventory.RemoveItem(itemsDisplay[itemSlotUI].itemRef);
         }
         Destroy(mouseItem.obj);
         mouseItem.item = null;
     }
-    private void DisplaySelectItem(Item item)
+    public void DisplaySelectItem(Item item)
     {
-        selectItemImage.sprite = item.GetSprite();
-        selectItemAttributeText.text = item.DisplayAttribute();
-        selectItemGeneralInfo.text = item.DisplayGeneralInfo();
+        infoUI.DisplayItemInfo(item);
     }
-
-    public Vector3 GetPosition(int index)
-    {
-        return START_POSITION + new Vector3(HORIZONTAL_SPACE_BETWEEN_ITEM * (index % NUMBER_ITEMS_IN_ROW), -VERTICAL_SPACE_BETWEEN_ITEM * (index / NUMBER_ITEMS_IN_ROW), 0f);
-    }
-
-}
-
-
-public class MouseItem
-{
-    public GameObject obj;
-    public InventorySlot item;
-    public InventorySlot hoverItem;
-    public GameObject hoverObj;
 }

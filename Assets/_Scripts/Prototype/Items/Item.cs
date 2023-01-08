@@ -56,7 +56,6 @@ public class ItemRef
     public int id;
     public string name;
     public int stackLimit;
-
     public ItemRef()
     {
         id = -1;

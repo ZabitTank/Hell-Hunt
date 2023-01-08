@@ -58,7 +58,6 @@ public class Inventory : ScriptableObject
         item1.UpdateSlot(temp.id, temp.itemRef, temp.amount);
     }
 
-
     public void RemoveItem(ItemRef item)
     {
         for (int i = 0; i < container.Length; i++)
@@ -120,6 +119,7 @@ public class InventorySlot
     public int id;
     public ItemRef itemRef;
     public int amount;
+    public InventoryUI parent;
 
     public InventorySlot()
     {

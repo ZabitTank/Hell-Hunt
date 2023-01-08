@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EquipmentUI : MonoBehaviour
+public class StaticInventoryUI : InventoryUI
 {
     public Image headgearImage;
     public Image armorImage;
@@ -14,6 +15,23 @@ public class EquipmentUI : MonoBehaviour
     public TextMeshProUGUI playerStat;
     public TextMeshProUGUI meleeStat;
     public TextMeshProUGUI gunStat;
+
+    public GameObject[] slots;
+    public override void CreateDisplay()
+    {
+        itemsDisplay = new Dictionary<GameObject, InventorySlot>();
+        for (int i = 0; i < slots.Length; i++)
+        {
+            this.SetItemSlotEvent(slots[i]);
+
+            itemsDisplay.Add(slots[i], inventory.container[i]);
+        }
+    }
+
+    public override void UpdateInventorySlots()
+    {
+        return;
+    }
 
     public void updateUI(ItemType type, Item item)
     {

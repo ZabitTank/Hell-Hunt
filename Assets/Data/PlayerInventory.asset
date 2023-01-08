@@ -12,9 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cfab5cd0f7db4478253ccbca7c8372, type: 3}
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
-  savePath: /quicksave.save
+  savePath: 
   database: {fileID: 11400000, guid: 02e08a3496f92d74da67ddbdbd5fd76e, type: 2}
   container:
+  - id: 15
+    itemRef:
+      id: 15
+      name: Leather Hat
+      stackLimit: 1
+    amount: 1
+  - id: 16
+    itemRef:
+      id: 16
+      name: Steel Hat
+      stackLimit: 1
+    amount: 1
+  - id: 13
+    itemRef:
+      id: 13
+      name: Leather Armor
+      stackLimit: 1
+    amount: 1
+  - id: 14
+    itemRef:
+      id: 14
+      name: Steel Armor
+      stackLimit: 0
+    amount: 1
+  - id: -1
+    itemRef:
+      id: -1
+      name: 
+      stackLimit: 0
+    amount: 0
+  - id: 13
+    itemRef:
+      id: 13
+      name: Leather Armor
+      stackLimit: 1
+    amount: 1
   - id: -1
     itemRef:
       id: -1
@@ -33,48 +69,12 @@ MonoBehaviour:
       name: 
       stackLimit: 0
     amount: 0
-  - id: -1
+  - id: 12
     itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-  - id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-  - id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-  - id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-  - id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-  - id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-  - id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
+      id: 12
+      name: Handgun Bullet
+      stackLimit: 120
+    amount: 3
   - id: -1
     itemRef:
       id: -1
@@ -112,12 +112,12 @@ MonoBehaviour:
       stackLimit: 0
     amount: 0
   currentSelectSlot:
-    id: -1
+    id: 13
     itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
+      id: 13
+      name: Leather Armor
+      stackLimit: 1
+    amount: 1
   currentSeletedWeapon:
     id: -1
     itemRef:

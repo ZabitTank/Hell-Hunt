@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalVariable :Singleton<MonoBehaviour>
+public class GlobalVariable :Singleton<GlobalVariable>
 {
     public static readonly Vector3 HANDGUN_MUZZLE_POSITION = new(1.783f, -0.56f);
     public static readonly Vector3 SHOTGUN_MUZZLE_POSITION = new(1.825f, -0.494f);
@@ -17,4 +15,24 @@ public class GlobalVariable :Singleton<MonoBehaviour>
     };
 
     public static Dictionary<GunType, Vector2> GUN_ANIMATOROVERIDER;
+
+    public static MouseItem mouseItem = new();
+
+    public Inventory playerInventory;
+    public Inventory playerEquipment;
+
+    protected override void OnApplicationQuit()
+    {
+        playerInventory.container = new InventorySlot[16];
+        playerEquipment.container = new InventorySlot[4];
+        base.OnApplicationQuit();
+    }
+}
+
+public class MouseItem
+{
+    public GameObject obj;
+    public InventorySlot item;
+    public InventorySlot hoverItem;
+    public GameObject hoverObj;
 }

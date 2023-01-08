@@ -19,8 +19,6 @@ public class Player : MonoBehaviour
     [Header("Current HP of character")]
     private int currentHP;
 
-    public Inventory inventory;
-
     // Input
     float horizontalInput;
     float verticalInput;
@@ -43,6 +41,10 @@ public class Player : MonoBehaviour
     public AnimatorOverrideController[] animatorOverride;
 
     public InventoryUI inventoryUI;
+    public InventoryUI EquipmentUI;
+
+    private Inventory inventory;
+    private Inventory equipment;
 
     public PlayerWeapon playerWeapon;
 
@@ -52,7 +54,8 @@ public class Player : MonoBehaviour
     }
     public void Start()
     {
-
+        inventory = GlobalVariable.Instance.playerInventory;
+        equipment = GlobalVariable.Instance.playerEquipment;
     }
     void Update()
     {
@@ -189,11 +192,5 @@ public class Player : MonoBehaviour
         inventory.RemoveItem(inventory.currentSelectSlot.itemRef);
         Instantiate(item.prefabs, transform.position, Quaternion.identity);
     }
-
-    private void OnApplicationQuit()
-    {
-        inventory.container = new InventorySlot[16];
-    }
-
 
 }
