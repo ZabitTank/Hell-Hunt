@@ -30,8 +30,8 @@ public class Inventory : ScriptableObject
             InventorySlot itemSlot = container[i];
             if (itemSlot.id == itemRef.id)
             {
-                itemSlot.AddAmount(amount);
-                return;
+                amount = itemSlot.AddAmount(amount);
+                if (amount <= 0) return;
             }
         }
         AddIntoEmptySlot(itemRef, amount);
@@ -133,10 +133,11 @@ public class InventorySlot
         this.itemRef = item;
         this.amount = (item.stackLimit > amount) ? amount : item.stackLimit;
     }
-    public void AddAmount(int amount)
+    public int AddAmount(int amount)
     {
         int totalItem = this.amount + amount;
         this.amount = (totalItem > itemRef.stackLimit) ? itemRef.stackLimit : totalItem;
+        return totalItem - this.amount;
     }
 
     public void UpdateSlot(int id, ItemRef itemRef,int amount)
