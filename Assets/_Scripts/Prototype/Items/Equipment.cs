@@ -22,7 +22,7 @@ public class Equipment : Item
 
 }
 [Serializable]
-public class ItemBuff
+public class ItemBuff : IModifier
 {
     public Attribute attribute;
     public int value;
@@ -41,6 +41,11 @@ public class ItemBuff
     public String DisplayAttribute()
     {
         return String.Concat(Enum.GetName(typeof(Attribute), attribute),": ", value.ToString());
+    }
+
+    public void AddValue(ref int value)
+    {
+        value = this.value;
     }
 }
 

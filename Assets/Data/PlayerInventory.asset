@@ -15,149 +15,114 @@ MonoBehaviour:
   savePath: 
   database: {fileID: 11400000, guid: 02e08a3496f92d74da67ddbdbd5fd76e, type: 2}
   container:
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
+    slots:
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
   currentSelectSlot:
     AllowedItems: 
-    id: -1
     itemRef:
       id: -1
       name: 
       stackLimit: 0
     amount: 0
-    parent: {fileID: 0}
   currentSeletedWeapon:
     AllowedItems: 
-    id: -1
     itemRef:
       id: -1
       name: 
       stackLimit: 0
     amount: 0
-    parent: {fileID: 0}

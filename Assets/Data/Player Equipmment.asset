@@ -15,7 +15,7 @@ MonoBehaviour:
   savePath: 
   database: {fileID: 11400000, guid: 02e08a3496f92d74da67ddbdbd5fd76e, type: 2}
   container:
-    items:
+    slots:
     - AllowedItems: 05000000
       itemRef:
         id: -1

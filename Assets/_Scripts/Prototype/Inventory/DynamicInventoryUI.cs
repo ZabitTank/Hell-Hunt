@@ -21,19 +21,17 @@ public class DynamicInventoryUI : InventoryUI
     public TextMeshProUGUI selectItemAttributeText;
     public TextMeshProUGUI selectItemGeneralInfo;
 
-    void Update()
-    {
-        UpdateInventorySlots();
-    }
     public override void CreateDisplay()
     {
         itemsDisplay = new Dictionary<GameObject, InventorySlot>();
-        for (int i = 0; i < inventory.container.items.Length; i++)
+        for (int i = 0; i < inventory.GetSlots.Length; i++)
         {
             GameObject itemSlotUI = Instantiate(slotPrefabs, Vector3.zero, Quaternion.identity, transform);
             itemSlotUI.GetComponent<RectTransform>().localPosition = GetPosition(i);
 
-            itemsDisplay.Add(itemSlotUI, inventory.container.items[i]);
+            itemsDisplay.Add(itemSlotUI, inventory.GetSlots[i]);
+            inventory.GetSlots[i].slotUI = itemSlotUI;
+            inventory.GetSlots[i].onAfterUpdate = OnSlotUpdate;
 
             SetItemSlotEvent(itemSlotUI);
         }
@@ -56,9 +54,24 @@ public class DynamicInventoryUI : InventoryUI
             }
         }
     }
+
+    public override void OnSlotUpdate(InventorySlot slot)
+    {
+        if (slot.itemRef.id < 0)
+        {
+            slot.slotUI.GetComponentsInChildren<Image>()[1].sprite = null;
+            slot.slotUI.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        }
+        else
+        {
+            var item = slot.Item;
+            slot.slotUI.GetComponentsInChildren<Image>()[1].sprite = item.GetSprite();
+            slot.slotUI.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString();
+        }
+    }
+
     public Vector3 GetPosition(int index)
     {
         return START_POSITION + new Vector3(HORIZONTAL_SPACE_BETWEEN_ITEM * (index % NUMBER_ITEMS_IN_ROW), -VERTICAL_SPACE_BETWEEN_ITEM * (index / NUMBER_ITEMS_IN_ROW), 0f);
     }
-
 }

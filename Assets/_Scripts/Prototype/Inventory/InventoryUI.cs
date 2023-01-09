@@ -25,7 +25,7 @@ public abstract class InventoryUI : MonoBehaviour
     }
     void Start()
     {
-        foreach (var slot in inventory.container.items)
+        foreach (var slot in inventory.GetSlots)
         {
             slot.parent = this;
         }
@@ -56,6 +56,10 @@ public abstract class InventoryUI : MonoBehaviour
         AddEvent(itemSlotUI, EventTriggerType.Drag, delegate { OnDrag(itemSlotUI); });
         AddEvent(itemSlotUI, EventTriggerType.EndDrag, delegate { OnEndDrag(itemSlotUI); });
     }
+
+    public abstract void OnSlotUpdate(InventorySlot slot);
+
+
     private void AddEvent(GameObject gameObject, EventTriggerType type, UnityAction<BaseEventData> action)
     {
         EventTrigger trigger = gameObject.GetComponent<EventTrigger>();
@@ -126,16 +130,7 @@ public abstract class InventoryUI : MonoBehaviour
             var desSlot = MouseData.UI.itemsDisplay[MouseData.slotHover];
             var srcSlot = itemsDisplay[itemSlotUI];
 
-
             inventory.SwapItem(srcSlot, desSlot);
-
-            // Optimize
-
-            //if (desSlot.parent is StaticInventoryUI)
-            //    desSlot.parent.UpdateInventorySlots();
-            //else if (this is StaticInventoryUI)
-            //    this.UpdateInventorySlots();
-
         }
         Destroy(MouseData.slotBeingDrag);
     }
