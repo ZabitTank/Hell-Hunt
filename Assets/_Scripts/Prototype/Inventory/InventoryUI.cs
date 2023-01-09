@@ -25,7 +25,7 @@ public abstract class InventoryUI : MonoBehaviour
     }
     void Start()
     {
-        foreach (var slot in inventory.container)
+        foreach (var slot in inventory.container.items)
         {
             slot.parent = this;
         }
@@ -85,7 +85,7 @@ public abstract class InventoryUI : MonoBehaviour
 
     private void OnPointExit(GameObject itemSlotUI)
     {
-        MouseData.slotHover = null; 
+        MouseData.slotHover = null;
     }
 
     private void OnBeginDrag(GameObject itemSlotUI)
@@ -106,7 +106,7 @@ public abstract class InventoryUI : MonoBehaviour
 
     private void OnDrag(GameObject itemSlotUI)
     {
-       if(MouseData.slotBeingDrag)
+        if (MouseData.slotBeingDrag)
         {
             MouseData.slotBeingDrag.GetComponent<RectTransform>().position = Input.mousePosition;
         }
@@ -116,26 +116,26 @@ public abstract class InventoryUI : MonoBehaviour
     {
         // prevent drag empty slot
         if (itemsDisplay[itemSlotUI].itemRef.id == -1) return;
-        
-        if(!MouseData.UI)
+
+        if (!MouseData.UI)
         {
             inventory.RemoveItem(itemsDisplay[itemSlotUI].itemRef);
         }
-        if(MouseData.slotHover)
+        if (MouseData.slotHover)
         {
             var desSlot = MouseData.UI.itemsDisplay[MouseData.slotHover];
             var srcSlot = itemsDisplay[itemSlotUI];
 
-            if (desSlot.AllowedPlaceInSlot(srcSlot.Item)
-    && (desSlot.itemRef.id == -1 || srcSlot.AllowedPlaceInSlot(desSlot.Item)))
-            {
-                inventory.SwapItem(srcSlot, desSlot);
-                // Static UI dont use Update()
-                if (desSlot.parent is StaticInventoryUI)
-                    desSlot.parent.UpdateInventorySlots();
-                else if (this is StaticInventoryUI)
-                    this.UpdateInventorySlots();
-            }
+
+            inventory.SwapItem(srcSlot, desSlot);
+
+            // Optimize
+
+            //if (desSlot.parent is StaticInventoryUI)
+            //    desSlot.parent.UpdateInventorySlots();
+            //else if (this is StaticInventoryUI)
+            //    this.UpdateInventorySlots();
+
         }
         Destroy(MouseData.slotBeingDrag);
     }

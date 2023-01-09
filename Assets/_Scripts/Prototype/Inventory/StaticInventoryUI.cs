@@ -17,13 +17,19 @@ public class StaticInventoryUI : InventoryUI
     public TextMeshProUGUI gunStat;
 
     public GameObject[] slots;
+
+    private void Update()
+    {
+        UpdateInventorySlots();
+    }
+
     public override void CreateDisplay()
     {
         itemsDisplay = new Dictionary<GameObject, InventorySlot>();
         for (int i = 0; i < slots.Length; i++)
         {
             this.SetItemSlotEvent(slots[i]);
-            itemsDisplay.Add(slots[i], inventory.container[i]);
+            itemsDisplay.Add(slots[i], inventory.container.items[i]);
         }
     }
 

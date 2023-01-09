@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Item : ScriptableObject
 {
-    public int id;
+    public ItemRef itemRef =new();
     public new string name;
     public ItemType type;
     public int stackLimit;
@@ -62,9 +62,10 @@ public class ItemRef
         name = "";
         stackLimit = 0;
     }
-    public ItemRef(Item item)
+    public ItemRef(Item item,int id)
     {
-        id = item.id;
+        this.id = id;
+        name = item.name;
         stackLimit = item.stackLimit;
     }
 }

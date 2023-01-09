@@ -13,7 +13,7 @@ public class Inventory : ScriptableObject
 {
     public string savePath;
     public ItemDatabase database;
-    public InventorySlot[] container;
+    public InventoryObject container;
 
     public InventorySlot currentSelectSlot;
     public InventorySlot currentSeletedWeapon;
@@ -25,9 +25,9 @@ public class Inventory : ScriptableObject
     }
     public void AddItem(ItemRef itemRef, int amount)
     {
-        for(int i = 0; i < container.Length; i++)
+        for(int i = 0; i < container.items.Length; i++)
         {
-            InventorySlot itemSlot = container[i];
+            InventorySlot itemSlot = container.items[i];
             if (itemSlot.itemRef.id == itemRef.id)
             {
                 amount = itemSlot.AddAmount(amount);
@@ -39,32 +39,36 @@ public class Inventory : ScriptableObject
 
     public InventorySlot AddIntoEmptySlot(ItemRef itemRef, int amount)
     {
-        for (int i = 0; i < container.Length; i++)
+        for (int i = 0; i < container.items.Length; i++)
         {
-            if (container[i].itemRef.id == -1)
+            if (container.items[i].itemRef.id == -1)
             {
-                container[i].UpdateSlot(itemRef, amount);
-                return container[i];
+                container.items[i].UpdateSlot(itemRef, amount);
+                return container.items[i];
             }
         }
         // full
         return null;
     }
 
-    public void SwapItem(InventorySlot item1, InventorySlot item2)
+    public void SwapItem(InventorySlot slot1, InventorySlot slot2)
     {
-        InventorySlot temp = new(item2.itemRef, item2.amount);
-        item2.UpdateSlot(item1.itemRef, item1.amount);
-        item1.UpdateSlot(temp.itemRef, temp.amount);
+        if (!slot1.AllowedPlaceInSlot(slot2.Item) || !slot2.AllowedPlaceInSlot(slot1.Item))
+        {
+            return;
+        }
+        InventorySlot temp = new(slot2.itemRef, slot2.amount);
+        slot2.UpdateSlot(slot1.itemRef, slot1.amount);
+        slot1.UpdateSlot(temp.itemRef, temp.amount);
     }
 
     public void RemoveItem(ItemRef item)
     {
-        for (int i = 0; i < container.Length; i++)
+        for (int i = 0; i < container.items.Length; i++)
         {
-            if (container[i].itemRef == item)
+            if (container.items[i].itemRef == item)
             {
-                container[i].UpdateSlot(new(), 0);
+                container.items[i].UpdateSlot(new(), 0);
             }
         }
     }
@@ -73,7 +77,7 @@ public class Inventory : ScriptableObject
     [ContextMenu("Save")]
     public void Save()
     {
-        string saveData = JsonUtility.ToJson(this, true);
+        string saveData = JsonUtility.ToJson(container, true);
         BinaryFormatter bf = new();
         FileStream file = File.Create(String.Concat(Application.persistentDataPath, savePath));
         bf.Serialize(file, saveData);
@@ -90,7 +94,7 @@ public class Inventory : ScriptableObject
         if(File.Exists(String.Concat(Application.persistentDataPath, savePath))){
             BinaryFormatter bf = new();
             FileStream file = File.Open(String.Concat(Application.persistentDataPath, savePath),FileMode.Open);
-            JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this);
+            JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this.container);
             file.Close();
 
             //IFormatter formatter = new BinaryFormatter();
@@ -102,10 +106,7 @@ public class Inventory : ScriptableObject
     [ContextMenu("Clear")]
     public void clear()
     {
-        foreach(var itemSlot in container)
-        {
-            itemSlot.UpdateSlot(new(), 0);
-        }
+        container.Clear();
     }
     //public void OnAfterDeserialize()
     //{
@@ -122,11 +123,26 @@ public class Inventory : ScriptableObject
 }
 
 [Serializable]
+public class InventoryObject
+{
+    public InventorySlot[] items;
+    public void Clear()
+    {
+        foreach (var itemSlot in items)
+        {
+            itemSlot.UpdateSlot(new(), 0);
+        }
+    }
+}
+
+[Serializable]
 public class InventorySlot
 {
     public ItemType[] AllowedItems = new ItemType[0];
     public ItemRef itemRef;
     public int amount;
+
+    [NonSerialized]
     public InventoryUI parent;
 
     public InventorySlot()
@@ -166,7 +182,7 @@ public class InventorySlot
 
     public bool AllowedPlaceInSlot(Item item)
     {
-        if (AllowedItems.Length == 0) return true;
+        if (AllowedItems.Length == 0 || item == null) return true;
         foreach(var type in AllowedItems)
         {
             if (item.type == type) return true;

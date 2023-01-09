@@ -15,53 +15,42 @@ MonoBehaviour:
   savePath: 
   database: {fileID: 11400000, guid: 02e08a3496f92d74da67ddbdbd5fd76e, type: 2}
   container:
-  - AllowedItems: 05000000
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 06000000
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 0100000000000000
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
-  - AllowedItems: 04000000
-    id: -1
-    itemRef:
-      id: -1
-      name: 
-      stackLimit: 0
-    amount: 0
-    parent: {fileID: 0}
+    items:
+    - AllowedItems: 05000000
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 06000000
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 0100000000000000
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
+    - AllowedItems: 04000000
+      itemRef:
+        id: -1
+        name: 
+        stackLimit: 0
+      amount: 0
   currentSelectSlot:
-    AllowedItems: 0100000000000000
-    id: -1
+    AllowedItems: 
     itemRef:
       id: -1
       name: 
       stackLimit: 0
     amount: 0
-    parent: {fileID: 0}
   currentSeletedWeapon:
-    AllowedItems: 0100000000000000
-    id: -1
+    AllowedItems: 
     itemRef:
       id: -1
       name: 
       stackLimit: 0
     amount: 0
-    parent: {fileID: 0}

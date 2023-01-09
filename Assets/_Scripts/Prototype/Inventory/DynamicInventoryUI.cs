@@ -28,12 +28,12 @@ public class DynamicInventoryUI : InventoryUI
     public override void CreateDisplay()
     {
         itemsDisplay = new Dictionary<GameObject, InventorySlot>();
-        for (int i = 0; i < inventory.container.Length; i++)
+        for (int i = 0; i < inventory.container.items.Length; i++)
         {
             GameObject itemSlotUI = Instantiate(slotPrefabs, Vector3.zero, Quaternion.identity, transform);
             itemSlotUI.GetComponent<RectTransform>().localPosition = GetPosition(i);
 
-            itemsDisplay.Add(itemSlotUI, inventory.container[i]);
+            itemsDisplay.Add(itemSlotUI, inventory.container.items[i]);
 
             SetItemSlotEvent(itemSlotUI);
         }

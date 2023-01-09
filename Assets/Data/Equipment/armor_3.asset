@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e1a3bc8ced30745a1f2a1ef7f9c551, type: 3}
   m_Name: armor_3
   m_EditorClassIdentifier: 
-  id: 14
+  itemRef:
+    id: 15
+    name: Steel Armor
+    stackLimit: 1
   name: Steel Armor
   type: 6
-  stackLimit: 0
+  stackLimit: 1
   prefabs: {fileID: 2445957502844794499, guid: b434ea962ecc61349aab7909bfb6e070, type: 3}
   sprite: {fileID: 0}
   description: A good quality armor

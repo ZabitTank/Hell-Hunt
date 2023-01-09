@@ -67,10 +67,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Home))
         {
             inventory.Save();
+            equipment.Save();
         }
         if (Input.GetKeyDown(KeyCode.End))
         {
             inventory.Load();
+            equipment.Load();
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -159,8 +161,7 @@ public class Player : MonoBehaviour
         BaseItem baseItem = collision.GetComponent<BaseItem>();
         if (baseItem)
         {
-            ItemRef itemRef = new(baseItem.item);
-            inventory.AddItem(itemRef, 1);
+            inventory.AddItem(baseItem.item.itemRef, 1);
             Destroy(baseItem.gameObject);
         }
     }
@@ -174,7 +175,7 @@ public class Player : MonoBehaviour
                 BaseItem baseItem = hit.collider.gameObject.GetComponent<BaseItem>();
                 if (baseItem)
                 {
-                    inventory.AddItem(new(baseItem.item), 1);
+                    inventory.AddItem(baseItem.item.itemRef, 1);
                     Destroy(baseItem.gameObject);
                 }
             }
