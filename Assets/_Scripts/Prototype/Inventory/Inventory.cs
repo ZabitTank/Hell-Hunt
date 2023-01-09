@@ -189,7 +189,7 @@ public class InventorySlot
 
         int amount = (totalItem > itemRef.stackLimit) ? itemRef.stackLimit : totalItem;
 
-        UpdateSlot(this.itemRef, amount);
+        UpdateSlot(itemRef, amount);
 
         return totalItem - amount;
     }

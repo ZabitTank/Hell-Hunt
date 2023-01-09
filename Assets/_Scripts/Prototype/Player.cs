@@ -9,7 +9,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Character's Attributes
-    public Attribute[] attributes;
+    public CharacterStat characterStat;
 
     [SerializeField]
     [Header("Movement Speed of character")]
@@ -42,12 +42,23 @@ public class Player : MonoBehaviour
     //References
     public Animator bodyAnimator;
     public Animator feetAnimator;
-    
-    public InventoryUI inventoryUI;
-    public InventoryUI EquipmentUI;
+
+
+    private InventoryUI inventoryUI;
+    private InventoryUI equipmentUI;
 
     private Inventory inventory;
+    public Inventory Inventory
+    {
+        get { return inventory; }
+    }
+
     private Inventory equipment;
+    public Inventory Equipment
+    {
+        get { return equipment; }
+        private set { equipment = value; }
+    }
 
     public PlayerWeapon playerWeapon;
 
@@ -198,85 +209,17 @@ public class Player : MonoBehaviour
 
     public void AttributeModified(Attribute attribute)
     {
-
+        
     }
 
     private void InitState()
     {
-        inventory = GlobalVariable.Instance.playerInventory;
-        equipment = GlobalVariable.Instance.playerEquipment;
+        inventoryUI = GlobalVariable.Instance.playerReferences.inventoryUI;
+        equipmentUI = GlobalVariable.Instance.playerReferences.equipmentUI;
 
-        foreach (var attribute in attributes)
-        {
-            var tempValue = attribute.value.BaseValue;
-            attribute.SetParent(this);
-            attribute.value.BaseValue = tempValue;
-        }
-        foreach(var slot in equipment.GetSlots)
-        {
-            slot.onBeforeUpdate += OnBeforeSlotUpdate;
-            slot.onAfterUpdate += OnAfterSlotUpdate;
-        }
-    }
+        inventory = GlobalVariable.Instance.playerReferences.playerInventory;
+        equipment = GlobalVariable.Instance.playerReferences.playerEquipment;
 
-    public void OnBeforeSlotUpdate(InventorySlot _slot)
-    {
-        var item = _slot.Item;
-
-        if (item == null)
-            return;
-
-        if(item.type == ItemType.MeleeWeapon || item.type == ItemType.Gun)
-        {
-
-        } else if(item.type == ItemType.Armor || item.type == ItemType.Headgear)
-        {
-            var equipment = (Equipment)item;
-            foreach(var buff in equipment.buffs)
-            {
-                foreach(var characterAttribute in attributes)
-                {
-                    if(buff.type == characterAttribute.type)
-                    {
-                        characterAttribute.value.RemoveModifier(buff);   
-                    }
-                }
-            }
-        } else if (item.type == ItemType.SpellCard)
-        {
-           
-        }
-    }
-
-    public void OnAfterSlotUpdate(InventorySlot _slot)
-    {
-
-        var item = _slot.Item;
-
-        if (item == null)
-            return;
-
-        if (item.type == ItemType.MeleeWeapon || item.type == ItemType.Gun)
-        {
-
-        }
-        else if (item.type == ItemType.Armor || item.type == ItemType.Headgear)
-        {
-            var equipment = (Equipment)item;
-            foreach (var buff in equipment.buffs)
-            {
-                foreach (var characterAttribute in attributes)
-                {
-                    if (buff.type == characterAttribute.type)
-                    {
-                        characterAttribute.value.AddModifier(buff);
-                    }
-                }
-            }
-        }
-        else if (item.type == ItemType.SpellCard)
-        {
-
-        }
+        characterStat.SetParent(this);
     }
 }

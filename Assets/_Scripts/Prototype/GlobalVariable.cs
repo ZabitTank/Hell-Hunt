@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GlobalVariable :Singleton<GlobalVariable>
@@ -15,15 +17,31 @@ public class GlobalVariable :Singleton<GlobalVariable>
     };
 
     public static Dictionary<GunType, Vector2> GUN_ANIMATOROVERIDER;
-    public Inventory playerInventory;
-    public Inventory playerEquipment;
+
+    public PlayerReferences playerReferences;
 
     protected override void OnApplicationQuit()
     {
-        playerInventory.clear();
-        playerEquipment.clear();
+        playerReferences.playerInventory.clear();
+        playerReferences.playerEquipment.clear();
         base.OnApplicationQuit();
     }
+}
+
+[Serializable]
+public struct PlayerReferences
+{
+    public Inventory playerInventory;
+    public Inventory playerEquipment;
+
+    public InventoryUI inventoryUI;
+    public InventoryUI equipmentUI;
+
+    // UI
+    public UIHealthBar UIHealthBar;
+    public TextMeshProUGUI StatUI;
+    public TextMeshProUGUI MeleeStatUI;
+    public TextMeshProUGUI RangedStatUI;
 }
 
 public static class MouseData

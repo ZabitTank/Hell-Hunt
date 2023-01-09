@@ -22,21 +22,10 @@ public class ItemBuff : IModifier
 {
     public EquipmentAttribute type;
     public int value;
-    public int min;
-    public int max;    
-    public ItemBuff(int _min, int _max)
-    {
-        max = _max;
-        min = _min;
-    }
-    public void GenerateRandom()
-    {
-        value = UnityEngine.Random.Range(min, max);
-    }
-
+   
     public String DisplayAttribute()
     {
-        return String.Concat(Enum.GetName(typeof(Attribute), type),": ", value.ToString());
+        return String.Concat(Enum.GetName(typeof(EquipmentAttribute), type),": ", value.ToString());
     }
 
     public void AddValue(ref int value)
@@ -51,4 +40,5 @@ public enum EquipmentAttribute
     Armor,
     Movement,
     Dexterity,
+    MaxHP,
 }
