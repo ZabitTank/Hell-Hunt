@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3974957835443176850}
   - component: {fileID: 6779664788909557473}
+  - component: {fileID: -2916887168738088925}
   m_Layer: 0
   m_Name: Bathroom Furniture
   m_TagString: Untagged
@@ -45,6 +46,20 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!64 &-2916887168738088925
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6870927252490316501}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &8603279675430397347
 GameObject:
   m_ObjectHideFlags: 0
