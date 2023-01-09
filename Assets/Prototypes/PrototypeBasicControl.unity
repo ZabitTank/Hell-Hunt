@@ -929,17 +929,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28451bb69cf9a89458353c595addda1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attributes:
+  - type: 0
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 1
+    value:
+      baseValue: 10
+      modifiedValue: 0
+  - type: 2
+    value:
+      baseValue: 1
+      modifiedValue: 0
   movementSpeed: 10
   MaxHP: 0
   currentHP: 0
   bodyAnimator: {fileID: 572943309}
   feetAnimator: {fileID: 350471818}
-  animatorOverride:
-  - {fileID: 22100000, guid: f426d541319492b47a10491bcba60775, type: 2}
-  - {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
-  - {fileID: 22100000, guid: 9223907cb1999a54f9c0435447064aad, type: 2}
-  - {fileID: 22100000, guid: d60c3a11cf4f17646836bfea4e9f41aa, type: 2}
-  - {fileID: 22100000, guid: fcd6f342fd93ecb49805e1d2ce23fd9f, type: 2}
   inventoryUI: {fileID: 1522960720}
   EquipmentUI: {fileID: 1804979031}
   playerWeapon: {fileID: 123152694}

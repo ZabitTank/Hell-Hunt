@@ -23,15 +23,15 @@ MonoBehaviour:
   sprite: {fileID: 0}
   description: A good quality armor
   buffs:
-  - attribute: 0
-    value: 0
+  - type: 0
+    value: 10
     min: 0
     max: 0
-  - attribute: 0
-    value: 0
+  - type: 1
+    value: -5
     min: 0
     max: 0
-  - attribute: 0
-    value: 0
+  - type: 2
+    value: -2
     min: 0
     max: 0

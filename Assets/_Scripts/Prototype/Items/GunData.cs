@@ -9,13 +9,13 @@ public class GunData : Item
     public AnimatorOverrideController weaponAnimatorOverride;
     public GameObject bulletPrefab;
 
-    [Header("Melee's Attribute")]
+    [Header("Melee EquipmentAttribute")]
     public MeleeWeaponAttribute meleeAttribute;
 
     public GunType gunType;
 
-    [Header("Gun's Attribute")]
-    public GunAttribute gunAttribute;
+    [Header("Ranged EquipmentAttribute")]
+    public RangedAttribute gunAttribute;
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class GunData : Item
 }
 
 [Serializable]
-public struct GunAttribute
+public struct RangedAttribute
 {
     public int bulletDamage;
     public float reloadSpeed;

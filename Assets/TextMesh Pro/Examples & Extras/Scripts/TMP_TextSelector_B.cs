@@ -86,7 +86,7 @@ namespace TMPro.Examples
                 #region Handle Character Selection
                 int charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, Input.mousePosition, m_Camera, true);
 
-                // Undo Swap and Vertex Attribute changes.
+                // Undo Swap and Vertex EquipmentAttribute changes.
                 if (charIndex == -1 || charIndex != m_lastIndex)
                 {
                     RestoreCachedVertexAttributes(m_lastIndex);
@@ -154,7 +154,7 @@ namespace TMPro.Examples
                     // Get the index of the last character's vertex attributes.
                     int lastVertexIndex = vertices.Length - 4;
 
-                    // Swap the current character's vertex attributes with those of the last element in the vertex attribute arrays.
+                    // Swap the current character's vertex attributes with those of the last element in the vertex type arrays.
                     // We do this to make sure this character is rendered last and over other characters.
                     meshInfo.SwapVertexData(vertexIndex, lastVertexIndex);
 
@@ -421,7 +421,7 @@ namespace TMPro.Examples
                 }
 
                 // Example of how to modify vertex attributes like colors
-                #region Vertex Attribute Modification Example
+                #region Vertex EquipmentAttribute Modification Example
                 UIVertex[] uiVertices = m_TextMeshPro.textInfo.meshInfo.uiVertices;
 
                 Color32 c = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
@@ -507,7 +507,7 @@ namespace TMPro.Examples
             dst_uv2s[vertexIndex + 3] = src_uv2s[vertexIndex + 3];
 
 
-            // Restore last vertex attribute as we swapped it as well
+            // Restore last vertex type as we swapped it as well
             int lastIndex = (src_vertices.Length / 4 - 1) * 4;
 
             // Vertices

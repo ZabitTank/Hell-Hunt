@@ -13,6 +13,7 @@ public class Inventory : ScriptableObject
 {
     public string savePath;
     public ItemDatabase database;
+    public InventoryType type;
     [SerializeField]
     private InventoryObject container;
 
@@ -137,6 +138,13 @@ public class InventoryObject
     }
 }
 
+public enum InventoryType
+{
+    Inventory,
+    Equipment,
+    Chest,
+}
+
 [Serializable]
 public class InventorySlot
 {
@@ -196,6 +204,7 @@ public class InventorySlot
 
         if(onAfterUpdate != null)
             onAfterUpdate.Invoke(this);
+
     }
 
     public bool AllowedPlaceInSlot(Item item)

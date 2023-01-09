@@ -6,10 +6,6 @@ using UnityEngine;
 public class Equipment : Item
 {
     public ItemBuff[] buffs;
-    private void Awake()
-    {
-        buffs = new ItemBuff[3];
-    }
     public override string DisplayAttribute()
     {
         string buffDescription = "";
@@ -24,10 +20,10 @@ public class Equipment : Item
 [Serializable]
 public class ItemBuff : IModifier
 {
-    public Attribute attribute;
+    public EquipmentAttribute type;
     public int value;
     public int min;
-    public int max;
+    public int max;    
     public ItemBuff(int _min, int _max)
     {
         max = _max;
@@ -40,19 +36,19 @@ public class ItemBuff : IModifier
 
     public String DisplayAttribute()
     {
-        return String.Concat(Enum.GetName(typeof(Attribute), attribute),": ", value.ToString());
+        return String.Concat(Enum.GetName(typeof(Attribute), type),": ", value.ToString());
     }
 
     public void AddValue(ref int value)
     {
-        value = this.value;
+        value += this.value;
     }
 }
 
 [Serializable]
-public enum Attribute
+public enum EquipmentAttribute
 {
     Armor,
     Movement,
-    Dexterity
+    Dexterity,
 }

@@ -28,12 +28,13 @@ public class ModifiableInt
         private set { modifiedValue = value; }
     }
 
-    public List<IModifier> modifiers = new List<IModifier>();
+    public List<IModifier> modifiers;
 
     public event ModifiedEvent ValueModified;
     public ModifiableInt(ModifiedEvent method = null)
     {
-        modifiedValue = baseValue;
+         modifiers = new List<IModifier>();
+         modifiedValue = baseValue;
         if(method != null)
         {
             ValueModified += method;

@@ -26,7 +26,7 @@ public class StaticInventoryUI : InventoryUI
             this.SetItemSlotEvent(slots[i]);
             itemsDisplay.Add(slots[i], inventory.GetSlots[i]);
             inventory.GetSlots[i].slotUI = slots[i];
-            inventory.GetSlots[i].onAfterUpdate = OnSlotUpdate;
+            inventory.GetSlots[i].onAfterUpdate += OnSlotUpdate;
         }
     }
 

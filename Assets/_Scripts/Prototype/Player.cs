@@ -1,3 +1,5 @@
+using Newtonsoft.Json.Bson;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
@@ -7,6 +9,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Character's Attributes
+    public Attribute[] attributes;
+
     [SerializeField]
     [Header("Movement Speed of character")]
     private float movementSpeed;
@@ -38,8 +42,7 @@ public class Player : MonoBehaviour
     //References
     public Animator bodyAnimator;
     public Animator feetAnimator;
-    public AnimatorOverrideController[] animatorOverride;
-
+    
     public InventoryUI inventoryUI;
     public InventoryUI EquipmentUI;
 
@@ -51,11 +54,11 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
     }
     public void Start()
     {
-        inventory = GlobalVariable.Instance.playerInventory;
-        equipment = GlobalVariable.Instance.playerEquipment;
+        InitState();
     }
     void Update()
     {
@@ -193,4 +196,87 @@ public class Player : MonoBehaviour
         Instantiate(item.prefabs, transform.position, Quaternion.identity);
     }
 
+    public void AttributeModified(Attribute attribute)
+    {
+
+    }
+
+    private void InitState()
+    {
+        inventory = GlobalVariable.Instance.playerInventory;
+        equipment = GlobalVariable.Instance.playerEquipment;
+
+        foreach (var attribute in attributes)
+        {
+            var tempValue = attribute.value.BaseValue;
+            attribute.SetParent(this);
+            attribute.value.BaseValue = tempValue;
+        }
+        foreach(var slot in equipment.GetSlots)
+        {
+            slot.onBeforeUpdate += OnBeforeSlotUpdate;
+            slot.onAfterUpdate += OnAfterSlotUpdate;
+        }
+    }
+
+    public void OnBeforeSlotUpdate(InventorySlot _slot)
+    {
+        var item = _slot.Item;
+
+        if (item == null)
+            return;
+
+        if(item.type == ItemType.MeleeWeapon || item.type == ItemType.Gun)
+        {
+
+        } else if(item.type == ItemType.Armor || item.type == ItemType.Headgear)
+        {
+            var equipment = (Equipment)item;
+            foreach(var buff in equipment.buffs)
+            {
+                foreach(var characterAttribute in attributes)
+                {
+                    if(buff.type == characterAttribute.type)
+                    {
+                        characterAttribute.value.RemoveModifier(buff);   
+                    }
+                }
+            }
+        } else if (item.type == ItemType.SpellCard)
+        {
+           
+        }
+    }
+
+    public void OnAfterSlotUpdate(InventorySlot _slot)
+    {
+
+        var item = _slot.Item;
+
+        if (item == null)
+            return;
+
+        if (item.type == ItemType.MeleeWeapon || item.type == ItemType.Gun)
+        {
+
+        }
+        else if (item.type == ItemType.Armor || item.type == ItemType.Headgear)
+        {
+            var equipment = (Equipment)item;
+            foreach (var buff in equipment.buffs)
+            {
+                foreach (var characterAttribute in attributes)
+                {
+                    if (buff.type == characterAttribute.type)
+                    {
+                        characterAttribute.value.AddModifier(buff);
+                    }
+                }
+            }
+        }
+        else if (item.type == ItemType.SpellCard)
+        {
+
+        }
+    }
 }

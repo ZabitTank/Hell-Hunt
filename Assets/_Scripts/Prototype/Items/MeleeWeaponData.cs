@@ -7,7 +7,7 @@ public class MeleeWeaponData : Item
 {
     public AnimatorOverrideController animatorOverride;
 
-    [Header("Melee's Attribute")]
+    [Header("Melee EquipmentAttribute")]
     public MeleeWeaponAttribute attribute;
 
     private void Awake()

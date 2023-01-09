@@ -31,7 +31,7 @@ public class DynamicInventoryUI : InventoryUI
 
             itemsDisplay.Add(itemSlotUI, inventory.GetSlots[i]);
             inventory.GetSlots[i].slotUI = itemSlotUI;
-            inventory.GetSlots[i].onAfterUpdate = OnSlotUpdate;
+            inventory.GetSlots[i].onAfterUpdate += OnSlotUpdate;
 
             SetItemSlotEvent(itemSlotUI);
         }

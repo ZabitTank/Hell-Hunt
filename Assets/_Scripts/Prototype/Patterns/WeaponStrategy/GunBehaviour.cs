@@ -12,7 +12,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     Animator bodyAnimator;
     Animator muzzleAnimator;
 
-    GunAttribute gunAttribute;
+    RangedAttribute gunAttribute;
     MeleeWeaponAttribute meleeAttribute;
     int currentAmmo;
     bool isReloading;

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   savePath: 
   database: {fileID: 11400000, guid: 02e08a3496f92d74da67ddbdbd5fd76e, type: 2}
+  type: 1
   container:
     slots:
     - AllowedItems: 05000000
