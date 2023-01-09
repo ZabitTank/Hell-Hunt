@@ -13,8 +13,7 @@ public abstract class InventoryUI : MonoBehaviour
     // References inventory
     public Inventory inventory;
 
-    protected Dictionary<GameObject, InventorySlot> itemsDisplay = new();
-    protected MouseItem mouseItem;
+    public Dictionary<GameObject, InventorySlot> itemsDisplay = new();
 
     public ItemInfoUI infoUI;
 
@@ -26,12 +25,24 @@ public abstract class InventoryUI : MonoBehaviour
     }
     void Start()
     {
-        mouseItem = GlobalVariable.mouseItem;
-        foreach(var slot in inventory.container)
+        foreach (var slot in inventory.container)
         {
             slot.parent = this;
         }
         CreateDisplay();
+        AddEvent(gameObject, EventTriggerType.PointerEnter, delegate { OnEnterUI(); });
+        AddEvent(gameObject, EventTriggerType.PointerExit, delegate { OnExitUI(); });
+
+    }
+
+    private void OnExitUI()
+    {
+        MouseData.UI = null;
+    }
+
+    private void OnEnterUI()
+    {
+        MouseData.UI = this;
     }
 
     public abstract void UpdateInventorySlots();
@@ -56,8 +67,8 @@ public abstract class InventoryUI : MonoBehaviour
     private void OnPointClick(GameObject slotUI)
     {
         inventory.currentSelectSlot = itemsDisplay[slotUI];
-        if (inventory.currentSelectSlot.id == -1) return;
-        Item item = inventory.database.getItem[inventory.currentSelectSlot.id];
+        if (inventory.currentSelectSlot.itemRef.id == -1) return;
+        Item item = inventory.currentSelectSlot.Item;
         if (item.type == ItemType.Gun || item.type == ItemType.MeleeWeapon)
         {
             inventory.currentSeletedWeapon = inventory.currentSelectSlot;
@@ -66,17 +77,15 @@ public abstract class InventoryUI : MonoBehaviour
     }
     private void OnPointEnter(GameObject itemSlotUI)
     {
-        mouseItem.hoverObj = itemSlotUI;
         if (itemsDisplay.ContainsKey(itemSlotUI))
         {
-            GlobalVariable.mouseItem.hoverItem = itemsDisplay[itemSlotUI];
+            MouseData.slotHover = itemSlotUI;
         }
     }
 
     private void OnPointExit(GameObject itemSlotUI)
     {
-        mouseItem.hoverItem = null;
-        mouseItem.hoverObj = null; 
+        MouseData.slotHover = null; 
     }
 
     private void OnBeginDrag(GameObject itemSlotUI)
@@ -86,49 +95,49 @@ public abstract class InventoryUI : MonoBehaviour
         reactTranform.sizeDelta = new Vector2(100, 100);
         mouseObject.transform.SetParent(transform.parent);
 
-        if (itemsDisplay[itemSlotUI].id >= 0)
+        if (itemsDisplay[itemSlotUI].itemRef.id >= 0)
         {
             var img = mouseObject.AddComponent<Image>();
-            img.sprite = inventory.database.getItem[itemsDisplay[itemSlotUI].id].GetSprite();
+            img.sprite = itemsDisplay[itemSlotUI].Item.GetSprite();
             img.raycastTarget = false;
         }
-        mouseItem.obj = mouseObject;
-        mouseItem.item = itemsDisplay[itemSlotUI];
+        MouseData.slotBeingDrag = mouseObject;
     }
 
     private void OnDrag(GameObject itemSlotUI)
     {
-       if(mouseItem.obj)
+       if(MouseData.slotBeingDrag)
         {
-            mouseItem.obj.GetComponent<RectTransform>().position = Input.mousePosition;
+            MouseData.slotBeingDrag.GetComponent<RectTransform>().position = Input.mousePosition;
         }
     }
 
     private void OnEndDrag(GameObject itemSlotUI)
     {
         // prevent drag empty slot
-        if (itemsDisplay[itemSlotUI].id == -1) return;
-
-        if (mouseItem.hoverObj)
+        if (itemsDisplay[itemSlotUI].itemRef.id == -1) return;
+        
+        if(!MouseData.UI)
         {
-            var desSlot = mouseItem.hoverItem;
+            inventory.RemoveItem(itemsDisplay[itemSlotUI].itemRef);
+        }
+        if(MouseData.slotHover)
+        {
+            var desSlot = MouseData.UI.itemsDisplay[MouseData.slotHover];
             var srcSlot = itemsDisplay[itemSlotUI];
 
-            if (desSlot.AllowedPlaceInSlot(inventory.database.getItem[srcSlot.id])
-                && (desSlot.id== -1 || srcSlot.AllowedPlaceInSlot(inventory.database.getItem[desSlot.id])))
+            if (desSlot.AllowedPlaceInSlot(srcSlot.Item)
+    && (desSlot.itemRef.id == -1 || srcSlot.AllowedPlaceInSlot(desSlot.Item)))
             {
-                inventory.MoveItem(srcSlot, desSlot.parent.itemsDisplay[mouseItem.hoverObj]);
+                inventory.SwapItem(srcSlot, desSlot);
+                // Static UI dont use Update()
                 if (desSlot.parent is StaticInventoryUI)
                     desSlot.parent.UpdateInventorySlots();
                 else if (this is StaticInventoryUI)
                     this.UpdateInventorySlots();
             }
-        } else
-        {
-            //inventory.RemoveItem(itemsDisplay[itemSlotUI].itemRef);
         }
-        Destroy(mouseItem.obj);
-        mouseItem.item = null;
+        Destroy(MouseData.slotBeingDrag);
     }
     public void DisplaySelectItem(Item item)
     {

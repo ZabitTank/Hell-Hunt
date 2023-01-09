@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
         {
             if (inventory.currentSeletedWeapon != null)
             {
-                Item weapon = inventory.database.getItem[inventory.currentSeletedWeapon.itemRef.id];
+                Item weapon = inventory.currentSeletedWeapon.Item;
                 playerWeapon.ChangeWeapon(weapon);
             }
         }
@@ -183,9 +183,8 @@ public class Player : MonoBehaviour
 
     private void DropSelectItem()
     {
-        ItemRef itemRef = inventory.currentSelectSlot.itemRef;
-        Item item = inventory.database.getItem[itemRef.id];
-        if(inventory.currentSeletedWeapon == inventory.currentSelectSlot)
+        Item item = inventory.currentSelectSlot.Item;
+        if (inventory.currentSeletedWeapon == inventory.currentSelectSlot)
         {
             playerWeapon.ChangeWeapon(null);
         }

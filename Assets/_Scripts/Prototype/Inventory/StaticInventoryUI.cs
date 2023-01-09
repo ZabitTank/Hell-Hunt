@@ -32,9 +32,9 @@ public class StaticInventoryUI : InventoryUI
         foreach (KeyValuePair<GameObject, InventorySlot> slot in itemsDisplay)
         {
             var img = slot.Key.GetComponentsInChildren<Image>()[1];
-            if (slot.Value.id >= 0)
+            if (slot.Value.itemRef.id >= 0)
             {
-                img.sprite = inventory.database.getItem[slot.Value.id].GetSprite();
+                img.sprite = slot.Value.Item.GetSprite();
                 img.color = new(img.color.r, img.color.g, img.color.b,1f);
             }
             else

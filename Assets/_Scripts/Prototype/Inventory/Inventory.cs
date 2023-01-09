@@ -28,7 +28,7 @@ public class Inventory : ScriptableObject
         for(int i = 0; i < container.Length; i++)
         {
             InventorySlot itemSlot = container[i];
-            if (itemSlot.id == itemRef.id)
+            if (itemSlot.itemRef.id == itemRef.id)
             {
                 amount = itemSlot.AddAmount(amount);
                 if (amount <= 0) return;
@@ -41,9 +41,9 @@ public class Inventory : ScriptableObject
     {
         for (int i = 0; i < container.Length; i++)
         {
-            if (container[i].id == -1)
+            if (container[i].itemRef.id == -1)
             {
-                container[i].UpdateSlot(itemRef.id, itemRef, amount);
+                container[i].UpdateSlot(itemRef, amount);
                 return container[i];
             }
         }
@@ -51,11 +51,11 @@ public class Inventory : ScriptableObject
         return null;
     }
 
-    public void MoveItem(InventorySlot item1, InventorySlot item2)
+    public void SwapItem(InventorySlot item1, InventorySlot item2)
     {
-        InventorySlot temp = new(item2.id, item2.itemRef, item2.amount);
-        item2.UpdateSlot(item1.id, item1.itemRef, item1.amount);
-        item1.UpdateSlot(temp.id, temp.itemRef, temp.amount);
+        InventorySlot temp = new(item2.itemRef, item2.amount);
+        item2.UpdateSlot(item1.itemRef, item1.amount);
+        item1.UpdateSlot(temp.itemRef, temp.amount);
     }
 
     public void RemoveItem(ItemRef item)
@@ -64,7 +64,7 @@ public class Inventory : ScriptableObject
         {
             if (container[i].itemRef == item)
             {
-                container[i].UpdateSlot(-1, null, 0);
+                container[i].UpdateSlot(new(), 0);
             }
         }
     }
@@ -104,7 +104,7 @@ public class Inventory : ScriptableObject
     {
         foreach(var itemSlot in container)
         {
-            itemSlot.UpdateSlot(-1, new(), 0);
+            itemSlot.UpdateSlot(new(), 0);
         }
     }
     //public void OnAfterDeserialize()
@@ -125,23 +125,32 @@ public class Inventory : ScriptableObject
 public class InventorySlot
 {
     public ItemType[] AllowedItems = new ItemType[0];
-    public int id;
     public ItemRef itemRef;
     public int amount;
     public InventoryUI parent;
 
     public InventorySlot()
     {
-        id = -1;
-        itemRef = null;
+        itemRef = new();
         amount = 0;
     }
-    public InventorySlot(int id,ItemRef item, int amount)
+    public InventorySlot(ItemRef itemRef, int amount)
     {
-        this.id = id;
-        this.itemRef = item;
-        this.amount = (item.stackLimit > amount) ? amount : item.stackLimit;
+        this.itemRef = itemRef;
+        this.amount = (itemRef.stackLimit > amount) ? amount : itemRef.stackLimit;
     }
+
+    public Item Item
+    {
+        get
+        {
+            if (itemRef.id < 0)
+                return null;
+            return parent.inventory.database.getItem[itemRef.id];
+        }
+
+    }
+
     public int AddAmount(int amount)
     {
         int totalItem = this.amount + amount;
@@ -149,10 +158,9 @@ public class InventorySlot
         return totalItem - this.amount;
     }
 
-    public void UpdateSlot(int id, ItemRef itemRef,int amount)
+    public void UpdateSlot(ItemRef itemRef,int amount)
     {
         this.itemRef = itemRef;
-        this.id = id;
         this.amount = amount;
     }
 

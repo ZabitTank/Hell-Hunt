@@ -18,37 +18,37 @@ MonoBehaviour:
   - AllowedItems: 05000000
     id: -1
     itemRef:
-      id: 0
+      id: -1
       name: 
       stackLimit: 0
     amount: 0
     parent: {fileID: 0}
   - AllowedItems: 06000000
-    id: 0
+    id: -1
     itemRef:
-      id: 0
+      id: -1
       name: 
       stackLimit: 0
     amount: 0
     parent: {fileID: 0}
-  - AllowedItems: 0000000001000000
-    id: 0
+  - AllowedItems: 0100000000000000
+    id: -1
     itemRef:
-      id: 0
+      id: -1
       name: 
       stackLimit: 0
     amount: 0
     parent: {fileID: 0}
   - AllowedItems: 04000000
-    id: 0
+    id: -1
     itemRef:
-      id: 0
+      id: -1
       name: 
       stackLimit: 0
     amount: 0
     parent: {fileID: 0}
   currentSelectSlot:
-    AllowedItems: 
+    AllowedItems: 0100000000000000
     id: -1
     itemRef:
       id: -1
@@ -57,7 +57,7 @@ MonoBehaviour:
     amount: 0
     parent: {fileID: 0}
   currentSeletedWeapon:
-    AllowedItems: 
+    AllowedItems: 0100000000000000
     id: -1
     itemRef:
       id: -1

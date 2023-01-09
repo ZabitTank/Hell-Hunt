@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &44849129 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7753204445071956613, guid: 3154a02c861223a4a968da5f536e55ad, type: 3}
+  m_PrefabInstance: {fileID: 1060400588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &123152692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,6 +1769,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1660125021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7753204444357601826, guid: 3154a02c861223a4a968da5f536e55ad, type: 3}
+  m_PrefabInstance: {fileID: 1060400588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1740612890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9072556628659112338, guid: be4124173ef63f743b3230d291ffa023, type: 3}
@@ -1871,6 +1893,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1793990013 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 392910222768132173, guid: 3154a02c861223a4a968da5f536e55ad, type: 3}
+  m_PrefabInstance: {fileID: 1060400588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1804979028 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 481804296166865005, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
@@ -3135,6 +3168,18 @@ PrefabInstance:
       propertyPath: infoUI
       value: 
       objectReference: {fileID: 711912093}
+    - target: {fileID: 388848676162782581, guid: 84e85bd61130a54459504e4534586f80, type: 3}
+      propertyPath: selectItemImage
+      value: 
+      objectReference: {fileID: 44849129}
+    - target: {fileID: 388848676162782581, guid: 84e85bd61130a54459504e4534586f80, type: 3}
+      propertyPath: selectItemGeneralInfo
+      value: 
+      objectReference: {fileID: 1793990013}
+    - target: {fileID: 388848676162782581, guid: 84e85bd61130a54459504e4534586f80, type: 3}
+      propertyPath: selectItemAttributeText
+      value: 
+      objectReference: {fileID: 1660125021}
     - target: {fileID: 4844376822301982048, guid: 84e85bd61130a54459504e4534586f80, type: 3}
       propertyPath: m_Name
       value: Inventory UI

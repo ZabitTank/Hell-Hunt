@@ -15,9 +15,6 @@ public class GlobalVariable :Singleton<GlobalVariable>
     };
 
     public static Dictionary<GunType, Vector2> GUN_ANIMATOROVERIDER;
-
-    public static MouseItem mouseItem = new();
-
     public Inventory playerInventory;
     public Inventory playerEquipment;
 
@@ -29,10 +26,9 @@ public class GlobalVariable :Singleton<GlobalVariable>
     }
 }
 
-public class MouseItem
+public static class MouseData
 {
-    public GameObject obj;
-    public InventorySlot item;
-    public InventorySlot hoverItem;
-    public GameObject hoverObj;
+    public static InventoryUI UI;
+    public static GameObject slotBeingDrag;
+    public static GameObject slotHover;
 }

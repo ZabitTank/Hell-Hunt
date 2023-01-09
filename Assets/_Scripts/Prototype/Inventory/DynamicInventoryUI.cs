@@ -21,10 +21,6 @@ public class DynamicInventoryUI : InventoryUI
     public TextMeshProUGUI selectItemAttributeText;
     public TextMeshProUGUI selectItemGeneralInfo;
 
-    private void Awake()
-    {
-        mouseItem = new();
-    }
     void Update()
     {
         UpdateInventorySlots();
@@ -47,9 +43,10 @@ public class DynamicInventoryUI : InventoryUI
     {
         foreach (KeyValuePair<GameObject, InventorySlot> slot in itemsDisplay)
         {
-            if (slot.Value.id >= 0)
+            if (slot.Value.itemRef.id >= 0)
             {
-                slot.Key.GetComponentsInChildren<Image>()[1].sprite = inventory.database.getItem[slot.Value.id].GetSprite();
+                var item = slot.Value.Item;
+                slot.Key.GetComponentsInChildren<Image>()[1].sprite = item.GetSprite();
                 slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = slot.Value.amount.ToString();
             }
             else

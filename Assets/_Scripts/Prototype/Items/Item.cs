@@ -59,11 +59,12 @@ public class ItemRef
     public ItemRef()
     {
         id = -1;
+        name = "";
+        stackLimit = 0;
     }
     public ItemRef(Item item)
     {
         id = item.id;
-        name = item.name;
         stackLimit = item.stackLimit;
     }
 }
