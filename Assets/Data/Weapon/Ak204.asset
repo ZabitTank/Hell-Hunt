@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: Ak204
   m_EditorClassIdentifier: 
-  id: 1
+  itemRef:
+    id: 1
+    name: AK-204
+    stackLimit: 1
   name: AK-204
   type: 0
   stackLimit: 1
@@ -22,7 +25,7 @@ MonoBehaviour:
   localMuzzlePosition: {x: 1.387, y: -0.546}
   muzzlEffectAnimatorOverride: {fileID: 22100000, guid: ae491c6cbb5322843b1149eb711e315a, type: 2}
   weaponAnimatorOverride: {fileID: 22100000, guid: d60c3a11cf4f17646836bfea4e9f41aa, type: 2}
-  bulletPrefab: {fileID: 3875439762200291482, guid: 5498031057fa0c048bd9af06cf0651e1, type: 3}
+  bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
   meleeAttribute:
     damage: 1
     weaponSpeed: 1

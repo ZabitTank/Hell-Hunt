@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: shotgun-long
   m_EditorClassIdentifier: 
-  id: 6
+  itemRef:
+    id: 8
+    name: Shotgun-long
+    stackLimit: 1
   name: Shotgun-long
   type: 0
   stackLimit: 1
@@ -30,8 +33,8 @@ MonoBehaviour:
   gunType: 0
   gunAttribute:
     bulletDamage: 30
-    reloadSpeed: 3
+    reloadSpeed: 1
     fireRate: 0.5
     fireForce: 75
-    ammoCap: 10
-    accurateStat: 5
+    ammoCap: 6
+    accurateStat: 10

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: HandGun 1911 V2
   m_EditorClassIdentifier: 
-  id: 3
+  itemRef:
+    id: 3
+    name: 1911-v2
+    stackLimit: 1
   name: 1911-v2
   type: 0
   stackLimit: 1
@@ -31,7 +34,7 @@ MonoBehaviour:
   gunAttribute:
     bulletDamage: 60
     reloadSpeed: 2
-    fireRate: 5
+    fireRate: 2
     fireForce: 60
     ammoCap: 30
     accurateStat: 10
