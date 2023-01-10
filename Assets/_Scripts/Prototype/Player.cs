@@ -11,18 +11,6 @@ public class Player : MonoBehaviour
     // Character's Attributes
     public CharacterStat characterStat;
 
-    [SerializeField]
-    [Header("Movement Speed of character")]
-    private float movementSpeed;
-
-    [SerializeField]
-    [Header("Max HP of charracter")]
-    private int MaxHP;
-
-    [SerializeField]
-    [Header("Current HP of character")]
-    private int currentHP;
-
     // Input
     float horizontalInput;
     float verticalInput;
@@ -99,22 +87,19 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            DropSelectItem();
+            inventory.DropSlotInScene(MouseData.highLightSlot);
         }
         if (Input.GetKey(KeyCode.E))
         {
-            if (inventory.currentSeletedWeapon != null)
-            {
-                Item weapon = inventory.currentSeletedWeapon.Item;
-                playerWeapon.ChangeWeapon(weapon);
-            }
+            Item weapon = characterStat.playerCurrentWeapon;
+            playerWeapon.ChangeWeapon(weapon);
         }
 
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(movementSpeed * Time.fixedDeltaTime * movingDirection,Space.World);
+        transform.Translate(characterStat.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * movingDirection,Space.World);
         //rb.MovePosition(transform.position);
     }
 
@@ -198,13 +183,7 @@ public class Player : MonoBehaviour
 
     private void DropSelectItem()
     {
-        Item item = inventory.currentSelectSlot.Item;
-        if (inventory.currentSeletedWeapon == inventory.currentSelectSlot)
-        {
-            playerWeapon.ChangeWeapon(null);
-        }
-        inventory.RemoveItem(inventory.currentSelectSlot.itemRef);
-        Instantiate(item.prefabs, transform.position, Quaternion.identity);
+
     }
 
     public void AttributeModified(Attribute attribute)
@@ -220,6 +199,8 @@ public class Player : MonoBehaviour
         inventory = GlobalVariable.Instance.playerReferences.playerInventory;
         equipment = GlobalVariable.Instance.playerReferences.playerEquipment;
 
+        inventory.setParent(gameObject);
         characterStat.SetParent(this);
+
     }
 }

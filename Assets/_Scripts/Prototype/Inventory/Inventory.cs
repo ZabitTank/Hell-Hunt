@@ -13,9 +13,18 @@ public class Inventory : ScriptableObject
 {
     public string savePath;
     public ItemDatabase database;
+
     public InventoryType type;
+
     [SerializeField]
     private InventoryObject container;
+
+    private GameObject parent;
+
+    public void setParent(GameObject _parent)
+    {
+        parent = _parent;
+    }
 
     public InventorySlot[] GetSlots
     {
@@ -25,14 +34,6 @@ public class Inventory : ScriptableObject
         }
     }
 
-    public InventorySlot currentSelectSlot;
-    public InventorySlot currentSeletedWeapon;
-
-    private void Awake()
-    {
-        currentSeletedWeapon = null;
-        currentSelectSlot = null;
-    }
     public void AddItem(ItemRef itemRef, int amount)
     {
         for (int i = 0; i < GetSlots.Length; i++)
@@ -83,6 +84,12 @@ public class Inventory : ScriptableObject
         }
     }
 
+    public void DropSlotInScene(InventorySlot slot)
+    {
+        if (slot.itemRef.id < 0) return;
+        Instantiate(slot.Item.prefabs, parent.transform.position, Quaternion.identity, null);
+        slot.UpdateSlot(new(), 0);
+    }
 
     [ContextMenu("Save")]
     public void Save()

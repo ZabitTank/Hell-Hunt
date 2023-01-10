@@ -13,8 +13,6 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     MeleeWeaponAttribute meleeWeaponAttribute;
     float timeToMelee;
 
-    // Player's Stats
-
     public void InitState(MeleeWeaponData meleeWeaponData, Animator bodyAnimator)
     {
         this.meleeWeaponData = meleeWeaponData;

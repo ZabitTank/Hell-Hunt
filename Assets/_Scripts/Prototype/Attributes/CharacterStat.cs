@@ -1,36 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
-[Serializable]
-public class Attribute
-{
-    [NonSerialized]
-    public CharacterStat parent;
-    public EquipmentAttribute type;
-    public ModifiableInt value;
-    public void SetParent(CharacterStat combineStat)
-    {
-        parent = combineStat;
-        value = new ModifiableInt(AttributeModified);
-    }
-
-    public void AttributeModified()
-    {
-        parent.AttributeModified(this);
-    }
-}
 
 [Serializable]
 public class CharacterStat
 {
     [NonSerialized]
     public Player character;
-    
+
     // Equipment Stat
     [SerializeField]
     private Attribute[] attributes;
@@ -39,33 +17,15 @@ public class CharacterStat
         get { return attributes; }
         private set { attributes = value; }
     }
-    public Dictionary<EquipmentAttribute, Attribute> GetAttribute =new();
+    public Dictionary<EquipmentAttribute, Attribute> GetAttribute = new();
 
     // Other stat
     public ModifiableInt HP;
     public ModifiableInt MP;
 
-    public Attribute GetStat(EquipmentAttribute type)
-    {
-        foreach (var attribute in attributes)
-        {
-            if (attribute.type == type)
-                return attribute;
-        }
-        return null;
-    }
+    public Item playerCurrentWeapon;
+    public Item playerDefaultWeapon;
 
-    public void UpdateUI()
-    {
-
-        var attributeTextUi = "";
-        foreach (var attribute in attributes)
-        {
-            attributeTextUi += string.Concat(Enum.GetName(typeof(EquipmentAttribute), attribute.type),": ",attribute.value.ModifiedValue,'\n');
-        }
-        GlobalVariable.Instance.playerReferences.StatUI.text = attributeTextUi;
-        //GlobalVariable.Instance.playerReferences.StatUI.text = "";
-    }
 
     public void SetParent(Player _character)
     {
@@ -77,6 +37,7 @@ public class CharacterStat
             attribute.SetParent(this);
             attribute.value.BaseValue = tempValue;
             GetAttribute.Add(attribute.type, attribute);
+            attribute.value.RegisterModEvent(UpdateUI);
         }
 
         foreach (var slot in character.Equipment.GetSlots)
@@ -94,12 +55,9 @@ public class CharacterStat
         GetAttribute[EquipmentAttribute.MaxHP].value.RegisterModEvent(() =>
         {
             GlobalVariable.Instance.playerReferences.UIHealthBar.SetValue(
-    HP.BaseValue / (float)GetAttribute[EquipmentAttribute.MaxHP].value.ModifiedValue);
+            HP.BaseValue / (float)GetAttribute[EquipmentAttribute.MaxHP].value.ModifiedValue);
         });
-    }
-    public void AttributeModified(Attribute attribute)
-    {
-       
+
     }
     public void OnBeforeSlotUpdate(InventorySlot _slot)
     {
@@ -108,11 +66,7 @@ public class CharacterStat
         if (item == null)
             return;
 
-        if (item.type == ItemType.MeleeWeapon || item.type == ItemType.Gun)
-        {
-
-        }
-        else if (item.type == ItemType.Armor || item.type == ItemType.Headgear)
+        if (item.type == ItemType.Armor || item.type == ItemType.Headgear)
         {
             var equipment = (Equipment)item;
             foreach (var buff in equipment.buffs)
@@ -126,10 +80,6 @@ public class CharacterStat
                 }
             }
         }
-        else if (item.type == ItemType.SpellCard)
-        {
-        }
-        UpdateUI();
     }
     public void OnAfterSlotUpdate(InventorySlot _slot)
     {
@@ -137,11 +87,17 @@ public class CharacterStat
         var item = _slot.Item;
 
         if (item == null)
+        {
+            if(_slot.AllowedItems[0] == ItemType.Gun || _slot.AllowedItems[0] ==  ItemType.MeleeWeapon)
+            {
+                playerCurrentWeapon = playerDefaultWeapon;
+            }
             return;
+        }
 
         if (item.type == ItemType.MeleeWeapon || item.type == ItemType.Gun)
         {
-
+            playerCurrentWeapon = item;
         }
         else if (item.type == ItemType.Armor || item.type == ItemType.Headgear)
         {
@@ -156,12 +112,32 @@ public class CharacterStat
                     }
                 }
             }
-
         }
         else if (item.type == ItemType.SpellCard)
         {
 
         }
-        UpdateUI();
+    }
+
+    public int GetStatValue(EquipmentAttribute type)
+    {
+        return GetAttribute[type].value.ModifiedValue;
+    }
+
+    public void UpdateUI()
+    {
+
+        var attributeTextUi = "";
+        foreach (var attribute in attributes)
+        {
+            attributeTextUi += string.Concat(Enum.GetName(typeof(EquipmentAttribute), attribute.type), ": ", attribute.value.ModifiedValue, '\n');
+        }
+        GlobalVariable.Instance.playerReferences.StatUI.text = attributeTextUi;
+        //GlobalVariable.Instance.playerReferences.StatUI.text = "";
+    }
+
+    public void AttributeModified(Attribute attribute)
+    {
+
     }
 }

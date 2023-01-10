@@ -15,6 +15,7 @@ public class GlobalVariable :Singleton<GlobalVariable>
         { GunType.ShotGun, SHOTGUN_MUZZLE_POSITION},
         { GunType.HandGun, HANDGUN_MUZZLE_POSITION},
     };
+    public GameObject CollectableItems;
 
     public static Dictionary<GunType, Vector2> GUN_ANIMATOROVERIDER;
 
@@ -31,6 +32,8 @@ public class GlobalVariable :Singleton<GlobalVariable>
 [Serializable]
 public struct PlayerReferences
 {
+    public Transform playerTransform;
+
     public Inventory playerInventory;
     public Inventory playerEquipment;
 
@@ -42,6 +45,11 @@ public struct PlayerReferences
     public TextMeshProUGUI StatUI;
     public TextMeshProUGUI MeleeStatUI;
     public TextMeshProUGUI RangedStatUI;
+
+    public Vector3 GetPlayerPosition()
+    {
+        return playerTransform.position;
+    }
 }
 
 public static class MouseData
@@ -49,4 +57,6 @@ public static class MouseData
     public static InventoryUI UI;
     public static GameObject slotBeingDrag;
     public static GameObject slotHover;
+    public static InventorySlot highLightSlot;
+
 }
