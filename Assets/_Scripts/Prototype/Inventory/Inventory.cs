@@ -62,7 +62,7 @@ public class Inventory : ScriptableObject
         return null;
     }
 
-    public void SwapItem(InventorySlot slot1, InventorySlot slot2)
+    public void SwapSlot(InventorySlot slot1, InventorySlot slot2)
     {
         if (!slot1.AllowedPlaceInSlot(slot2.Item) || !slot2.AllowedPlaceInSlot(slot1.Item))
         {

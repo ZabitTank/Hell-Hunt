@@ -2,6 +2,7 @@ using Newtonsoft.Json.Bson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Character's Attributes
-    public CharacterStat characterStat;
+    public CharacterStat stats;
 
     // Input
     float horizontalInput;
@@ -79,27 +80,34 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             inventoryUI.SwapActiveUnActive();
+            MouseData.highLightSlot = null;
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
             // try raycast
             PickupItem();
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyUp(KeyCode.G))
         {
             inventory.DropSlotInScene(MouseData.highLightSlot);
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E))
         {
-            Item weapon = characterStat.playerCurrentWeapon;
-            playerWeapon.ChangeWeapon(weapon);
+            UseHightlightItem();
         }
-
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(characterStat.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * movingDirection,Space.World);
+        if (Input.GetKeyUp(KeyCode.G))
+        {
+            inventory.DropSlotInScene(MouseData.highLightSlot);
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            UseHightlightItem();
+        }
+        transform.Translate(stats.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * movingDirection,Space.World);
         //rb.MovePosition(transform.position);
     }
 
@@ -181,14 +189,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void DropSelectItem()
+    private void UseHightlightItem()
     {
-
-    }
-
-    public void AttributeModified(Attribute attribute)
-    {
-        
+        if (inventory.GetSlots.Contains(MouseData.highLightSlot))
+        {
+            var item = MouseData.highLightSlot.Item;
+            if (!item) return;
+            switch (item.type)
+            {
+                case ItemType.Gun:
+                case ItemType.MeleeWeapon:
+                    var weaponSlot = equipment.GetSlots[2];
+                    inventory.SwapSlot(MouseData.highLightSlot, weaponSlot);
+                    break;
+                case ItemType.Headgear:
+                    var headGearSlot = equipment.GetSlots[0];
+                    inventory.SwapSlot(MouseData.highLightSlot, headGearSlot);
+                    break;
+                case ItemType.Armor:
+                    var armorSlot = equipment.GetSlots[1];
+                    inventory.SwapSlot(MouseData.highLightSlot, armorSlot);
+                    break;
+            }
+        }
     }
 
     private void InitState()
@@ -199,8 +222,10 @@ public class Player : MonoBehaviour
         inventory = GlobalVariable.Instance.playerReferences.playerInventory;
         equipment = GlobalVariable.Instance.playerReferences.playerEquipment;
 
+        stats.SetParent(this);
+        playerWeapon.parent = this;
         inventory.setParent(gameObject);
-        characterStat.SetParent(this);
+        playerWeapon.ChangeWeapon(stats.playerCurrentWeapon);
 
     }
 }

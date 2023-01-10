@@ -43,6 +43,15 @@ public struct RangedAttribute
     public float fireForce;
     public int ammoCap;
     public float accurateStat;
+
+    public string DisplayAttribute()
+    {
+        return string.Concat(
+            "Damage:    ", this.bulletDamage, "\n",
+            "Reload:    ", this.reloadSpeed, "\n",
+            "Fire rate: ", this.fireRate, "\n",
+            "Accurate:  ", this.reloadSpeed);
+    }
 }
 
 

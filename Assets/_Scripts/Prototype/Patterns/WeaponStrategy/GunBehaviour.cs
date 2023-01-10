@@ -41,7 +41,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         this.muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
         this.bodyAnimator.SetFloat("ReloadSpeed", gunAttribute.reloadSpeed);
         this.bodyAnimator.SetFloat("FireRate", gunAttribute.fireRate);
-        this.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.weaponSpeed);
+        this.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.range);
         this.muzzleAnimator.SetFloat("EffectSpeed", gunAttribute.fireRate);
 
         currentAmmo = gunAttribute.ammoCap;

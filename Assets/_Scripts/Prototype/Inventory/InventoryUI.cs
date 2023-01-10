@@ -126,7 +126,7 @@ public abstract class InventoryUI : MonoBehaviour
             var desSlot = MouseData.UI.itemsDisplay[MouseData.slotHover];
             var srcSlot = itemsDisplay[itemSlotUI];
 
-            inventory.SwapItem(srcSlot, desSlot);
+            inventory.SwapSlot(srcSlot, desSlot);
         }
         Destroy(MouseData.slotBeingDrag);
     }

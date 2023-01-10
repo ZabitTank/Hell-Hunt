@@ -4,18 +4,12 @@ using UnityEngine.EventSystems;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    public Player parent { get; set; }
+
     private IWeaponAttackBehaviour weaponBehavior;
 
     [SerializeField] Animator bodyAnimator;
     [SerializeField] Animator muzzleAnimator;
-    [SerializeField] Item defaultWeapon;
-
-    public Inventory inventory;
-    private void Awake()
-    {
-        ChangeWeapon(defaultWeapon);
-    }
-
 
     private void Update()
     {
@@ -38,11 +32,6 @@ public class PlayerWeapon : MonoBehaviour
 
     public void ChangeWeapon(Item weapon)
     {
-        if(weapon == null)
-        {
-            ChangeWeapon(defaultWeapon);
-            return;
-        }
         switch (weapon.type)
         {
             case ItemType.Gun:

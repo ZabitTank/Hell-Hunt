@@ -29,6 +29,7 @@ public class CharacterStat
 
     public void SetParent(Player _character)
     {
+        playerCurrentWeapon = playerDefaultWeapon;
         character = _character;
 
         foreach (var attribute in attributes)
@@ -91,6 +92,8 @@ public class CharacterStat
             if(_slot.AllowedItems[0] == ItemType.Gun || _slot.AllowedItems[0] ==  ItemType.MeleeWeapon)
             {
                 playerCurrentWeapon = playerDefaultWeapon;
+                UpdateWeaponUI(item);
+                character.playerWeapon.ChangeWeapon(playerCurrentWeapon);
             }
             return;
         }
@@ -98,6 +101,8 @@ public class CharacterStat
         if (item.type == ItemType.MeleeWeapon || item.type == ItemType.Gun)
         {
             playerCurrentWeapon = item;
+            UpdateWeaponUI(item);
+            character.playerWeapon.ChangeWeapon(playerCurrentWeapon);
         }
         else if (item.type == ItemType.Armor || item.type == ItemType.Headgear)
         {
@@ -134,6 +139,28 @@ public class CharacterStat
         }
         GlobalVariable.Instance.playerReferences.StatUI.text = attributeTextUi;
         //GlobalVariable.Instance.playerReferences.StatUI.text = "";
+    }
+
+    // cheating
+    public void UpdateWeaponUI(Item item)
+    {
+        if (!item)
+        {
+            GlobalVariable.Instance.playerReferences.MeleeStatUI.text = "";
+            GlobalVariable.Instance.playerReferences.RangedStatUI.text = "";
+        }
+         else if (item.type == ItemType.MeleeWeapon)
+        {
+            var castItem = (MeleeWeaponData)item;
+            GlobalVariable.Instance.playerReferences.MeleeStatUI.text = castItem.DisplayAttribute();
+            GlobalVariable.Instance.playerReferences.RangedStatUI.text = "";
+        } else if(item.type == ItemType.Gun)
+        {
+            var castItem = (GunData)item;
+            GlobalVariable.Instance.playerReferences.MeleeStatUI.text = castItem.meleeAttribute.DisplayAttribute();
+            GlobalVariable.Instance.playerReferences.RangedStatUI.text = castItem.gunAttribute.DisplayAttribute();
+        }
+
     }
 
     public void AttributeModified(Attribute attribute)
