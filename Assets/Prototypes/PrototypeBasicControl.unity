@@ -171,8 +171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyAnimator: {fileID: 572943309}
   muzzleAnimator: {fileID: 1653417735}
-  defaultWeapon: {fileID: 11400000, guid: 24a60a637b7cce24f921082b4687acf8, type: 2}
-  inventory: {fileID: 11400000, guid: 5bc71b962fd3b594bbef39615b528266, type: 2}
 --- !u!4 &126872989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2117252512952911890, guid: 475d2bc38f8cfb44ea2147042aa057ee, type: 3}
@@ -352,7 +350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9913f4a13c9016446bb151aab403d1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectableItems: {fileID: 0}
   playerReferences:
+    playerTransform: {fileID: 628942618}
     playerInventory: {fileID: 11400000, guid: 5bc71b962fd3b594bbef39615b528266, type: 2}
     playerEquipment: {fileID: 11400000, guid: e4c2e372569a39f47a1eb9b4bf6791fc, type: 2}
     inventoryUI: {fileID: 1522960720}
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28451bb69cf9a89458353c595addda1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStat:
+  stats:
     attributes:
     - type: 0
       value:
@@ -947,11 +947,10 @@ MonoBehaviour:
       baseValue: 100
       modifiedValue: 0
     MP:
-      baseValue: 5
+      baseValue: 4
       modifiedValue: 0
-  movementSpeed: 10
-  MaxHP: 0
-  currentHP: 0
+    playerCurrentWeapon: {fileID: 0}
+    playerDefaultWeapon: {fileID: 11400000, guid: 24a60a637b7cce24f921082b4687acf8, type: 2}
   bodyAnimator: {fileID: 572943309}
   feetAnimator: {fileID: 350471818}
   playerWeapon: {fileID: 123152694}
@@ -2245,7 +2244,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 18.77
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -2727,6 +2726,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1986260696}
     m_Modifications:
+    - target: {fileID: 481804294601611471, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 152
+      objectReference: {fileID: 0}
+    - target: {fileID: 481804295819618715, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 481804295819618715, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -184
+      objectReference: {fileID: 0}
     - target: {fileID: 481804296166865002, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
       propertyPath: m_Name
       value: Equipment UI
@@ -2761,11 +2772,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 481804296166865005, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -1510.0657
+      value: -1436.1198
       objectReference: {fileID: 0}
     - target: {fileID: 481804296166865005, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -674.3098
+      value: -571.7319
       objectReference: {fileID: 0}
     - target: {fileID: 481804296166865005, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2797,11 +2808,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 481804296166865005, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 155.8711
+      value: 121.77997
       objectReference: {fileID: 0}
     - target: {fileID: 481804296166865005, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 337.6599
+      value: 286.37097
       objectReference: {fileID: 0}
     - target: {fileID: 481804296166865005, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2819,6 +2830,18 @@ PrefabInstance:
       propertyPath: infoUI
       value: 
       objectReference: {fileID: 711912093}
+    - target: {fileID: 481804296317239544, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 145
+      objectReference: {fileID: 0}
+    - target: {fileID: 481804296365653360, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 481804296365653360, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -164
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9616cc3ebaca1a9408444dc19503bddd, type: 3}
 --- !u!1001 &1498211736899589974
@@ -3333,9 +3356,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4753830148054607979, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4753830148054607981, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
       propertyPath: m_Name
       value: Dog
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120311749174137572, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
+      propertyPath: m_LinearDrag
+      value: 21.26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
@@ -3346,6 +3377,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1986260696}
     m_Modifications:
+    - target: {fileID: 3231466830832453346, guid: 84e85bd61130a54459504e4534586f80, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 594.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3231466830832453346, guid: 84e85bd61130a54459504e4534586f80, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 321.68
+      objectReference: {fileID: 0}
     - target: {fileID: 4844376822301982048, guid: 84e85bd61130a54459504e4534586f80, type: 3}
       propertyPath: m_Name
       value: Inventory UI
@@ -3384,7 +3423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5140026253928208884, guid: 84e85bd61130a54459504e4534586f80, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 753.3218
+      value: 760.4512
       objectReference: {fileID: 0}
     - target: {fileID: 5140026253928208884, guid: 84e85bd61130a54459504e4534586f80, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3420,7 +3459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5140026253928208884, guid: 84e85bd61130a54459504e4534586f80, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 753.3208
+      value: 760.4502
       objectReference: {fileID: 0}
     - target: {fileID: 5140026253928208884, guid: 84e85bd61130a54459504e4534586f80, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

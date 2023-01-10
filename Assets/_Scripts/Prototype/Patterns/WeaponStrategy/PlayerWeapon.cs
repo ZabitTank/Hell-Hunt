@@ -10,6 +10,9 @@ public class PlayerWeapon : MonoBehaviour
 
     [SerializeField] Animator bodyAnimator;
     [SerializeField] Animator muzzleAnimator;
+    [SerializeField] Transform meleePosition;
+    public float attackRange;
+    public LayerMask enemyLayer;
 
     private void Update()
     {
@@ -32,18 +35,26 @@ public class PlayerWeapon : MonoBehaviour
 
     public void ChangeWeapon(Item weapon)
     {
+        if (weaponBehavior != null)
+            Destroy(weaponBehavior.Self());
         switch (weapon.type)
         {
             case ItemType.Gun:
                 GunBehaviour gunBehaviour = gameObject.AddComponent<GunBehaviour>();
-                gunBehaviour.InitState((GunData)weapon, bodyAnimator, muzzleAnimator);
+                gunBehaviour.InitState((GunData)weapon, bodyAnimator, muzzleAnimator, meleePosition, enemyLayer);
                 weaponBehavior = gunBehaviour;
                 break;
             case ItemType.MeleeWeapon:
                 MeleeWeaponBehaviour meleeWeaponBehaviour = gameObject.AddComponent<MeleeWeaponBehaviour>();
-                meleeWeaponBehaviour.InitState((MeleeWeaponData)weapon, bodyAnimator);
+                meleeWeaponBehaviour.InitState((MeleeWeaponData)weapon, bodyAnimator, meleePosition, enemyLayer);
                 weaponBehavior = meleeWeaponBehaviour;
                 break;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!meleePosition) return;
+        Gizmos.DrawWireSphere(meleePosition.position, attackRange);
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class GlobalVariable :Singleton<GlobalVariable>
 {
-    public static readonly Vector3 HANDGUN_MUZZLE_POSITION = new(1.783f, -0.56f);
-    public static readonly Vector3 SHOTGUN_MUZZLE_POSITION = new(1.825f, -0.494f);
-    public static readonly Vector3 RIFLE_MUZZLE_POSITION = new(1.387f, -0.546f);
+    public static readonly Vector3 HANDGUN_MUZZLE_POSITION = new(1.72f, -0.45f,0);
+    public static readonly Vector3 SHOTGUN_MUZZLE_POSITION = new(2.04f, -0.47f,0);
+    public static readonly Vector3 RIFLE_MUZZLE_POSITION = new(2.17f, -0.44f, 0);
 
     public static readonly Dictionary<GunType, Vector2> MUZZLE_POSITION = new()
     {

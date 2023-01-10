@@ -13,8 +13,12 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     MeleeWeaponAttribute meleeWeaponAttribute;
     float timeToMelee;
 
-    public void InitState(MeleeWeaponData meleeWeaponData, Animator bodyAnimator)
+    Transform meleePosition;
+    LayerMask layerMask;
+    public void InitState(MeleeWeaponData meleeWeaponData, Animator bodyAnimator,Transform _meleePosition,LayerMask _layerMask)
     {
+        layerMask = _layerMask;
+        meleePosition = _meleePosition;
         this.meleeWeaponData = meleeWeaponData;
         this.bodyAnimator = bodyAnimator;
 
@@ -41,6 +45,13 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     {
         timeToMelee = Time.time + 1/meleeWeaponAttribute.attackRate;
         bodyAnimator.SetTrigger("Melee");
+        // detect in object in range
+        Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeWeaponAttribute.range, layerMask);
+        //
+        foreach (Collider2D enemy in hitobject)
+        {
+            enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
+        }
     }
 
     public void SecondaryAttack()
@@ -51,5 +62,9 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     public void PreparePrimaryAttack()
     {
 
+    }
+    public Component Self()
+    {
+        return this;
     }
 }

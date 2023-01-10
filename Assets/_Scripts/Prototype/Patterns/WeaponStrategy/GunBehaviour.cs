@@ -20,12 +20,16 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     float timeToMelee;
     float currentSpread;
 
-    // Player's Stats
+    // Other
+    LayerMask LayerMask;
+    Transform meleePosition;
     int totalAmmo;
     float playerAcurateState;
 
-    public void InitState(GunData gunData, Animator bodyAnimator, Animator muzzleAnimator)
+    public void InitState(GunData gunData, Animator bodyAnimator, Animator muzzleAnimator,Transform _meleePosition,LayerMask _layerMask)
     {
+        LayerMask = _layerMask;
+        meleePosition = _meleePosition;
         this.gunData = gunData;
         this.bodyAnimator = bodyAnimator;
         this.muzzleAnimator = muzzleAnimator;
@@ -33,9 +37,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
 
-        this.muzzleAnimator.transform.localPosition = new(gunData.localMuzzlePosition.x,gunData.localMuzzlePosition.y,0);
-        //this.muzzleAnimator.transform.localPosition = GlobalV ariable.HANDGUN_MUZZLE_POSITION;
-
+        this.muzzleAnimator.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
 
         this.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
         this.muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
@@ -92,6 +94,13 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     {
         timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
         bodyAnimator.SetTrigger("Melee");
+        // detect in object in range
+        Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range,LayerMask);
+        //
+         foreach(Collider2D enemy in hitobject)
+        {
+            enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
+        }
     }
 
     public void PreparePrimaryAttack()
@@ -115,5 +124,10 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         float s = Random.Range(-spread, spread);
 
         return s - s/100*playerAcurateState;
+    }
+
+    public Component Self()
+    {
+        return this;
     }
 }

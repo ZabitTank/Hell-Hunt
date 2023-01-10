@@ -27,8 +27,8 @@ MonoBehaviour:
   weaponAnimatorOverride: {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
   bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
   meleeAttribute:
-    damage: 1
-    weaponSpeed: 1
+    damage: 10
+    range: 0
     attackRate: 1
   gunType: 2
   gunAttribute:
