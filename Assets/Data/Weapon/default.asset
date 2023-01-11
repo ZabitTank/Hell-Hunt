@@ -25,5 +25,5 @@ MonoBehaviour:
   animatorOverride: {fileID: 22100000, guid: fcd6f342fd93ecb49805e1d2ce23fd9f, type: 2}
   attribute:
     damage: 15
-    range: 0
+    range: 0.7
     attackRate: 1.5

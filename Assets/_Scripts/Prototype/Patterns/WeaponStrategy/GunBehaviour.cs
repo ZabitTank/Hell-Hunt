@@ -92,15 +92,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     public void SecondaryAttack()
     {
-        timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
-        bodyAnimator.SetTrigger("Melee");
-        // detect in object in range
-        Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range,LayerMask);
-        //
-         foreach(Collider2D enemy in hitobject)
-        {
-            enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
-        }
+        StartCoroutine(PerformMeleeAttack());
     }
 
     public void PreparePrimaryAttack()
@@ -117,6 +109,20 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         currentAmmo = (totalAmmo < gunAttribute.ammoCap) ? totalAmmo : gunAttribute.ammoCap;
         totalAmmo = Mathf.Clamp(totalAmmo - gunAttribute.ammoCap, 0, int.MaxValue);
         isReloading = false;
+    }
+
+    IEnumerator PerformMeleeAttack()
+    {
+        timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
+        bodyAnimator.SetTrigger("Melee");
+        yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
+        // detect in object in range
+        Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range, LayerMask);
+        //
+        foreach (Collider2D enemy in hitobject)
+        {
+            enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
+        }
     }
 
     float caculateSpread()

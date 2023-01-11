@@ -171,6 +171,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyAnimator: {fileID: 572943309}
   muzzleAnimator: {fileID: 1653417735}
+  meleePosition: {fileID: 1535249674}
+  attackRange: 0.73
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!4 &126872989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2117252512952911890, guid: 475d2bc38f8cfb44ea2147042aa057ee, type: 3}
@@ -747,7 +752,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 55b5a8ba5e977b647b5893eca4e61d20, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aac627574d0e576479ac04d9628b6141, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1693,7 +1698,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535249673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1, y: -0.438, z: 0}
+  m_LocalPosition: {x: 0.754, y: 0.469, z: 0}
   m_LocalScale: {x: -0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1810,7 +1815,7 @@ Transform:
   m_GameObject: {fileID: 1653417732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: -0.1, y: -0.1, z: -0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 123152693}
@@ -1862,7 +1867,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 12.86, y: 9.52}
+  m_Size: {x: 3.03, y: 2.23}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -3356,17 +3361,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4753830148054607979, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4753830148054607981, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
       propertyPath: m_Name
       value: Dog
-      objectReference: {fileID: 0}
-    - target: {fileID: 6120311749174137572, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}
-      propertyPath: m_LinearDrag
-      value: 21.26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ca4a2c6a30f46745a1d2589747596eb, type: 3}

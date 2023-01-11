@@ -10,7 +10,7 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     MeleeWeaponData meleeWeaponData;
     Animator bodyAnimator;
 
-    MeleeWeaponAttribute meleeWeaponAttribute;
+    MeleeWeaponAttribute meleeAttribute;
     float timeToMelee;
 
     Transform meleePosition;
@@ -22,14 +22,20 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         this.meleeWeaponData = meleeWeaponData;
         this.bodyAnimator = bodyAnimator;
 
-        meleeWeaponAttribute = meleeWeaponData.attribute;
+        meleeAttribute = meleeWeaponData.attribute;
 
         this.bodyAnimator.runtimeAnimatorController = meleeWeaponData.animatorOverride;
-        this.bodyAnimator.SetFloat("MeleeSpeed", meleeWeaponAttribute.attackRate);
+        this.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.attackRate);
 
         timeToMelee = Time.time;
 
     }
+
+    public Component Self()
+    {
+        return this;
+    }
+
 
     public bool CanDoPrimaryAttack()
     {
@@ -43,15 +49,7 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     public void PrimaryAttack()
     {
-        timeToMelee = Time.time + 1/meleeWeaponAttribute.attackRate;
-        bodyAnimator.SetTrigger("Melee");
-        // detect in object in range
-        Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeWeaponAttribute.range, layerMask);
-        //
-        foreach (Collider2D enemy in hitobject)
-        {
-            enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
-        }
+        StartCoroutine(PerformMeleeAttack());
     }
 
     public void SecondaryAttack()
@@ -63,8 +61,18 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     {
 
     }
-    public Component Self()
+    IEnumerator PerformMeleeAttack()
     {
-        return this;
+        timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
+        bodyAnimator.SetTrigger("Melee");
+        yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
+        // detect in object in range
+        Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range, layerMask);
+        //
+        foreach (Collider2D enemy in hitobject)
+        {
+            enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
+        }
     }
+
 }
