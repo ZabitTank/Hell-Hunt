@@ -6,6 +6,7 @@ using System.Linq;
 using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -25,14 +26,11 @@ public class Player : MonoBehaviour
     Vector2 movingDirection;
 
     // Component
+    public CharacterController characterController;
     Rigidbody2D rb;
     AudioSource audioSource;
     
     //References
-    public Animator bodyAnimator;
-    public Animator feetAnimator;
-
-
     private InventoryUI inventoryUI;
     private InventoryUI equipmentUI;
 
@@ -64,8 +62,8 @@ public class Player : MonoBehaviour
     {
         GetPlayerInput();
         SetMovingState();
-        SetCharacterRotation();
-        SetMovingAnimation();
+        characterController.SetCharacterRotation(movingDirection,isMoving,playerToMouse,isMouseChange);
+        characterController.SetMovingAnimation(isMoving);
 
         if (Input.GetKeyDown(KeyCode.Home))
         {
@@ -133,36 +131,6 @@ public class Player : MonoBehaviour
             playerToMouse.Normalize();
         }
     }
-
-    private void SetCharacterRotation()
-    {
-        if (isMouseChange)
-        {
-            float rotation = Mathf.Atan2(playerToMouse.y, playerToMouse.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, rotation);
-        };
-        if (isMoving)
-        {
-            float angle = Mathf.Atan2(movingDirection.y, movingDirection.x) * Mathf.Rad2Deg;
-            feetAnimator.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            if (feetAnimator.transform.localEulerAngles.z > 90 && feetAnimator.transform.localEulerAngles.z < 270)
-            {
-                feetAnimator.transform.localScale = new(-1, -1, -1);
-            }
-            else
-            {
-                feetAnimator.transform.localScale = new(1, 1, 1);
-            }
-        };
-
-    }
-
-    private void SetMovingAnimation()
-    {
-        feetAnimator.SetBool("Move", isMoving);
-        bodyAnimator.SetBool("Move", isMoving);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         BaseItem baseItem = collision.GetComponent<BaseItem>();
@@ -225,7 +193,13 @@ public class Player : MonoBehaviour
         stats.SetParent(this);
         playerWeapon.parent = this;
         inventory.setParent(gameObject);
+        characterController.setParent(gameObject);
+
+        if (!stats.playerCurrentWeapon)
+            stats.playerCurrentWeapon = stats.playerDefaultWeapon;
+
         playerWeapon.ChangeWeapon(stats.playerCurrentWeapon);
+
 
     }
 }

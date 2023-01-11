@@ -9,7 +9,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     public float spread;
 
     GunData gunData;
-    Animator bodyAnimator;
+    CharacterController characterController;
     Animator muzzleAnimator;
 
     RangedAttribute gunAttribute;
@@ -26,25 +26,26 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     int totalAmmo;
     float playerAcurateState;
 
-    public void InitState(GunData gunData, Animator bodyAnimator, Animator muzzleAnimator,Transform _meleePosition,LayerMask _layerMask)
+    public void Initialize(GunData _gunData, CharacterController _characterController, Animator _muzzleAnimator,Transform _meleePosition,LayerMask _layerMask)
     {
         LayerMask = _layerMask;
         meleePosition = _meleePosition;
-        this.gunData = gunData;
-        this.bodyAnimator = bodyAnimator;
-        this.muzzleAnimator = muzzleAnimator;
+        gunData = _gunData;
+        characterController = _characterController;
+        muzzleAnimator = _muzzleAnimator;
 
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
 
-        this.muzzleAnimator.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
+        characterController.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
+        muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
 
-        this.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
-        this.muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
-        this.bodyAnimator.SetFloat("ReloadSpeed", gunAttribute.reloadSpeed);
-        this.bodyAnimator.SetFloat("FireRate", gunAttribute.fireRate);
-        this.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.range);
-        this.muzzleAnimator.SetFloat("EffectSpeed", gunAttribute.fireRate);
+        characterController.bodyAnimator.SetFloat("ReloadSpeed", gunAttribute.reloadSpeed);
+        characterController.bodyAnimator.SetFloat("FireRate", gunAttribute.fireRate);
+        characterController.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.range);
+
+        muzzleAnimator.SetFloat("EffectSpeed", gunAttribute.fireRate);
+        muzzleAnimator.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
 
         currentAmmo = gunAttribute.ammoCap;
         totalAmmo = currentAmmo * 100;
@@ -72,7 +73,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
             return;
         }
         timeToFire = Time.time + 1 / gunAttribute.fireRate;
-        bodyAnimator.SetTrigger("Shoot");
+        characterController.PerformShoot();
 
         SpawnBullet();
     }
@@ -85,8 +86,10 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         }
 
         GameObject bullet = Instantiate(gunData.bulletPrefab, muzzleAnimator.transform.position, muzzleAnimator.transform.rotation);
+
         bullet.GetComponent<Bullet>().InitState(gunAttribute.fireForce, gunAttribute.bulletDamage, caculateSpread());
-        muzzleAnimator.SetTrigger("Shoot");
+
+        characterController.PerformShoot();
         currentAmmo--;
     }
 
@@ -104,8 +107,8 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     IEnumerator Reload()
     {
         isReloading = true;
-        bodyAnimator.Play("Reload");
-        yield return new WaitForSeconds(1 / bodyAnimator.GetFloat("ReloadSpeed"));
+        characterController.PerformReload();
+        yield return new WaitForSeconds(1 / gunAttribute.reloadSpeed);
         currentAmmo = (totalAmmo < gunAttribute.ammoCap) ? totalAmmo : gunAttribute.ammoCap;
         totalAmmo = Mathf.Clamp(totalAmmo - gunAttribute.ammoCap, 0, int.MaxValue);
         isReloading = false;
@@ -114,8 +117,11 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     IEnumerator PerformMeleeAttack()
     {
         timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
-        bodyAnimator.SetTrigger("Melee");
+
+        characterController.PerformMeleeAttack();
+
         yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
+
         // detect in object in range
         Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range, LayerMask);
         //

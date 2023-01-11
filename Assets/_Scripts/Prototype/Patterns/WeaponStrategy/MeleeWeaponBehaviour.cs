@@ -5,30 +5,30 @@ using UnityEngine.EventSystems;
 
 public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
-
-
     MeleeWeaponData meleeWeaponData;
-    Animator bodyAnimator;
 
+    CharacterController characterController;
     MeleeWeaponAttribute meleeAttribute;
     float timeToMelee;
 
     Transform meleePosition;
+
     LayerMask layerMask;
-    public void InitState(MeleeWeaponData meleeWeaponData, Animator bodyAnimator,Transform _meleePosition,LayerMask _layerMask)
+
+    public void Initialize(MeleeWeaponData _meleeWeaponData, CharacterController _characterController,Transform _meleePosition,LayerMask _layerMask)
     {
         layerMask = _layerMask;
         meleePosition = _meleePosition;
-        this.meleeWeaponData = meleeWeaponData;
-        this.bodyAnimator = bodyAnimator;
+        meleeWeaponData = _meleeWeaponData;
+        characterController = _characterController;
 
         meleeAttribute = meleeWeaponData.attribute;
 
-        this.bodyAnimator.runtimeAnimatorController = meleeWeaponData.animatorOverride;
-        this.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.attackRate);
+        characterController.bodyAnimator.runtimeAnimatorController = meleeWeaponData.animatorOverride;
+
+        characterController.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.attackRate);
 
         timeToMelee = Time.time;
-
     }
 
     public Component Self()
@@ -64,7 +64,7 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     IEnumerator PerformMeleeAttack()
     {
         timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
-        bodyAnimator.SetTrigger("Melee");
+        characterController.PerformMeleeAttack();
         yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
         // detect in object in range
         Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range, layerMask);

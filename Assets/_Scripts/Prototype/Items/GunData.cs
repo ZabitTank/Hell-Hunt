@@ -27,7 +27,7 @@ public class GunData : Item
     {
         return string.Concat(
             "Damage:    ", gunAttribute.bulletDamage, "\n",
-            "Reload:    ", gunAttribute.reloadSpeed, "\n",
+            "PerformReload:    ", gunAttribute.reloadSpeed, "\n",
             "Fire rate: ", gunAttribute.fireRate, "\n",
             "Accurate:  ", gunAttribute.reloadSpeed);
     }
@@ -48,7 +48,7 @@ public struct RangedAttribute
     {
         return string.Concat(
             "Damage:    ", this.bulletDamage, "\n",
-            "Reload:    ", this.reloadSpeed, "\n",
+            "PerformReload:    ", this.reloadSpeed, "\n",
             "Fire rate: ", this.fireRate, "\n",
             "Accurate:  ", this.reloadSpeed);
     }
