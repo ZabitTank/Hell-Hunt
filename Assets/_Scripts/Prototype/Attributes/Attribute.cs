@@ -10,13 +10,13 @@ using static UnityEngine.Rendering.DebugUI;
 public class Attribute
 {
     [NonSerialized]
-    public CharacterStat parent;
+    public Stats parent;
     public EquipmentAttribute type;
     public ModifiableInt value;
-    public void SetParent(CharacterStat combineStat)
+    public void SetParent(Stats combineStat)
     {
         parent = combineStat;
-        value = new ModifiableInt(AttributeModified);
+        value = new ModifiableInt();
     }
 
     public void AttributeModified()

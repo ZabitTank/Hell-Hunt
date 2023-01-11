@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [Serializable]
-public class CharacterStat
+public class DynamicCharacterStat : Stats
 {
     [NonSerialized]
     public Player character;
 
-    // Equipment Stat
+    // Equipment DynamicCharacterStat
     [SerializeField]
     private Attribute[] attributes;
     public Attribute[] Attributes
@@ -37,7 +36,9 @@ public class CharacterStat
             var tempValue = attribute.value.BaseValue;
             attribute.SetParent(this);
             attribute.value.BaseValue = tempValue;
+
             GetAttribute.Add(attribute.type, attribute);
+
             attribute.value.RegisterModEvent(UpdateUI);
         }
 
@@ -163,7 +164,7 @@ public class CharacterStat
 
     }
 
-    public void AttributeModified(Attribute attribute)
+    public override void AttributeModified(Attribute attribute)
     {
 
     }

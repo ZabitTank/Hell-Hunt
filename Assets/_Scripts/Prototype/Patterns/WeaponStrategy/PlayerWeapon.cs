@@ -13,24 +13,22 @@ public class PlayerWeapon : MonoBehaviour
     public float testAttackRange;
     public LayerMask enemyLayer;
 
-    private void Update()
+    public void DoPrimaryAttack()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && weaponBehavior.CanDoPrimaryAttack())
-        {
+        if(weaponBehavior.CanDoPrimaryAttack())
             weaponBehavior.PrimaryAttack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1) && weaponBehavior.CanDoSecondaryAttack())
-        {
-            weaponBehavior.SecondaryAttack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            weaponBehavior.PreparePrimaryAttack();
-            return;
-        }
     }
+
+    public void DoSeconddaryAttack()
+    {
+        if (weaponBehavior.CanDoSecondaryAttack())
+            weaponBehavior.SecondaryAttack();
+    }
+    public void PreparePrimaryAttack()
+    {
+        weaponBehavior.PreparePrimaryAttack();
+    }
+
 
     public void ChangeWeapon(Item weapon)
     {

@@ -64,6 +64,28 @@ public class CharacterController : MonoBehaviour
         };
     }
 
+    public void CharacterRotate()
+    {
+        if (isRotate)
+        {
+            float rotation = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg;
+            character.transform.rotation = Quaternion.Euler(0, 0, rotation);
+        };
+        if (isMoving)
+        {
+            float angle = Mathf.Atan2(movingDirection.y, movingDirection.x) * Mathf.Rad2Deg;
+            feetAnimator.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            if (feetAnimator.transform.localEulerAngles.z > 90 && feetAnimator.transform.localEulerAngles.z < 270)
+            {
+                feetAnimator.transform.localScale = new(-1, -1, -1);
+            }
+            else
+            {
+                feetAnimator.transform.localScale = new(1, 1, 1);
+            }
+        };
+    }
+
     public void HandleState(float horizontalInput,float verticalInput,Vector2 newRotateDirection)
     {
         movingDirection = new(horizontalInput, verticalInput);

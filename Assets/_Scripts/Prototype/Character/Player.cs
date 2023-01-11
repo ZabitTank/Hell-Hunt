@@ -6,12 +6,13 @@ using System.Linq;
 using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
     // Character's Attributes
-    public CharacterStat stats;
+    public DynamicCharacterStat stats;
 
     // Input
     float horizontalInput;
@@ -19,11 +20,6 @@ public class Player : MonoBehaviour
     Vector2 mousePosition;
     Vector2 lastMousePosition;
     Vector2 playerToMouse;
-
-    //State
-    bool isMoving;
-    bool isMouseChange;
-    Vector2 movingDirection;
 
     // Component
     public CharacterController characterController;
@@ -52,8 +48,10 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        characterController = GetComponentInChildren<CharacterController>();
+        playerWeapon = GetComponentInChildren<PlayerWeapon>();
     }
+
     public void Start()
     {
         InitState();
@@ -62,6 +60,21 @@ public class Player : MonoBehaviour
     {
         GetPlayerInput();
         HandleMovingAnimation();
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            playerWeapon.DoPrimaryAttack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            playerWeapon.DoSeconddaryAttack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            playerWeapon.PreparePrimaryAttack();
+        }
 
         if (Input.GetKeyDown(KeyCode.Home))
         {
@@ -99,16 +112,18 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyUp(KeyCode.G))
-        {
-            inventory.DropSlotInScene(MouseData.highLightSlot);
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            UseHightlightItem();
-        }
         transform.Translate(stats.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * characterController.movingDirection,Space.World);
         //rb.MovePosition(transform.position);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        BaseItem baseItem = collision.GetComponent<BaseItem>();
+        if (baseItem)
+        {
+            inventory.AddItem(baseItem.item.itemRef, 1);
+            Destroy(baseItem.gameObject);
+        }
     }
 
     private void GetPlayerInput()
@@ -121,24 +136,13 @@ public class Player : MonoBehaviour
 
     private void HandleMovingAnimation()
     {        
-        if(mousePosition != lastMousePosition)
+        if(mousePosition != lastMousePosition && !EventSystem.current.IsPointerOverGameObject())
         {
             lastMousePosition = mousePosition;
             playerToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             playerToMouse.Normalize();
         }
         characterController.HandleState(horizontalInput, verticalInput, playerToMouse);
-        characterController.SetCharacterRotation();
-        characterController.PerformMovingAnimation();
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        BaseItem baseItem = collision.GetComponent<BaseItem>();
-        if (baseItem)
-        {
-            inventory.AddItem(baseItem.item.itemRef, 1);
-            Destroy(baseItem.gameObject);
-        }
     }
     private void PickupItem()
     {
@@ -191,15 +195,14 @@ public class Player : MonoBehaviour
         equipment = GlobalVariable.Instance.playerReferences.playerEquipment;
 
         stats.SetParent(this);
+        characterController.setParent(gameObject);
         playerWeapon.parent = this;
         inventory.setParent(gameObject);
-        characterController.setParent(gameObject);
 
         if (!stats.playerCurrentWeapon)
             stats.playerCurrentWeapon = stats.playerDefaultWeapon;
 
         playerWeapon.ChangeWeapon(stats.playerCurrentWeapon);
-
 
     }
 }
