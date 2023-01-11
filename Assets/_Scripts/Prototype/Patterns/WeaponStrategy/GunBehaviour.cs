@@ -73,7 +73,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
             return;
         }
         timeToFire = Time.time + 1 / gunAttribute.fireRate;
-        characterController.PerformShoot();
+        characterController.PerformShootAnimation();
 
         SpawnBullet();
     }
@@ -89,7 +89,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
         bullet.GetComponent<Bullet>().InitState(gunAttribute.fireForce, gunAttribute.bulletDamage, caculateSpread());
 
-        characterController.PerformShoot();
+        characterController.PerformShootAnimation();
         currentAmmo--;
     }
 
@@ -118,7 +118,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     {
         timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
 
-        characterController.PerformMeleeAttack();
+        characterController.PerformMeleeAttackAniamtion();
 
         yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
 

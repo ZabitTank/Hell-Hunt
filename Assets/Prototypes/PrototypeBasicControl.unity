@@ -169,10 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857e06d1cdc95df47978adbf1a3e3e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyAnimator: {fileID: 572943309}
   muzzleAnimator: {fileID: 1653417735}
   meleePosition: {fileID: 1535249674}
-  attackRange: 0.73
+  testAttackRange: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -687,6 +686,7 @@ GameObject:
   - component: {fileID: 572943307}
   - component: {fileID: 572943309}
   - component: {fileID: 572943308}
+  - component: {fileID: 572943310}
   m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
@@ -783,6 +783,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &572943310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572943306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50b8c549af3d31479e44a055f056416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  feetAnimator: {fileID: 350471818}
+  bodyAnimator: {fileID: 572943309}
 --- !u!4 &594131396 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5581075752586272214, guid: abca906b32d0f5245b8d109d958f2f95, type: 3}
@@ -956,8 +970,7 @@ MonoBehaviour:
       modifiedValue: 0
     playerCurrentWeapon: {fileID: 0}
     playerDefaultWeapon: {fileID: 11400000, guid: 24a60a637b7cce24f921082b4687acf8, type: 2}
-  bodyAnimator: {fileID: 572943309}
-  feetAnimator: {fileID: 350471818}
+  characterController: {fileID: 572943310}
   playerWeapon: {fileID: 123152694}
 --- !u!4 &628942618
 Transform:

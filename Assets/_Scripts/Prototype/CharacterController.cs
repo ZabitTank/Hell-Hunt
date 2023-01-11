@@ -5,27 +5,34 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    private GameObject character;
+    public GameObject character;
 
     public Animator feetAnimator;
     public Animator bodyAnimator;
+
+    public bool isMoving = false;
+    public Vector2 movingDirection = Vector2.zero;
+
+    public bool isRotate = false;
+    public Vector2 rotateDirection = Vector2.zero;
+    private Vector2 lookDirection = Vector2.zero;
 
     public void setParent(GameObject _character)
     {
         character = _character;
     }
 
-    public void SetMovingAnimation(bool isMoving)
+    public void PerformMovingAnimation()
     {
         feetAnimator.SetBool("Move", isMoving);
         bodyAnimator.SetBool("Move", isMoving);
     }
 
-    public void PerformMeleeAttack()
+    public void PerformMeleeAttackAniamtion()
     {
         bodyAnimator.SetTrigger("Melee");
     }
-    public void PerformShoot()
+    public void PerformShootAnimation()
     {
         bodyAnimator.SetTrigger("Shoot");
     }
@@ -35,11 +42,11 @@ public class CharacterController : MonoBehaviour
         bodyAnimator.Play("Reload");
     }
 
-    public void SetCharacterRotation(Vector2 movingDirection, bool isMoving,Vector2 rorateDirection, bool isRorate)
+    public void SetCharacterRotation()
     {
-        if (isRorate)
+        if (isRotate)
         {
-            float rotation = Mathf.Atan2(rorateDirection.y, rorateDirection.x) * Mathf.Rad2Deg;
+            float rotation = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg;
             character.transform.rotation = Quaternion.Euler(0, 0, rotation);
         };
         if (isMoving)
@@ -55,8 +62,20 @@ public class CharacterController : MonoBehaviour
                 feetAnimator.transform.localScale = new(1, 1, 1);
             }
         };
-
     }
 
+    public void HandleState(float horizontalInput,float verticalInput,Vector2 newRotateDirection)
+    {
+        movingDirection = new(horizontalInput, verticalInput);
+        isMoving = movingDirection.magnitude > 0.00f;
+
+        if (rotateDirection != newRotateDirection)
+        {
+            rotateDirection = newRotateDirection;
+            isRotate = true;
+        }
+        PerformMovingAnimation();
+        SetCharacterRotation();
+    }
 
 }

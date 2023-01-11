@@ -64,7 +64,7 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     IEnumerator PerformMeleeAttack()
     {
         timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
-        characterController.PerformMeleeAttack();
+        characterController.PerformMeleeAttackAniamtion();
         yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
         // detect in object in range
         Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range, layerMask);

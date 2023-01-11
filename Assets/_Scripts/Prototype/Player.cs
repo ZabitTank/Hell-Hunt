@@ -61,9 +61,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         GetPlayerInput();
-        SetMovingState();
-        characterController.SetCharacterRotation(movingDirection,isMoving,playerToMouse,isMouseChange);
-        characterController.SetMovingAnimation(isMoving);
+        HandleMovingAnimation();
 
         if (Input.GetKeyDown(KeyCode.Home))
         {
@@ -75,10 +73,14 @@ public class Player : MonoBehaviour
             inventory.Load();
             equipment.Load();
         }
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             inventoryUI.SwapActiveUnActive();
             MouseData.highLightSlot = null;
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            equipmentUI.SwapActiveUnActive();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -105,7 +107,7 @@ public class Player : MonoBehaviour
         {
             UseHightlightItem();
         }
-        transform.Translate(stats.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * movingDirection,Space.World);
+        transform.Translate(stats.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * characterController.movingDirection,Space.World);
         //rb.MovePosition(transform.position);
     }
 
@@ -114,22 +116,20 @@ public class Player : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        //float distance = Vector3.Distance(gameObject.transform.position, Camera.main.ScreenToWorldPoint(mousePosition));
         mousePosition = Input.mousePosition;
     }
 
-    private void SetMovingState()
-    {
-        movingDirection = new(horizontalInput, verticalInput);
-        isMoving = movingDirection.magnitude > 0.00f;
-        
+    private void HandleMovingAnimation()
+    {        
         if(mousePosition != lastMousePosition)
         {
             lastMousePosition = mousePosition;
-            isMouseChange = true;
             playerToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             playerToMouse.Normalize();
         }
+        characterController.HandleState(horizontalInput, verticalInput, playerToMouse);
+        characterController.SetCharacterRotation();
+        characterController.PerformMovingAnimation();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
