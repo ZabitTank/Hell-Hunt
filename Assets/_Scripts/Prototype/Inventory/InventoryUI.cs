@@ -23,6 +23,9 @@ public abstract class InventoryUI : MonoBehaviour
     {
         isActive = !isActive;
         gameObject.SetActive(isActive);
+        if (isActive)
+            UpdateInventorySlots();
+
     }
     void Start()
     {

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class AIPatrolStaticBehaviour : AIBeheviour
 {
-    public float patrolDelay = 2f;
+    public float patrolDelay = 1.5f;
 
     [SerializeField]
     public Vector2 randomDirection = Vector2.zero;
     [SerializeField]
     private float countDelay = 0f;
+    private float rotateSpeed = 1f;
 
     private void Awake()
     {
@@ -28,7 +29,7 @@ public class AIPatrolStaticBehaviour : AIBeheviour
                 countDelay -= Time.deltaTime;
             else
             {
-                characterController.HandleState(0, 0, randomDirection);
+                characterController.HandleStatewithTarget(0, 0, randomDirection,rotateSpeed);
             }
         }
     }

@@ -15,8 +15,8 @@ public class CharacterController : MonoBehaviour
 
     public bool isRotate = false;
     public Vector2 rotateDirection = Vector2.zero;
-    private Vector2 lookDirection = Vector2.zero;
-
+    private Vector2 targetDirection;
+    float rotateSpeed = 0.1f;
     public void setParent(GameObject _character)
     {
         character = _character;
@@ -68,8 +68,8 @@ public class CharacterController : MonoBehaviour
     {
         if (isRotate)
         {
-            float rotation = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg;
-            character.transform.rotation = Quaternion.Euler(0, 0, rotation);
+            Vector3 newDirection = Vector3.RotateTowards(character.transform.position, targetDirection, rotateSpeed* Time.deltaTime, 0.0f);
+            character.transform.rotation = Quaternion.LookRotation(newDirection);
         };
         if (isMoving)
         {
@@ -86,7 +86,7 @@ public class CharacterController : MonoBehaviour
         };
     }
 
-    public void HandleState(float horizontalInput,float verticalInput,Vector2 newRotateDirection)
+    public void HandleStateWithMouse(float horizontalInput,float verticalInput,Vector2 newRotateDirection)
     {
         movingDirection = new(horizontalInput, verticalInput);
         isMoving = movingDirection.magnitude > 0.00f;
@@ -98,6 +98,21 @@ public class CharacterController : MonoBehaviour
         }
         PerformMovingAnimation();
         SetCharacterRotation();
+    }
+
+    public void HandleStatewithTarget(float horizontalInput, float verticalInput, Vector2 newTargetDirection,float newRotateSpeed)
+    {
+        movingDirection = new(horizontalInput, verticalInput);
+        isMoving = movingDirection.magnitude > 0.00f;
+
+        if (targetDirection != newTargetDirection)
+        {
+            rotateSpeed = newRotateSpeed;
+            targetDirection = newTargetDirection;
+            isRotate = true;
+        }
+        PerformMovingAnimation();
+        CharacterRotate();
     }
 
 }

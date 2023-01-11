@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerWeapon : MonoBehaviour
+public class BaseWeapon : MonoBehaviour
 {
-    public Player parent { get; set; }
+    public CharacterController characterController { get; set; }
 
     private IWeaponAttackBehaviour weaponBehavior;
 
@@ -38,12 +38,12 @@ public class PlayerWeapon : MonoBehaviour
         {
             case ItemType.Gun:
                 GunBehaviour gunBehaviour = gameObject.AddComponent<GunBehaviour>();
-                gunBehaviour.Initialize((GunData)weapon, parent.characterController, muzzleAnimator, meleePosition, enemyLayer);
+                gunBehaviour.Initialize((GunData)weapon, characterController, muzzleAnimator, meleePosition, enemyLayer);
                 weaponBehavior = gunBehaviour;
                 break;
             case ItemType.MeleeWeapon:
                 MeleeWeaponBehaviour meleeWeaponBehaviour = gameObject.AddComponent<MeleeWeaponBehaviour>();
-                meleeWeaponBehaviour.Initialize((MeleeWeaponData)weapon, parent.characterController, meleePosition, enemyLayer);
+                meleeWeaponBehaviour.Initialize((MeleeWeaponData)weapon, characterController, meleePosition, enemyLayer);
                 weaponBehavior = meleeWeaponBehaviour;
                 break;
         }

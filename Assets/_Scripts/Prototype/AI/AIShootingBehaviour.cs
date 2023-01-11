@@ -11,7 +11,7 @@ public class AIShootingBehaviour : AIBeheviour
     {
         if (TargetInRange(characterController, detector))
         {
-            characterController.PerformShootAnimation();
+            Parent.weapon.DoPrimaryAttack();
         } 
     }
 

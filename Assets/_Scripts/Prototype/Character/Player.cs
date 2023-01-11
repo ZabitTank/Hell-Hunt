@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     public CharacterController characterController;
     Rigidbody2D rb;
     AudioSource audioSource;
-    
+
     //References
     private InventoryUI inventoryUI;
     private InventoryUI equipmentUI;
@@ -43,13 +43,16 @@ public class Player : MonoBehaviour
         private set { equipment = value; }
     }
 
-    public PlayerWeapon playerWeapon;
+    public BaseWeapon playerWeapon;
+
+    private GameObject detectObject;
+    public LayerMask detectableLayer;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         characterController = GetComponentInChildren<CharacterController>();
-        playerWeapon = GetComponentInChildren<PlayerWeapon>();
+        playerWeapon = GetComponentInChildren<BaseWeapon>();
     }
 
     public void Start()
@@ -112,18 +115,25 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(stats.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * characterController.movingDirection,Space.World);
+        transform.Translate(stats.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * characterController.movingDirection, Space.World);
         //rb.MovePosition(transform.position);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BaseItem baseItem = collision.GetComponent<BaseItem>();
-        if (baseItem)
+        if ((detectableLayer & (1 << collision.gameObject.layer)) != 0)
         {
-            inventory.AddItem(baseItem.item.itemRef, 1);
-            Destroy(baseItem.gameObject);
+            detectObject = collision.gameObject;
+            detectObject.GetComponent<Renderer>().material.color = Color.yellow;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!detectObject) return;
+        detectObject.GetComponent<Renderer>().material.color = Color.white;
+        detectObject = null;
+
     }
 
     private void GetPlayerInput()
@@ -135,29 +145,24 @@ public class Player : MonoBehaviour
     }
 
     private void HandleMovingAnimation()
-    {        
-        if(mousePosition != lastMousePosition && !EventSystem.current.IsPointerOverGameObject())
+    {
+        if (mousePosition != lastMousePosition && !EventSystem.current.IsPointerOverGameObject())
         {
             lastMousePosition = mousePosition;
             playerToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             playerToMouse.Normalize();
         }
-        characterController.HandleState(horizontalInput, verticalInput, playerToMouse);
+        characterController.HandleStateWithMouse(horizontalInput, verticalInput, playerToMouse);
     }
     private void PickupItem()
     {
-        if(Physics.Raycast(transform.position, -Vector3.up, out RaycastHit hit, 10))
+        if (!detectObject) return;
+
+        BaseItem baseItem = detectObject.GetComponent<BaseItem>();
+        if (baseItem)
         {
-            Debug.Log(hit.collider.gameObject);
-            if(hit.collider.gameObject.CompareTag("Item"))
-            {
-                BaseItem baseItem = hit.collider.gameObject.GetComponent<BaseItem>();
-                if (baseItem)
-                {
-                    inventory.AddItem(baseItem.item.itemRef, 1);
-                    Destroy(baseItem.gameObject);
-                }
-            }
+            inventory.AddItem(baseItem.item.itemRef, 1);
+            Destroy(baseItem.gameObject);
         }
     }
 
@@ -196,13 +201,14 @@ public class Player : MonoBehaviour
 
         stats.SetParent(this);
         characterController.setParent(gameObject);
-        playerWeapon.parent = this;
+        playerWeapon.characterController = characterController;
         inventory.setParent(gameObject);
 
         if (!stats.playerCurrentWeapon)
             stats.playerCurrentWeapon = stats.playerDefaultWeapon;
 
         playerWeapon.ChangeWeapon(stats.playerCurrentWeapon);
-
+        inventoryUI.SwapActiveUnActive();
+        equipmentUI.SwapActiveUnActive();
     }
 }

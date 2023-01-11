@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BaseEnemyAI : MonoBehaviour
@@ -14,11 +11,24 @@ public class BaseEnemyAI : MonoBehaviour
     [SerializeField]
     AIDetector detector;
 
+    public StaticCharacterStat characterStat;
+
+    public BaseWeapon weapon;
+
     private void Awake()
     {
+        attackBehaviour.Parent = this;
+        patrolBehaviour.Parent = this;
+
         detector = GetComponentInChildren<AIDetector>();
+
         characterController = GetComponentInChildren<CharacterController>();
         characterController.setParent(gameObject);
+
+        weapon = GetComponentInChildren<BaseWeapon>();
+        weapon.characterController = characterController;
+        weapon.ChangeWeapon(characterStat.playerDefaultWeapon);
+        
     }
 
     private void Update()
