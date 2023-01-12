@@ -8,7 +8,8 @@ public class AIPatrolPathBehaviour : AIBeheviour
     [SerializeField]
     private PatrolPath patrolPath;
 
-    public float patrolSpeed = 1;
+    public float patrolSpeed = 10;
+    public float rorateSpeed = 50;
 
     [Range(0.1f, 1)]
     public float arriveDistance = 1;
@@ -59,8 +60,7 @@ public class AIPatrolPathBehaviour : AIBeheviour
             return;
         }
 
-        Vector2 direction = currentPatrolTarget - (Vector2)characterController.character.transform.position;
-        characterController.HandleStateWithTarget(direction, patrolSpeed, direction, 200f);
+        characterController.HandleStateWithTarget(currentPatrolTarget, patrolSpeed, currentPatrolTarget, rorateSpeed);
     }
 
     IEnumerator WaitCoroutine()
