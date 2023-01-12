@@ -7,6 +7,7 @@ using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -83,6 +84,7 @@ public class Player : MonoBehaviour
         {
             inventory.Save();
             equipment.Save();
+            SaveGame();
         }
         if (Input.GetKeyDown(KeyCode.End))
         {
@@ -111,6 +113,17 @@ public class Player : MonoBehaviour
         {
             UseHightlightItem();
         }
+    }
+
+     public void SaveGame()
+    {
+        PlayerPrefs.SetInt("Level", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadGame()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetInt("Level"));
     }
 
     private void FixedUpdate()
