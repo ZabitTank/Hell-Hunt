@@ -57,6 +57,10 @@ public class Player : MonoBehaviour
 
     public void Start()
     {
+        stats.HP.RegisterBaseModEvent(() =>
+        {
+            if (stats.HP.BaseValue <= 0) Destroy(gameObject);
+        });
         InitState();
     }
     void Update()
@@ -132,10 +136,16 @@ public class Player : MonoBehaviour
     {
         if (detectObject && (detectableLayer & (1 << collision.gameObject.layer)) != 0)
         {
-            detectObject.GetComponent<Renderer>().material.color = Color.yellow;
+            detectObject.GetComponent<Renderer>().material.color = Color.white;
             detectObject = null;
         }
 
+    }
+
+    public void TakeDamge(int damage)
+    {
+        stats.HP.UpdateBaseValue(damage);
+        Instantiate(GlobalVariable.Instance.bloodEffectPrefab, transform.position, transform.rotation, null);
     }
 
     private void GetPlayerInput()

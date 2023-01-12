@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseEnemyAI : MonoBehaviour
 {
@@ -11,12 +12,17 @@ public class BaseEnemyAI : MonoBehaviour
     [SerializeField]
     AIDetector detector;
 
-    public StaticCharacterStat characterStat;
-
+    [HideInInspector]
     public BaseWeapon weapon;
 
-    public GameObject EnemyBloodPrefabs;
-    public Item DropItems;
+    public StaticCharacterStat characterStat;
+
+    public Item[] DropItems;
+
+    [SerializeField]
+    RectTransform EnemyUI;
+    [SerializeField]
+    Slider HPSlider;
 
     private void Awake()
     {
@@ -30,16 +36,19 @@ public class BaseEnemyAI : MonoBehaviour
 
         weapon = GetComponentInChildren<BaseWeapon>();
         weapon.characterController = characterController;
-        weapon.ChangeWeapon(characterStat.playerDefaultWeapon);
-        
+        HPSlider.value = characterStat.HP.BaseValue;
+        HPSlider.maxValue = characterStat.Attributes[3].value.BaseValue;
     }
 
     private void Start()
     {
+        weapon.ChangeWeapon(characterStat.playerDefaultWeapon);
         characterStat.RegisterHPEvent(() =>
         {
-            if(characterStat.HP.BaseValue <= 0)
+            HPSlider.value = characterStat.HP.BaseValue;
+            if (characterStat.HP.BaseValue <= 0)
             {
+                Destroy(EnemyUI.gameObject);
                 Destroy(gameObject);
             }
         });
@@ -60,6 +69,7 @@ public class BaseEnemyAI : MonoBehaviour
         {
             patrolBehaviour.PerformAction(characterController, detector);
         }
+        EnemyUI.position = gameObject.transform.localPosition;
     }
 
     public void TakeDamage(int damage)

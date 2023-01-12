@@ -36,7 +36,8 @@ public class Bullet : MonoBehaviour
         var obj = collision.gameObject;
         if(obj.CompareTag("Player"))
         {
-            Debug.Log("Fuck Player");
+            var enemy = obj.GetComponent<Player>();
+            enemy.TakeDamge(-damage);
         } else if (obj.CompareTag("Enemy"))
         {
             var enemy = obj.GetComponent<BaseEnemyAI>();

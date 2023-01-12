@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6332735379840206957}
   - component: {fileID: 1053100547}
   - component: {fileID: 3385392648348555377}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: headgear_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

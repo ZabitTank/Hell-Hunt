@@ -57,6 +57,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         muzzleTranform.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
 
         soundEffect = GlobalAudio.Instance.audioClips.GetAudioByGunType(gunData.gunType);
+
         currentAmmo = gunAttribute.ammoCap;
         totalAmmo = currentAmmo * 100;
         isReloading = false;
