@@ -21,7 +21,7 @@ public class AIShootingBehaviour : AIBeheviour
     private bool TargetInRange(CharacterController characterController,AIDetector detector)
     {
         targetInRange = false;
-        var targetDirection = detector.Target.position - characterController.transform.position;
+        var targetDirection = detector.Target.position - characterController.muzzlePosition.right;
         if( Vector2.Angle(characterController.muzzlePosition.right,targetDirection) < shootingPov / 2)
         {
             targetInRange = true;
