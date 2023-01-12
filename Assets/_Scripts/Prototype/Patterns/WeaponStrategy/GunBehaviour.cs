@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
+    BaseWeapon parent;
     // test
     public float spread;
 
@@ -19,22 +20,27 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     bool isReloading;
     float timeToFire;
     float timeToMelee;
+    float timeToPlaySound = 1f;
     float currentSpread;
-
+    AudioClip soundEffect;
     // Other
     LayerMask LayerMask;
     Transform meleePosition;
+
     int totalAmmo;
     float playerAcurateState;
 
-    public void Initialize(GunData _gunData, CharacterController _characterController, Animator _muzzleAnimator,Transform _muzzlePosition,Transform _meleePosition,LayerMask _layerMask)
+    public void Initialize(BaseWeapon _parent,GunData _gunData)
     {
-        LayerMask = _layerMask;
-        meleePosition = _meleePosition;
+        parent = _parent;
+
+        LayerMask = parent.enemyLayer;
+
+        meleePosition = parent.meleePosition;
         gunData = _gunData;
-        characterController = _characterController;
-        muzzleAnimator = _muzzleAnimator;
-        muzzleTranform = _muzzlePosition;
+        characterController = parent.characterController;
+        muzzleAnimator = parent.muzzleAnimator;
+        muzzleTranform = parent.muzzlePosition;
 
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
@@ -50,6 +56,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         muzzleAnimator.transform.localPosition = GlobalVariable.MUZZLE_FLASH_POSITION[gunData.gunType];
         muzzleTranform.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
 
+        soundEffect = GlobalAudio.Instance.audioClips.GetAudioByGunType(gunData.gunType);
         currentAmmo = gunAttribute.ammoCap;
         totalAmmo = currentAmmo * 100;
         isReloading = false;
@@ -76,6 +83,13 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
             return;
         }
         timeToFire = Time.time + 1 / gunAttribute.fireRate;
+
+        if(Time.time > timeToPlaySound)
+        {
+            parent.audioSource.PlayOneShot(soundEffect);
+            timeToPlaySound = Time.time + 1f;
+        }
+
         characterController.PerformShootAnimation();
 
         SpawnBullet();

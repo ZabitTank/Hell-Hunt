@@ -14,7 +14,6 @@ public class GlobalVariable : Singleton<GlobalVariable>
     public static readonly Vector3 RIFLE_MUZZLE_FLASH_POSITION = new(2.17f, -0.44f, 0);
     public static readonly Vector3 RIFLE_MUZZLE_POSITION = new(1.458f, -0.525f, 0);
 
-
     public static readonly Dictionary<GunType, Vector2> MUZZLE_FLASH_POSITION = new()
     {
         { GunType.Rifle, RIFLE_MUZZLE_FLASH_POSITION},
@@ -29,12 +28,10 @@ public class GlobalVariable : Singleton<GlobalVariable>
         { GunType.HandGun, RIFLE_MUZZLE_POSITION}
     };
 
-    public GameObject CollectableItems;
 
     public static Dictionary<GunType, Vector2> GUN_ANIMATOROVERIDER;
 
     public PlayerReferences playerReferences;
-
     protected override void OnApplicationQuit()
     {
         playerReferences.playerInventory.clear();
