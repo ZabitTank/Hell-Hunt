@@ -9,7 +9,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     public float spread;
 
     GunData gunData;
-    Animator bodyAnimator;
+    CharacterController characterController;
     Animator muzzleAnimator;
 
     RangedAttribute gunAttribute;
@@ -20,29 +20,32 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     float timeToMelee;
     float currentSpread;
 
-    // Player's Stats
+    // Other
+    LayerMask LayerMask;
+    Transform meleePosition;
     int totalAmmo;
     float playerAcurateState;
 
-    public void InitState(GunData gunData, Animator bodyAnimator, Animator muzzleAnimator)
+    public void Initialize(GunData _gunData, CharacterController _characterController, Animator _muzzleAnimator,Transform _meleePosition,LayerMask _layerMask)
     {
-        this.gunData = gunData;
-        this.bodyAnimator = bodyAnimator;
-        this.muzzleAnimator = muzzleAnimator;
+        LayerMask = _layerMask;
+        meleePosition = _meleePosition;
+        gunData = _gunData;
+        characterController = _characterController;
+        muzzleAnimator = _muzzleAnimator;
 
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
 
-        this.muzzleAnimator.transform.localPosition = new(gunData.localMuzzlePosition.x,gunData.localMuzzlePosition.y,0);
-        //this.muzzleAnimator.transform.localPosition = GlobalV ariable.HANDGUN_MUZZLE_POSITION;
+        characterController.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
+        muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
 
+        characterController.bodyAnimator.SetFloat("ReloadSpeed", gunAttribute.reloadSpeed);
+        characterController.bodyAnimator.SetFloat("FireRate", gunAttribute.fireRate);
+        characterController.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.range);
 
-        this.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
-        this.muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
-        this.bodyAnimator.SetFloat("ReloadSpeed", gunAttribute.reloadSpeed);
-        this.bodyAnimator.SetFloat("FireRate", gunAttribute.fireRate);
-        this.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.weaponSpeed);
-        this.muzzleAnimator.SetFloat("EffectSpeed", gunAttribute.fireRate);
+        muzzleAnimator.SetFloat("EffectSpeed", gunAttribute.fireRate);
+        muzzleAnimator.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
 
         currentAmmo = gunAttribute.ammoCap;
         totalAmmo = currentAmmo * 100;
@@ -70,7 +73,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
             return;
         }
         timeToFire = Time.time + 1 / gunAttribute.fireRate;
-        bodyAnimator.SetTrigger("Shoot");
+        characterController.PerformShootAnimation();
 
         SpawnBullet();
     }
@@ -83,15 +86,16 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         }
 
         GameObject bullet = Instantiate(gunData.bulletPrefab, muzzleAnimator.transform.position, muzzleAnimator.transform.rotation);
+
         bullet.GetComponent<Bullet>().InitState(gunAttribute.fireForce, gunAttribute.bulletDamage, caculateSpread());
-        muzzleAnimator.SetTrigger("Shoot");
+
+        characterController.PerformShootAnimation();
         currentAmmo--;
     }
 
     public void SecondaryAttack()
     {
-        timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
-        bodyAnimator.SetTrigger("Melee");
+        StartCoroutine(PerformMeleeAttack());
     }
 
     public void PreparePrimaryAttack()
@@ -103,11 +107,28 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     IEnumerator Reload()
     {
         isReloading = true;
-        bodyAnimator.Play("Reload");
-        yield return new WaitForSeconds(1 / bodyAnimator.GetFloat("ReloadSpeed"));
+        characterController.PerformReload();
+        yield return new WaitForSeconds(1 / gunAttribute.reloadSpeed);
         currentAmmo = (totalAmmo < gunAttribute.ammoCap) ? totalAmmo : gunAttribute.ammoCap;
         totalAmmo = Mathf.Clamp(totalAmmo - gunAttribute.ammoCap, 0, int.MaxValue);
         isReloading = false;
+    }
+
+    IEnumerator PerformMeleeAttack()
+    {
+        timeToMelee = Time.time + 1 / meleeAttribute.attackRate;
+
+        characterController.PerformMeleeAttackAniamtion();
+
+        yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
+
+        // detect in object in range
+        Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range, LayerMask);
+        //
+        foreach (Collider2D enemy in hitobject)
+        {
+            enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
+        }
     }
 
     float caculateSpread()
@@ -115,5 +136,10 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         float s = Random.Range(-spread, spread);
 
         return s - s/100*playerAcurateState;
+    }
+
+    public Component Self()
+    {
+        return this;
     }
 }

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: shotgun-short
   m_EditorClassIdentifier: 
-  id: 7
+  itemRef:
+    id: 9
+    name: Shotgun-short
+    stackLimit: 1
   name: Shotgun-short
   type: 0
   stackLimit: 1
@@ -24,14 +27,14 @@ MonoBehaviour:
   weaponAnimatorOverride: {fileID: 22100000, guid: 9223907cb1999a54f9c0435447064aad, type: 2}
   bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
   meleeAttribute:
-    damage: 1
-    weaponSpeed: 1
+    damage: 10
+    range: 0.7
     attackRate: 1
   gunType: 0
   gunAttribute:
     bulletDamage: 30
-    reloadSpeed: 3
-    fireRate: 0.5
+    reloadSpeed: 1
+    fireRate: 0.7
     fireForce: 75
-    ammoCap: 10
+    ammoCap: 6
     accurateStat: 5

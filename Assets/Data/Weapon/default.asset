@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0862f0cf11e4214d95c13fa1f845969, type: 3}
   m_Name: default
   m_EditorClassIdentifier: 
-  id: -1
+  itemRef:
+    id: -1
+    name: 
+    stackLimit: 0
   name: Default Knife
   type: 1
   stackLimit: 1
@@ -21,6 +24,6 @@ MonoBehaviour:
   description: 
   animatorOverride: {fileID: 22100000, guid: fcd6f342fd93ecb49805e1d2ce23fd9f, type: 2}
   attribute:
-    damage: 10
-    weaponSpeed: 2
-    attackRate: 1
+    damage: 15
+    range: 0.7
+    attackRate: 1.5

@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0862f0cf11e4214d95c13fa1f845969, type: 3}
   m_Name: knifev2
   m_EditorClassIdentifier: 
-  id: 9
-  name: Ugrade Knife
+  itemRef:
+    id: 5
+    name: Knife
+    stackLimit: 1
+  name: Knife
   type: 1
   stackLimit: 1
   prefabs: {fileID: 3038172622383399066, guid: 25bd10e5bac8b274aae3912e865a7940, type: 3}
@@ -22,5 +25,5 @@ MonoBehaviour:
   animatorOverride: {fileID: 22100000, guid: f426d541319492b47a10491bcba60775, type: 2}
   attribute:
     damage: 30
-    weaponSpeed: 20
+    range: 0.7
     attackRate: 3

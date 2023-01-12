@@ -16,11 +16,6 @@ public class DynamicInventoryUI : InventoryUI
     public int NUMBER_ITEMS_IN_ROW;
     public Vector3 START_POSITION;
 
-    // Highlight Info
-    public Image selectItemImage;
-    public TextMeshProUGUI selectItemAttributeText;
-    public TextMeshProUGUI selectItemGeneralInfo;
-
     public override void CreateDisplay()
     {
         itemsDisplay = new Dictionary<GameObject, InventorySlot>();

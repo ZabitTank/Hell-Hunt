@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public abstract class InventoryUI : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public abstract class InventoryUI : MonoBehaviour
     {
         isActive = !isActive;
         gameObject.SetActive(isActive);
+        if (isActive)
+            UpdateInventorySlots();
+
     }
     void Start()
     {
@@ -70,14 +74,9 @@ public abstract class InventoryUI : MonoBehaviour
     }
     private void OnPointClick(GameObject slotUI)
     {
-        inventory.currentSelectSlot = itemsDisplay[slotUI];
-        if (inventory.currentSelectSlot.itemRef.id == -1) return;
-        Item item = inventory.currentSelectSlot.Item;
-        if (item.type == ItemType.Gun || item.type == ItemType.MeleeWeapon)
-        {
-            inventory.currentSeletedWeapon = inventory.currentSelectSlot;
-        }
-        DisplaySelectItem(item);
+        if (itemsDisplay[slotUI].itemRef.id < 0) return;
+        MouseData.highLightSlot = itemsDisplay[slotUI];
+        DisplaySelectItem(itemsDisplay[slotUI].Item);
     }
     private void OnPointEnter(GameObject itemSlotUI)
     {
@@ -123,14 +122,14 @@ public abstract class InventoryUI : MonoBehaviour
 
         if (!MouseData.UI)
         {
-            inventory.RemoveItem(itemsDisplay[itemSlotUI].itemRef);
+            inventory.DropSlotInScene(itemsDisplay[itemSlotUI]);
         }
         if (MouseData.slotHover)
         {
             var desSlot = MouseData.UI.itemsDisplay[MouseData.slotHover];
             var srcSlot = itemsDisplay[itemSlotUI];
 
-            inventory.SwapItem(srcSlot, desSlot);
+            inventory.SwapSlot(srcSlot, desSlot);
         }
         Destroy(MouseData.slotBeingDrag);
     }

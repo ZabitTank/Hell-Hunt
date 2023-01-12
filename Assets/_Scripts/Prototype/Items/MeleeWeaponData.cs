@@ -15,12 +15,25 @@ public class MeleeWeaponData : Item
         type = ItemType.MeleeWeapon;
         stackLimit = 1;
     }
+
+    public override string DisplayAttribute()
+    {
+        return attribute.DisplayAttribute();
+    }
 }
 
 [Serializable]
 public struct MeleeWeaponAttribute
 {
     public float damage;
-    public float weaponSpeed;
+    public float range;
     public float attackRate;
+
+    public string DisplayAttribute()
+    {
+        return string.Concat(
+            "Damage:    ", damage, "\n",
+            "Speed:     ", attackRate, "\n",
+            "Ragned:    ",range);
+    }
 }

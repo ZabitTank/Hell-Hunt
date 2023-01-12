@@ -12,25 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
-  id: 4
+  itemRef:
+    id: 6
+    name: Revolver
+    stackLimit: 1
   name: Revolver
   type: 0
   stackLimit: 1
   prefabs: {fileID: 4643072146870419827, guid: 475d2bc38f8cfb44ea2147042aa057ee, type: 3}
+  sprite: {fileID: 0}
   description: 
   localMuzzlePosition: {x: 1.701, y: -0.59}
   muzzlEffectAnimatorOverride: {fileID: 22100000, guid: d72e9efc47288024eaf580379c8148da, type: 2}
   weaponAnimatorOverride: {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
   bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
   meleeAttribute:
-    damage: 1
-    weaponSpeed: 1
+    damage: 10
+    range: 0.7
     attackRate: 1
   gunType: 2
   gunAttribute:
     bulletDamage: 12
     reloadSpeed: 2
-    fireRate: 4
-    fireForce: 75
-    ammoCap: 10
+    fireRate: 8
+    fireForce: 50
+    ammoCap: 12
     accurateStat: 1

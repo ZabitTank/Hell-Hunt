@@ -31,6 +31,8 @@ public class ModifiableInt
     public List<IModifier> modifiers;
 
     public event ModifiedEvent ValueModified;
+    public event ModifiedEvent BaseValueModifed;
+
     public ModifiableInt(ModifiedEvent method = null)
     {
          modifiers = new List<IModifier>();
@@ -40,15 +42,6 @@ public class ModifiableInt
             ValueModified += method;
         }
     }
-
-    public void RegisterModEvent(ModifiedEvent method){
-        ValueModified += method;
-    }
-
-    public void UnregisterModEvent(ModifiedEvent method) {
-        ValueModified -= method;
-    }
-
     public void UpdateModifiedValue()
     {
         var valueToAdd = 0;
@@ -62,6 +55,13 @@ public class ModifiableInt
             ValueModified.Invoke();
     }
 
+    public void UpdateBaseValue(int valueToAdd)
+    {
+        baseValue += valueToAdd;
+        if (ValueModified != null)
+            BaseValueModifed.Invoke();
+    }
+
     public void AddModifier(IModifier modifier)
     {
         modifiers.Add(modifier);
@@ -72,5 +72,24 @@ public class ModifiableInt
     {
         modifiers.Remove(modifier);
         UpdateModifiedValue();
+    }
+    public void RegisterModEvent(ModifiedEvent method)
+    {
+        ValueModified += method;
+    }
+
+    public void UnregisterModEvent(ModifiedEvent method)
+    {
+        ValueModified -= method;
+    }
+
+    public void RegisterBaseModEvent(ModifiedEvent method)
+    {
+        BaseValueModifed += method;
+    }
+
+    public void UnregisterBaseModEvent(ModifiedEvent method)
+    {
+        BaseValueModifed -= method;
     }
 }

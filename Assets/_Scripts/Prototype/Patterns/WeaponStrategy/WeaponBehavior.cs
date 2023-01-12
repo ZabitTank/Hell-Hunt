@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IWeaponAttackBehaviour
 {
     void PrimaryAttack();
@@ -5,4 +7,5 @@ public interface IWeaponAttackBehaviour
     bool CanDoPrimaryAttack();
     bool CanDoSecondaryAttack();
     void PreparePrimaryAttack();
+    Component Self();
 }
