@@ -5,12 +5,13 @@ using UnityEngine;
 public class AIPatrolStaticBehaviour : AIBeheviour
 {
     public float patrolDelay = 1.5f;
+    public float rotateSpeed = 1f;
 
     [SerializeField]
     public Vector2 randomDirection = Vector2.zero;
     [SerializeField]
     private float countDelay = 0f;
-    private float rotateSpeed = 1f;
+
 
     private void Awake()
     {
@@ -18,19 +19,17 @@ public class AIPatrolStaticBehaviour : AIBeheviour
     }
     public override void PerformAction(CharacterController characterController, AIDetector detector)
     {
-        float angle = Vector2.Angle(characterController.character.transform.right, randomDirection);
-        if(countDelay <= 0 && (angle < 2))
+        if(countDelay <= 0 && Vector2.Angle(characterController.muzzlePosition.right, randomDirection) < 2f)
         {
             randomDirection = Random.insideUnitCircle;
             countDelay = patrolDelay;
         } else
         {
-            if(countDelay > 0)
+            if (countDelay > 0)
                 countDelay -= Time.deltaTime;
             else
-            {
-                characterController.HandleStatewithTarget(0, 0, randomDirection,rotateSpeed);
-            }
+                characterController.HandleStateWithTarget(0, 0, randomDirection,rotateSpeed);
+            
         }
     }
 }

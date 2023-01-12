@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -9,13 +10,17 @@ public class CharacterController : MonoBehaviour
 
     public Animator feetAnimator;
     public Animator bodyAnimator;
+    public Animator muzzleAnimator;
+    public Transform muzzlePosition;
 
     public bool isMoving = false;
     public Vector2 movingDirection = Vector2.zero;
 
     public bool isRotate = false;
-    public Vector2 rotateDirection = Vector2.zero;
-    private Vector2 targetDirection;
+    private Vector2 rotateDirection = Vector2.zero;
+
+    public Vector2 currentTargetPosition;
+
     float rotateSpeed = 0.1f;
     public void setParent(GameObject _character)
     {
@@ -35,6 +40,7 @@ public class CharacterController : MonoBehaviour
     public void PerformShootAnimation()
     {
         bodyAnimator.SetTrigger("Shoot");
+        muzzleAnimator.SetTrigger("Shoot");
     }
 
     public void PerformReload()
@@ -64,17 +70,21 @@ public class CharacterController : MonoBehaviour
         };
     }
 
-    public void CharacterRotate()
+    public void CharacterRotate(Vector2 targetPosition)
     {
-        if (isRotate)
-        {
-            Vector3 newDirection = Vector3.RotateTowards(character.transform.position, targetDirection, rotateSpeed* Time.deltaTime, 0.0f);
-            character.transform.rotation = Quaternion.LookRotation(newDirection);
-        };
+        var targetDirection = (Vector3)targetPosition - muzzlePosition.right;
+
+        var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+
+        var rotateStep = rotateSpeed * Time.deltaTime;
+
+        character.transform.rotation = Quaternion.RotateTowards(character.transform.rotation, Quaternion.Euler(0, 0, angle)
+            , rotateStep);
+
         if (isMoving)
         {
-            float angle = Mathf.Atan2(movingDirection.y, movingDirection.x) * Mathf.Rad2Deg;
-            feetAnimator.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            float feetAngle = Mathf.Atan2(movingDirection.y, movingDirection.x) * Mathf.Rad2Deg;
+            feetAnimator.transform.rotation = Quaternion.AngleAxis(feetAngle, Vector3.forward);
             if (feetAnimator.transform.localEulerAngles.z > 90 && feetAnimator.transform.localEulerAngles.z < 270)
             {
                 feetAnimator.transform.localScale = new(-1, -1, -1);
@@ -86,7 +96,7 @@ public class CharacterController : MonoBehaviour
         };
     }
 
-    public void HandleStateWithMouse(float horizontalInput,float verticalInput,Vector2 newRotateDirection)
+    public void HandleStateWithMouse(float horizontalInput, float verticalInput, Vector2 newRotateDirection)
     {
         movingDirection = new(horizontalInput, verticalInput);
         isMoving = movingDirection.magnitude > 0.00f;
@@ -100,19 +110,13 @@ public class CharacterController : MonoBehaviour
         SetCharacterRotation();
     }
 
-    public void HandleStatewithTarget(float horizontalInput, float verticalInput, Vector2 newTargetDirection,float newRotateSpeed)
+    public void HandleStateWithTarget(float horizontalInput, float verticalInput, Vector2 newTargetPosition, float newRotateSpeed)
     {
         movingDirection = new(horizontalInput, verticalInput);
         isMoving = movingDirection.magnitude > 0.00f;
-
-        if (targetDirection != newTargetDirection)
-        {
-            rotateSpeed = newRotateSpeed;
-            targetDirection = newTargetDirection;
-            isRotate = true;
-        }
-        PerformMovingAnimation();
-        CharacterRotate();
+        rotateSpeed = newRotateSpeed;
+        currentTargetPosition = newTargetPosition;
+        CharacterRotate(newTargetPosition);
     }
 
 }
