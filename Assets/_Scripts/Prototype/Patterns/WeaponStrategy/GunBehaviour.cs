@@ -11,6 +11,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     GunData gunData;
     CharacterController characterController;
     Animator muzzleAnimator;
+    Transform muzzleTranform;
 
     RangedAttribute gunAttribute;
     MeleeWeaponAttribute meleeAttribute;
@@ -26,13 +27,14 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     int totalAmmo;
     float playerAcurateState;
 
-    public void Initialize(GunData _gunData, CharacterController _characterController, Animator _muzzleAnimator,Transform _meleePosition,LayerMask _layerMask)
+    public void Initialize(GunData _gunData, CharacterController _characterController, Animator _muzzleAnimator,Transform _muzzlePosition,Transform _meleePosition,LayerMask _layerMask)
     {
         LayerMask = _layerMask;
         meleePosition = _meleePosition;
         gunData = _gunData;
         characterController = _characterController;
         muzzleAnimator = _muzzleAnimator;
+        muzzleTranform = _muzzlePosition;
 
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
@@ -45,7 +47,8 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         characterController.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.range);
 
         muzzleAnimator.SetFloat("EffectSpeed", gunAttribute.fireRate);
-        muzzleAnimator.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
+        muzzleAnimator.transform.localPosition = GlobalVariable.MUZZLE_FLASH_POSITION[gunData.gunType];
+        muzzleTranform.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
 
         currentAmmo = gunAttribute.ammoCap;
         totalAmmo = currentAmmo * 100;
@@ -85,7 +88,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
             return;
         }
 
-        GameObject bullet = Instantiate(gunData.bulletPrefab, muzzleAnimator.transform.position, muzzleAnimator.transform.rotation);
+        GameObject bullet = Instantiate(gunData.bulletPrefab, muzzleTranform.position, muzzleTranform.rotation);
 
         bullet.GetComponent<Bullet>().InitState(gunAttribute.fireForce, gunAttribute.bulletDamage, caculateSpread());
 

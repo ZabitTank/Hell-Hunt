@@ -10,6 +10,8 @@ public class BaseWeapon : MonoBehaviour
 
     [SerializeField] Animator muzzleAnimator;
     [SerializeField] Transform meleePosition;
+    [SerializeField] Transform muzzlePosition;
+
     public float testAttackRange;
     public LayerMask enemyLayer;
 
@@ -38,7 +40,7 @@ public class BaseWeapon : MonoBehaviour
         {
             case ItemType.Gun:
                 GunBehaviour gunBehaviour = gameObject.AddComponent<GunBehaviour>();
-                gunBehaviour.Initialize((GunData)weapon, characterController, muzzleAnimator, meleePosition, enemyLayer);
+                gunBehaviour.Initialize((GunData)weapon, characterController, muzzleAnimator, muzzlePosition, meleePosition, enemyLayer);
                 weaponBehavior = gunBehaviour;
                 break;
             case ItemType.MeleeWeapon:
