@@ -25,13 +25,9 @@ MonoBehaviour:
   buffs:
   - type: 0
     value: 3
-    min: 0
-    max: 0
   - type: 1
     value: 3
-    min: 0
-    max: 0
   - type: 2
     value: 3
-    min: 0
-    max: 0
+  - type: 3
+    value: 10

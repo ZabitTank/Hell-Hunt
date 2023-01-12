@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13d02f30d05fd74abaa42a10aac14c7, type: 3}
   m_Name: HandGun 1911 V2
   m_EditorClassIdentifier: 
-  id: 3
+  itemRef:
+    id: 3
+    name: 1911-v2
+    stackLimit: 1
   name: 1911-v2
   type: 0
   stackLimit: 1
@@ -24,14 +27,14 @@ MonoBehaviour:
   weaponAnimatorOverride: {fileID: 22100000, guid: c714eb359c862a54a9c70cd7e47a9240, type: 2}
   bulletPrefab: {fileID: 4298305275904787233, guid: dacaac1136a79db4c8f7cda9d9fab815, type: 3}
   meleeAttribute:
-    damage: 0
-    weaponSpeed: 0
-    attackRate: 0
+    damage: 10
+    range: 0.7
+    attackRate: 1
   gunType: 2
   gunAttribute:
     bulletDamage: 60
     reloadSpeed: 2
-    fireRate: 5
+    fireRate: 2
     fireForce: 60
     ammoCap: 30
     accurateStat: 10

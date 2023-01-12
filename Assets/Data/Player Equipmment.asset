@@ -42,7 +42,7 @@ MonoBehaviour:
         stackLimit: 0
       amount: 0
   currentSelectSlot:
-    AllowedItems: 
+    AllowedItems: 05000000
     itemRef:
       id: -1
       name: 

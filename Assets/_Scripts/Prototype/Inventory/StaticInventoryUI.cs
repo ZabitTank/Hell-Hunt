@@ -7,15 +7,6 @@ using UnityEngine.UI;
 
 public class StaticInventoryUI : InventoryUI
 {
-    public Image headgearImage;
-    public Image armorImage;
-    public Image spellCardImage;
-    public Image weaponImage;
-
-    public TextMeshProUGUI playerStat;
-    public TextMeshProUGUI meleeStat;
-    public TextMeshProUGUI gunStat;
-
     public GameObject[] slots;
 
     public override void CreateDisplay()
@@ -60,24 +51,6 @@ public class StaticInventoryUI : InventoryUI
                 img.sprite = null;
                 img.color = new(img.color.r, img.color.g, img.color.b, 0);
             }
-        }
-    }
-
-    public void updateUI(ItemType type, Item item)
-    {
-        Sprite sprite = item.prefabs.GetComponent<SpriteRenderer>().sprite;
-        if (type == ItemType.MeleeWeapon || type == ItemType.Gun)
-        {
-            weaponImage.sprite = sprite;
-        } else if (type == ItemType.SpellCard)
-        {
-            spellCardImage.sprite = sprite;
-        } else if(type == ItemType.Headgear)
-        {
-            headgearImage.sprite = sprite;
-        } else if (type == ItemType.Armor)
-        {
-            armorImage.sprite = sprite;
         }
     }
 }

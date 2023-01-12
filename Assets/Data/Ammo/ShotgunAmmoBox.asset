@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c37f0cf1a82984bb2743602b5ed6bd, type: 3}
   m_Name: ShotgunAmmoBox
   m_EditorClassIdentifier: 
-  id: 11
+  itemRef:
+    id: 13
+    name: Shotgun Bullet
+    stackLimit: 120
   name: Shotgun Bullet
   type: 7
   stackLimit: 120

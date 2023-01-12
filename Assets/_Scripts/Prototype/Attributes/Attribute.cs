@@ -1,19 +1,22 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [Serializable]
 public class Attribute
 {
     [NonSerialized]
-    public Player parent;
+    public Stats parent;
     public EquipmentAttribute type;
     public ModifiableInt value;
-
-    public void SetParent(Player _character)
+    public void SetParent(Stats combineStat)
     {
-        parent = _character;
-        value = new ModifiableInt(AttributeModified);
+        parent = combineStat;
+        value = new ModifiableInt();
     }
 
     public void AttributeModified()

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c37f0cf1a82984bb2743602b5ed6bd, type: 3}
   m_Name: HandgunAmmoBox
   m_EditorClassIdentifier: 
-  id: 12
+  itemRef:
+    id: 11
+    name: Handgun Bullet
+    stackLimit: 120
   name: Handgun Bullet
   type: 7
   stackLimit: 120
