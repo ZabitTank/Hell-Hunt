@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GlobalVariable :Singleton<GlobalVariable>
+public class GlobalVariable : Singleton<GlobalVariable>
 {
-    public static readonly Vector3 HANDGUN_MUZZLE_POSITION = new(1.72f, -0.45f,0);
-    public static readonly Vector3 SHOTGUN_MUZZLE_POSITION = new(2.04f, -0.47f,0);
-    public static readonly Vector3 RIFLE_MUZZLE_POSITION = new(2.17f, -0.44f, 0);
+    public static readonly Vector3 HANDGUN_MUZZLE_FLASH_POSITION = new(1.699f, -0.558f, 0);
+    public static readonly Vector3 HANDGUN_MUZZLE_POSITION = new(1.205f, -0.587f, 0);
+
+    public static readonly Vector3 SHOTGUN_MUZZLE_FLASH_POSITION = new(2.04f, -0.47f, 0);
+    public static readonly Vector3 SHOTGUN_MUZZLE_POSITION = new(1.458f, -0.525f, 0);
+
+    public static readonly Vector3 RIFLE_MUZZLE_FLASH_POSITION = new(2.17f, -0.44f, 0);
+    public static readonly Vector3 RIFLE_MUZZLE_POSITION = new(1.458f, -0.525f, 0);
+
+
+    public static readonly Dictionary<GunType, Vector2> MUZZLE_FLASH_POSITION = new()
+    {
+        { GunType.Rifle, RIFLE_MUZZLE_FLASH_POSITION},
+        { GunType.ShotGun, SHOTGUN_MUZZLE_FLASH_POSITION},
+        { GunType.HandGun, HANDGUN_MUZZLE_POSITION},
+    };
 
     public static readonly Dictionary<GunType, Vector2> MUZZLE_POSITION = new()
     {
         { GunType.Rifle, RIFLE_MUZZLE_POSITION},
         { GunType.ShotGun, SHOTGUN_MUZZLE_POSITION},
-        { GunType.HandGun, HANDGUN_MUZZLE_POSITION},
+        { GunType.HandGun, RIFLE_MUZZLE_POSITION}
     };
+
     public GameObject CollectableItems;
 
     public static Dictionary<GunType, Vector2> GUN_ANIMATOROVERIDER;
