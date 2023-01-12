@@ -676,7 +676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &394770680
 Transform:
   m_ObjectHideFlags: 0
@@ -925,7 +925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &683881593
 Transform:
   m_ObjectHideFlags: 0
@@ -3116,7 +3116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &777990450
 Transform:
   m_ObjectHideFlags: 0
@@ -3337,7 +3337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &912357309
 Transform:
   m_ObjectHideFlags: 0
@@ -8367,7 +8367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1208047501
 Transform:
   m_ObjectHideFlags: 0
@@ -8524,10 +8524,12 @@ MonoBehaviour:
   character: {fileID: 0}
   feetAnimator: {fileID: 1381700281}
   bodyAnimator: {fileID: 1266823601}
+  muzzleAnimator: {fileID: 0}
+  muzzlePosition: {fileID: 0}
   isMoving: 0
   movingDirection: {x: 0, y: 0}
   isRotate: 0
-  rotateDirection: {x: 0, y: 0}
+  currentTargetPosition: {x: 0, y: 0}
 --- !u!212 &1266823600
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8912,6 +8914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleAnimator: {fileID: 1951248812}
   meleePosition: {fileID: 291245546}
+  muzzlePosition: {fileID: 0}
   testAttackRange: 0
   enemyLayer:
     serializedVersion: 2
@@ -9106,7 +9109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1417851474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9218,7 +9221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1455820323
 Transform:
   m_ObjectHideFlags: 0
@@ -9345,7 +9348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1543661807
 Transform:
   m_ObjectHideFlags: 0
