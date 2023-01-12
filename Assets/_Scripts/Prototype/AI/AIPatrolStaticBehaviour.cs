@@ -28,7 +28,7 @@ public class AIPatrolStaticBehaviour : AIBeheviour
             if (countDelay > 0)
                 countDelay -= Time.deltaTime;
             else
-                characterController.HandleStateWithTarget(0, 0, randomDirection,rotateSpeed);
+                characterController.HandleStateWithTarget(Vector2.zero,0, randomDirection,rotateSpeed);
             
         }
     }

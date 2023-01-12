@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class AIShootingBehaviour : AIBeheviour
 {
@@ -9,9 +10,10 @@ public class AIShootingBehaviour : AIBeheviour
 
     public float rotateSpeed = 200;
 
+
     public override void PerformAction(CharacterController characterController, AIDetector detector)
     {
-        characterController.HandleStateWithTarget(0, 0, detector.Target.position, rotateSpeed);
+        characterController.HandleStateWithTarget(Vector2.zero, 0, detector.Target.position, rotateSpeed);
         if (TargetInRange(characterController, detector))
         {
             Parent.weapon.DoPrimaryAttack();
@@ -21,11 +23,12 @@ public class AIShootingBehaviour : AIBeheviour
     private bool TargetInRange(CharacterController characterController,AIDetector detector)
     {
         targetInRange = false;
-        var targetDirection = detector.Target.position - characterController.muzzlePosition.right;
+        var targetDirection = detector.Target.position - characterController.muzzlePosition.position;
         if( Vector2.Angle(characterController.muzzlePosition.right,targetDirection) < shootingPov / 2)
         {
             targetInRange = true;
         }
         return targetInRange;
     }
+
 }
