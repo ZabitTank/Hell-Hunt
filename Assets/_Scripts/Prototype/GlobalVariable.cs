@@ -19,7 +19,7 @@ public class GlobalVariable : Singleton<GlobalVariable>
     {
         { GunType.Rifle, RIFLE_MUZZLE_FLASH_POSITION},
         { GunType.ShotGun, SHOTGUN_MUZZLE_FLASH_POSITION},
-        { GunType.HandGun, HANDGUN_MUZZLE_POSITION},
+        { GunType.HandGun, HANDGUN_MUZZLE_FLASH_POSITION},
     };
 
     public static readonly Dictionary<GunType, Vector2> MUZZLE_POSITION = new()
