@@ -15,6 +15,9 @@ public class BaseEnemyAI : MonoBehaviour
 
     public BaseWeapon weapon;
 
+    public GameObject EnemyBloodPrefabs;
+    public Item DropItems;
+
     private void Awake()
     {
         attackBehaviour.Parent = this;
@@ -31,6 +34,22 @@ public class BaseEnemyAI : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+        characterStat.RegisterHPEvent(() =>
+        {
+            if(characterStat.HP.BaseValue <= 0)
+            {
+                Destroy(gameObject);
+            }
+        });
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+    }
+
     private void Update()
     {
         if(detector.TargetVisible)
@@ -41,5 +60,11 @@ public class BaseEnemyAI : MonoBehaviour
         {
             patrolBehaviour.PerformAction(characterController, detector);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        characterStat.HP.UpdateBaseValue(damage);
+        Instantiate(GlobalVariable.Instance.bloodEffectPrefab,transform.position,transform.rotation,null);
     }
 }

@@ -32,6 +32,8 @@ public class GlobalVariable : Singleton<GlobalVariable>
     public static Dictionary<GunType, Vector2> GUN_ANIMATOROVERIDER;
 
     public PlayerReferences playerReferences;
+
+    public GameObject bloodEffectPrefab;
     protected override void OnApplicationQuit()
     {
         playerReferences.playerInventory.clear();

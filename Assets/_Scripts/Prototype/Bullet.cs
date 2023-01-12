@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb.AddForce(transform.right * force * 50);
-        Destroy(gameObject, 3);
+        Destroy(gameObject, 2);
     }
 
     //void Update()
@@ -33,6 +33,15 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        var obj = collision.gameObject;
+        if(obj.CompareTag("Player"))
+        {
+            Debug.Log("Fuck Player");
+        } else if (obj.CompareTag("Enemy"))
+        {
+            var enemy = obj.GetComponent<BaseEnemyAI>();
+            enemy.TakeDamage(-damage);
+        }
         Destroy(gameObject);
     }
 }

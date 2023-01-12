@@ -106,6 +106,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857e06d1cdc95df47978adbf1a3e3e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAttribute:
+    attributes: []
+    HP:
+      baseValue: 0
+      modifiedValue: 0
+    MP:
+      baseValue: 0
+      modifiedValue: 0
+    playerCurrentWeapon: {fileID: 0}
+    playerDefaultWeapon: {fileID: 0}
   audioSource: {fileID: 0}
   muzzleAnimator: {fileID: 3821328499954998741}
   meleePosition: {fileID: 3821328499146981343}
@@ -226,7 +236,7 @@ GameObject:
   - component: {fileID: 3821328499370605215}
   m_Layer: 8
   m_Name: Static Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

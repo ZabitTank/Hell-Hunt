@@ -54,3 +54,4 @@ MonoBehaviour:
     StatUI: {fileID: 0}
     MeleeStatUI: {fileID: 0}
     RangedStatUI: {fileID: 0}
+  bloodEffectPrefab: {fileID: 6155349799658379464, guid: 0c2ebf655262ea34fa13ea3430f3fc5b, type: 3}
