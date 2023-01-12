@@ -45,3 +45,9 @@ TagManager:
   - name: Obstacle
     uniqueID: 249266483
     locked: 0
+  - name: NextLevel
+    uniqueID: 45065467
+    locked: 0
+  - name: PrevLevel
+    uniqueID: 2311290755
+    locked: 0

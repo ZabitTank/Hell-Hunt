@@ -139,6 +139,11 @@ public class Player : MonoBehaviour
             detectObject = collision.gameObject;
             detectObject.GetComponent<Renderer>().material.color = Color.yellow;
         }
+
+        // if (collision.tag = "NextLevel")
+        // {
+        //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
