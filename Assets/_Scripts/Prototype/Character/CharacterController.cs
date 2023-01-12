@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour
     public Animator muzzleAnimator;
     public Transform muzzlePosition;
 
-    public bool isMoving = false;
+    private bool isMoving = false;
     public Vector2 movingDirection = Vector2.zero;
 
     public bool isRotate = false;
@@ -22,6 +22,7 @@ public class CharacterController : MonoBehaviour
     public Vector2 currentTargetPosition;
 
     float rotateSpeed = 0.1f;
+    float movementSpeed = 1f;
     public void setParent(GameObject _character)
     {
         character = _character;
@@ -72,7 +73,7 @@ public class CharacterController : MonoBehaviour
 
     public void CharacterRotate(Vector2 targetPosition)
     {
-        var targetDirection = (Vector3)targetPosition - muzzlePosition.right;
+        var targetDirection = (Vector3)targetPosition - muzzlePosition.position;
 
         var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
 
@@ -83,6 +84,8 @@ public class CharacterController : MonoBehaviour
 
         if (isMoving)
         {
+            character.transform.Translate(movingDirection * movementSpeed * Time.deltaTime);
+
             float feetAngle = Mathf.Atan2(movingDirection.y, movingDirection.x) * Mathf.Rad2Deg;
             feetAnimator.transform.rotation = Quaternion.AngleAxis(feetAngle, Vector3.forward);
             if (feetAnimator.transform.localEulerAngles.z > 90 && feetAnimator.transform.localEulerAngles.z < 270)
@@ -110,9 +113,10 @@ public class CharacterController : MonoBehaviour
         SetCharacterRotation();
     }
 
-    public void HandleStateWithTarget(float horizontalInput, float verticalInput, Vector2 newTargetPosition, float newRotateSpeed)
+    public void HandleStateWithTarget(Vector2 _movingDirection,float _movementSpeed, Vector2 newTargetPosition, float newRotateSpeed)
     {
-        movingDirection = new(horizontalInput, verticalInput);
+        movingDirection = _movingDirection;
+        movementSpeed = _movementSpeed;
         isMoving = movingDirection.magnitude > 0.00f;
         rotateSpeed = newRotateSpeed;
         currentTargetPosition = newTargetPosition;

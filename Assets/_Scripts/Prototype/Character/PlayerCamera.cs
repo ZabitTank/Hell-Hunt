@@ -20,6 +20,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void Start()
     {
+        playerTranforms = GlobalVariable.Instance.playerReferences.playerTransform;
         m_OrthographicCamera.enabled = true;
         if (m_OrthographicCamera)
         {
