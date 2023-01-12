@@ -130,9 +130,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!detectObject) return;
-        detectObject.GetComponent<Renderer>().material.color = Color.white;
-        detectObject = null;
+        if (detectObject && (detectableLayer & (1 << collision.gameObject.layer)) != 0)
+        {
+            detectObject.GetComponent<Renderer>().material.color = Color.yellow;
+            detectObject = null;
+        }
 
     }
 
