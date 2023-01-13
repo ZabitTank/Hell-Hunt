@@ -338,7 +338,7 @@ MonoBehaviour:
         modifiedValue: 0
     - type: 3
       value:
-        baseValue: 50
+        baseValue: 100
         modifiedValue: 0
     HP:
       baseValue: 100
