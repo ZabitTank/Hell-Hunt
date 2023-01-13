@@ -1,14 +1,8 @@
-using Newtonsoft.Json.Bson;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -62,6 +56,7 @@ public class Player : MonoBehaviour
         {
             if (stats.HP.BaseValue <= 0)
             {
+                SceneSetting.Instance.isPlayerDead = true;
                 var components = GetComponentsInChildren<Component>();
                 foreach(var component in components)
                 {
