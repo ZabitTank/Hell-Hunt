@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GlobalVariable : Singleton<GlobalVariable>
@@ -58,6 +59,7 @@ public struct PlayerReferences
     public TextMeshProUGUI StatUI;
     public TextMeshProUGUI MeleeStatUI;
     public TextMeshProUGUI RangedStatUI;
+    public TextMeshProUGUI AmmoUI;
 
     public Vector3 GetPlayerPosition()
     {

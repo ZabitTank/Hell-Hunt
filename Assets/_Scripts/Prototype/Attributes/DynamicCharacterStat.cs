@@ -159,8 +159,9 @@ public class DynamicCharacterStat : Stats
 
     }
 
-    public override void AttributeModified(Attribute attribute)
+public override void AttributeModified(Attribute attribute)
     {
 
     }
+
 }

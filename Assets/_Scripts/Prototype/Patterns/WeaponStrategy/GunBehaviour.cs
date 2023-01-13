@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.EventSystems;
@@ -14,7 +15,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     RangedAttribute gunAttribute;
     MeleeWeaponAttribute meleeAttribute;
-    int currentAmmo;
+    ModifiableInt currentAmmo;
     bool isReloading;
     float timeToFire;
     float timeToMelee;
@@ -61,13 +62,23 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
         shotAudioClip = GlobalAudio.Instance.weaponAudioClips.GetAudioByGunType(gunData.gunType);
         meleeAudioClip = GlobalAudio.Instance.weaponAudioClips.punch;
-        currentAmmo = gunAttribute.ammoCap;
         totalAmmo = Base.playerStats.GetMagazine[gunData.gunType];
         isReloading = false;
         timeToFire = Time.time;
         timeToMelee = Time.time;
-
         playerAccurateStat = Base.playerStats.GetAttribute[EquipmentAttribute.Dexterity].value;
+
+        currentAmmo = new(null);
+        if (Base.gameObject.CompareTag("Player"))
+        {
+            currentAmmo.RegisterBaseModEvent(() =>
+            {
+                GlobalVariable.Instance.playerReferences.AmmoUI.text = string.Concat(currentAmmo.BaseValue.ToString(),
+                    " / ", totalAmmo.BaseValue.ToString());
+            });
+        }
+        currentAmmo.UpdateBaseValue(gunAttribute.ammoCap);
+        totalAmmo.UpdateBaseValue(gunAttribute.ammoCap);
     }
 
     public bool CanDoPrimaryAttack()
@@ -82,7 +93,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     public void PrimaryAttack()
     {
-        if (currentAmmo <= 0)
+        if (currentAmmo.BaseValue <= 0)
         {
             PreparePrimaryAttack();
             return;
@@ -109,7 +120,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         GameObject bullet = Instantiate(gunData.bulletPrefab, muzzleTranform.position, muzzleTranform.rotation);
 
         bullet.GetComponent<Bullet>().InitState(gunAttribute.fireForce, gunAttribute.bulletDamage, caculateSpread());
-        currentAmmo--;
+        currentAmmo.UpdateBaseValue(-1);
     }
 
     public void SecondaryAttack()
@@ -137,8 +148,9 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         isReloading = true;
         characterController.PerformReload();
         yield return new WaitForSeconds(1 / gunAttribute.reloadSpeed);
-        currentAmmo = (totalAmmo.BaseValue < gunAttribute.ammoCap) ? totalAmmo.BaseValue : gunAttribute.ammoCap;
-        totalAmmo.SetBaseValue(Mathf.Clamp(totalAmmo.BaseValue - gunAttribute.ammoCap, 0, int.MaxValue));
+        var amountAmmo = totalAmmo.BaseValue + currentAmmo.BaseValue;
+        totalAmmo.SetBaseValue(Mathf.Clamp(amountAmmo - gunAttribute.ammoCap, 0, int.MaxValue));
+        currentAmmo.SetBaseValue((amountAmmo < gunAttribute.ammoCap) ? amountAmmo : gunAttribute.ammoCap);
         isReloading = false;
     }
 

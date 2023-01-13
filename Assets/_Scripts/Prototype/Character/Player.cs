@@ -234,14 +234,16 @@ public class Player : MonoBehaviour
     private void InitState()
     {
         inventory = GlobalVariable.Instance.playerReferences.playerInventory;
+        inventory.setParent(gameObject);
+
         equipment = GlobalVariable.Instance.playerReferences.playerEquipment;
+        equipment.setParent(gameObject);
 
         playerStats.SetParent(this);
         if (!playerStats.playerCurrentWeapon)
             playerStats.playerCurrentWeapon = playerStats.playerDefaultWeapon;
 
         characterController.setParent(gameObject);
-        inventory.setParent(gameObject);
 
 
         weapon.characterController = characterController;
