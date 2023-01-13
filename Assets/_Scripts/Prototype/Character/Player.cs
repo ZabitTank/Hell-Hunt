@@ -173,8 +173,9 @@ public class Player : MonoBehaviour
         BaseItem baseItem = detectObject.GetComponent<BaseItem>();
         if (baseItem)
         {
-            inventory.AddItem(baseItem.item.itemRef, 1);
+            inventory.AddItem(baseItem.item.itemRef, baseItem.amount);
             Destroy(baseItem.gameObject);
+            GlobalAudio.Instance.PlaySwapSlot();
         }
     }
 

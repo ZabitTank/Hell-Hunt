@@ -78,7 +78,7 @@ public class AIDetector : MonoBehaviour
 
     private void CheckIfPlayerOutOfRange()
     {
-        if (!Target || Target.gameObject.activeSelf == false || Vector2.Distance(transform.position, target.position) > viewRadius)
+        if (!Target || Target.gameObject.activeSelf == false || Vector2.Distance(transform.position, target.position) > viewRadius + 1)
             Target = null;
     }
 

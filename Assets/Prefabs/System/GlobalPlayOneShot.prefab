@@ -45,7 +45,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.55
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -141,10 +141,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f418316a94c9a8145af0bab5888b8c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips:
+  weaponAudioClips:
     handgun: {fileID: 8300000, guid: 25b86e20b42a94b4e9fa29ae7550e485, type: 3}
     rifle: {fileID: 8300000, guid: b2f2fedfd80b4e04a86d4df9405c4faa, type: 3}
     shotgun: {fileID: 8300000, guid: 43620736b4295934f96cdc1fa72c312a, type: 3}
     outAmmo: {fileID: 8300000, guid: 95c2f20c07930644094d370212557791, type: 3}
-    knife: {fileID: 0}
-    punch: {fileID: 0}
+    knife: {fileID: 8300000, guid: cda3fb1093ce81b4e8f39c1715807950, type: 3}
+    punch: {fileID: 8300000, guid: cda3fb1093ce81b4e8f39c1715807950, type: 3}
+  iventorySoundEffect:
+    swapItem: {fileID: 8300000, guid: 0cce505adbcba7948a11afd28c4d256a, type: 3}
+    EquipItem: {fileID: 8300000, guid: dced1d35ef0d4d54082adc37af01c9ea, type: 3}
+    dropItem: {fileID: 8300000, guid: 99e42f22dfcabd54cb6a90f7ce54d00f, type: 3}

@@ -230,6 +230,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5696015729100935993, guid: ec4b455bf0f47b343aba151c5cb3e237, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec4b455bf0f47b343aba151c5cb3e237, type: 3}
 --- !u!114 &4637972073047654149 stripped
@@ -346,6 +350,10 @@ PrefabInstance:
     - target: {fileID: 1117952093393754380, guid: b104552bbd557ab44a5b053c4c211509, type: 3}
       propertyPath: m_Name
       value: Equipment UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117952093393754380, guid: b104552bbd557ab44a5b053c4c211509, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b104552bbd557ab44a5b053c4c211509, type: 3}

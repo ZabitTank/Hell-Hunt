@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: RifleAmmoBox
   m_EditorClassIdentifier: 
   itemRef:
-    id: 12
+    id: 16
     name: Rifle Bullet
     stackLimit: 120
   name: Rifle Bullet
   type: 7
   stackLimit: 120
-  prefabs: {fileID: 1886700747525616325, guid: 33f257f1f15404e4ead306d0a710fa20, type: 3}
-  sprite: {fileID: 0}
+  prefabs: {fileID: 5695769393285132008, guid: c8b568208aff8a945a0905a3d49e9100, type: 3}
+  sprite: {fileID: 21300000, guid: 92b8a013eec6cdd4fbf39f173b6f2d59, type: 3}
   description: Rifle Bullet
   gunType: 1

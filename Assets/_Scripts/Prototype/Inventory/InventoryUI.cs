@@ -130,6 +130,7 @@ public abstract class InventoryUI : MonoBehaviour
             var srcSlot = itemsDisplay[itemSlotUI];
 
             inventory.SwapSlot(srcSlot, desSlot);
+            GlobalAudio.Instance.PlaySwapSlot();
         }
         Destroy(MouseData.slotBeingDrag);
     }
