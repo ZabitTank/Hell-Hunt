@@ -181,6 +181,22 @@ PrefabInstance:
       propertyPath: HPSlider
       value: 
       objectReference: {fileID: 5386406562137881868}
+    - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
+      propertyPath: characterStat.magazine.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
+      propertyPath: characterStat.magazine.Array.data[0].baseValue
+      value: 99999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
+      propertyPath: characterStat.magazine.Array.data[1].baseValue
+      value: 99999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
+      propertyPath: characterStat.magazine.Array.data[2].baseValue
+      value: 99999
+      objectReference: {fileID: 0}
     - target: {fileID: 3821328499370605214, guid: 2824b859912bef045af413c574faa1ef, type: 3}
       propertyPath: m_RootOrder
       value: 0

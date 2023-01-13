@@ -205,12 +205,20 @@ MonoBehaviour:
       value:
         baseValue: 100
         modifiedValue: 0
+    magazine:
+    - baseValue: 99999
+      modifiedValue: 0
+    - baseValue: 99999
+      modifiedValue: 0
+    - baseValue: 99999
+      modifiedValue: 0
     HP:
       baseValue: 100
       modifiedValue: 0
     MP:
       baseValue: 0
       modifiedValue: 0
+    playerCurrentWeapon: {fileID: 0}
     playerDefaultWeapon: {fileID: 11400000, guid: ad7d4f8129de5f7468069ff0a1de3ae1, type: 2}
   DropItems: []
   EnemyUI: {fileID: 0}
@@ -591,16 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857e06d1cdc95df47978adbf1a3e3e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttribute:
-    attributes: []
-    HP:
-      baseValue: 0
-      modifiedValue: 0
-    MP:
-      baseValue: 0
-      modifiedValue: 0
-    playerCurrentWeapon: {fileID: 0}
-    playerDefaultWeapon: {fileID: 0}
+  characterController: {fileID: 0}
   audioSource: {fileID: 0}
   muzzleAnimator: {fileID: 259343553492603349}
   meleePosition: {fileID: 259343553305797345}
@@ -717,7 +716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c4ce14d496cf6458a2a3225a18ffbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spread: 0
 --- !u!114 &7402231933495239579
 MonoBehaviour:
   m_ObjectHideFlags: 0

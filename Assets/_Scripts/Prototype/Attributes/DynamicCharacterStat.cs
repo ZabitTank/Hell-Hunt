@@ -14,6 +14,10 @@ public class DynamicCharacterStat : Stats
         character = _character;
 
         //TODO: refactor this patch
+        GetMagazine.Add(GunType.HandGun, Magazine[0]);
+        GetMagazine.Add(GunType.ShotGun, Magazine[1]);
+        GetMagazine.Add(GunType.Rifle, Magazine[2]);
+
         if (character.Equipment.GetSlots[2].itemRef.id < 0)
         {
             playerCurrentWeapon = playerDefaultWeapon;
@@ -39,6 +43,7 @@ public class DynamicCharacterStat : Stats
             slot.onAfterUpdate += OnAfterSlotUpdate;
         }
 
+        // lazy code
         HP.RegisterBaseModEvent(() =>
         {
             GlobalVariable.Instance.playerReferences.UIHealthBar.SetValue(
@@ -50,7 +55,6 @@ public class DynamicCharacterStat : Stats
             GlobalVariable.Instance.playerReferences.UIHealthBar.SetValue(
             HP.BaseValue / (float)GetAttribute[EquipmentAttribute.MaxHP].value.ModifiedValue);
         });
-
     }
     public void OnBeforeSlotUpdate(InventorySlot _slot)
     {
@@ -119,10 +123,7 @@ public class DynamicCharacterStat : Stats
         GlobalAudio.Instance.PlayeEquipSound();
     }
 
-    public int GetStatValue(EquipmentAttribute type)
-    {
-        return GetAttribute[type].value.ModifiedValue;
-    }
+
 
     public void UpdateUI()
     {
