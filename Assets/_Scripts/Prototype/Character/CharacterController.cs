@@ -71,7 +71,7 @@ public class CharacterController : MonoBehaviour
         };
     }
 
-    public void CharacterRotate(Vector2 targetPosition)
+    public void CharacterRotate(Vector2 movingDirection,Vector2 targetPosition)
     {
         var targetDirection = (Vector3)targetPosition - muzzlePosition.position;
 
@@ -84,7 +84,9 @@ public class CharacterController : MonoBehaviour
 
         if (isMoving)
         {
-            character.transform.Translate(movingDirection * movementSpeed * Time.deltaTime);
+            movingDirection = movingDirection.normalized;
+
+            character.transform.Translate(movingDirection * movementSpeed * Time.deltaTime,Space.World);
 
             float feetAngle = Mathf.Atan2(movingDirection.y, movingDirection.x) * Mathf.Rad2Deg;
             feetAnimator.transform.rotation = Quaternion.AngleAxis(feetAngle, Vector3.forward);
@@ -113,14 +115,14 @@ public class CharacterController : MonoBehaviour
         SetCharacterRotation();
     }
 
-    public void HandleStateWithTarget(Vector2 _movingDirection,float _movementSpeed, Vector2 newTargetPosition, float newRotateSpeed)
+    public void HandleStateWithTarget(Vector2 movingPosition,float _movementSpeed, Vector2 newTargetPosition, float newRotateSpeed)
     {
-        movingDirection = _movingDirection;
         movementSpeed = _movementSpeed;
-        isMoving = movingDirection.magnitude > 0.00f;
+        isMoving = movingPosition.magnitude > 0.00f;
+
         rotateSpeed = newRotateSpeed;
-        currentTargetPosition = newTargetPosition;
-        CharacterRotate(newTargetPosition);
+
+        CharacterRotate(movingPosition - (Vector2)character.transform.position,newTargetPosition);
     }
 
 }
