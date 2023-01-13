@@ -244,10 +244,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6275266581504252232, guid: 836d2d8aabe77404eb4d59e65ef6ef6a, type: 3}
-      propertyPath: height
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6275266581504252232, guid: 836d2d8aabe77404eb4d59e65ef6ef6a, type: 3}
       propertyPath: playerTranforms
       value: 
       objectReference: {fileID: 8544274931654037605}

@@ -46,6 +46,11 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
 
+        if (characterController.bodyAnimator == null)
+        {
+            return;
+        }
+
         characterController.bodyAnimator.runtimeAnimatorController = gunData.weaponAnimatorOverride;
         muzzleAnimator.runtimeAnimatorController = gunData.muzzlEffectAnimatorOverride;
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [Serializable]
@@ -28,8 +29,15 @@ public class DynamicCharacterStat : Stats
 
     public void SetParent(Player _character)
     {
-        playerCurrentWeapon = playerDefaultWeapon;
         character = _character;
+
+        if (character.Equipment.GetSlots[2].itemRef.id < 0)
+        {
+            playerCurrentWeapon = playerDefaultWeapon;
+        } else
+        {
+            playerCurrentWeapon = character.Equipment.GetSlots[2].Item;
+        }
 
         foreach (var attribute in attributes)
         {

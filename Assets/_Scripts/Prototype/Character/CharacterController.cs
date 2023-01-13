@@ -23,6 +23,15 @@ public class CharacterController : MonoBehaviour
 
     float rotateSpeed = 0.1f;
     float movementSpeed = 1f;
+
+
+    private void Awake()
+    {
+        var animators = GetComponentsInChildren<Animator>();
+        bodyAnimator = animators[0];
+        feetAnimator = animators[1];
+        muzzleAnimator = animators[2];
+    }
     public void setParent(GameObject _character)
     {
         character = _character;

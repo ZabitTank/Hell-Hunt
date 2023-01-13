@@ -55,7 +55,7 @@ public class BaseEnemyAI : MonoBehaviour
                     Instantiate(DropItems[i].prefabs, randomPosition, Quaternion.identity, null);
 
                 }
-
+                SceneSetting.Instance.enemyCount.UpdateBaseValue(-1);
                 Destroy(EnemyUI.gameObject);
                 Destroy(gameObject);
             }

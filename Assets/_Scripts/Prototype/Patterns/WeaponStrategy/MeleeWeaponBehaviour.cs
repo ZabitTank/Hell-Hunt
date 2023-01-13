@@ -26,7 +26,10 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         characterController = Base.characterController;
 
         meleeAttribute = meleeWeaponData.attribute;
-
+        if (characterController.bodyAnimator == null)
+        {
+            return;
+        }
         characterController.bodyAnimator.runtimeAnimatorController = meleeWeaponData.animatorOverride;
 
         characterController.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.attackRate);

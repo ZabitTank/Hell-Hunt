@@ -169,29 +169,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8860044371026657891}
     m_Modifications:
-    - target: {fileID: 1388014349331491516, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1388014349331491516, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2135797559682859570, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2135797559682859570, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3821328499370605209, guid: 2824b859912bef045af413c574faa1ef, type: 3}
       propertyPath: m_Name
       value: Static Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821328499370605212, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: rotateSpeed
-      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
       propertyPath: EnemyUI
@@ -201,22 +181,6 @@ PrefabInstance:
       propertyPath: HPSlider
       value: 
       objectReference: {fileID: 5386406562137881868}
-    - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: DropItems.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: DropItems.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4fea974bbb02ca14fa4fafdeb504462a, type: 2}
-    - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: DropItems.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 22ab07717d265a447b456695f3d607df, type: 2}
-    - target: {fileID: 3821328499370605213, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: DropItems.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1709e6b83c31f8a40b4ea3ea2ff90d31, type: 2}
     - target: {fileID: 3821328499370605214, guid: 2824b859912bef045af413c574faa1ef, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -261,37 +225,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3821328499370605215, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: rotateSpeed
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821328499370605215, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: shootingPov
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821328500268189646, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: viewRadius
-      value: 9.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821328500925252165, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: character
-      value: 
-      objectReference: {fileID: 2637884481936740161}
-    - target: {fileID: 7145154768877870835, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7145154768877870835, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2824b859912bef045af413c574faa1ef, type: 3}
---- !u!1 &2637884481936740161 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3821328499370605209, guid: 2824b859912bef045af413c574faa1ef, type: 3}
-  m_PrefabInstance: {fileID: 1266553779958150616}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2637884481936740166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3821328499370605214, guid: 2824b859912bef045af413c574faa1ef, type: 3}

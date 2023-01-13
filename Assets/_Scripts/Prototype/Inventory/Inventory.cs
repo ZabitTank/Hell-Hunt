@@ -42,7 +42,6 @@ public class Inventory : ScriptableObject
             if (itemSlot.itemRef.id == itemRef.id)
             {
                 amount = itemSlot.AddAmount(amount);
-                Debug.Log(amount);
                 if (amount <= 0) return;
             }
         }

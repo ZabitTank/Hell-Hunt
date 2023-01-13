@@ -69,6 +69,8 @@ GameObject:
   - component: {fileID: 3821328499211888223}
   - component: {fileID: 3821328499211888220}
   - component: {fileID: 2296662699354909644}
+  - component: {fileID: 3406622670663763776}
+  - component: {fileID: 5368559251637053956}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -220,6 +222,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3406622670663763776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821328499211888222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08353304fc01e44ead9a6e51e71baf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5368559251637053956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821328499211888222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c4ce14d496cf6458a2a3225a18ffbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spread: 0
 --- !u!1 &3821328499370605209
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +375,9 @@ MonoBehaviour:
       modifiedValue: 0
     playerDefaultWeapon: {fileID: 11400000, guid: 54f6c80fcc8a298449e6ec84b91371e7, type: 2}
   DropItems:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4fea974bbb02ca14fa4fafdeb504462a, type: 2}
+  - {fileID: 11400000, guid: 22ab07717d265a447b456695f3d607df, type: 2}
+  - {fileID: 11400000, guid: 1709e6b83c31f8a40b4ea3ea2ff90d31, type: 2}
   EnemyUI: {fileID: 0}
   HPSlider: {fileID: 0}
 --- !u!114 &3821328499370605212
@@ -364,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolDelay: 2
-  rotateSpeed: 200
+  rotateSpeed: 250
   randomDirection: {x: 0, y: 0}
   countDelay: 0
 --- !u!114 &3821328499370605215
@@ -379,9 +408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a846fe1613fb9d24f89b254a2bbaeac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingPov: 40
+  shootingPov: 50
   targetInRange: 0
-  rotateSpeed: 200
+  rotateSpeed: 250
 --- !u!1 &3821328499695492681
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f2ccc3385e82e40a8de291c1beca16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 7.99
+  viewRadius: 9.37
   detectionDelay: 0.22
   playerLayerMask:
     serializedVersion: 2
@@ -797,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b932458a468061d4c91d6e41aa975b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  character: {fileID: 3821328499370605209}
   feetAnimator: {fileID: 3821328499695492684}
   bodyAnimator: {fileID: 3821328500925252155}
   muzzleAnimator: {fileID: 3821328499954998741}

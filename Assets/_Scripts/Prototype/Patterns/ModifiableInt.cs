@@ -45,9 +45,9 @@ public class ModifiableInt
     public void UpdateModifiedValue()
     {
         var valueToAdd = 0;
-        foreach(var modifier in modifiers)
+        for(int i = 0; i < modifiers.Count; i++)
         {
-            modifier.AddValue(ref valueToAdd);
+            modifiers[i].AddValue(ref valueToAdd);
         }
         ModifiedValue = baseValue + valueToAdd;
 

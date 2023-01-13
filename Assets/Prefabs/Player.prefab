@@ -252,6 +252,8 @@ GameObject:
   - component: {fileID: 2277914139191835657}
   - component: {fileID: 2277914139191835656}
   - component: {fileID: 2159223428801958773}
+  - component: {fileID: 4684413927177033177}
+  - component: {fileID: 3959382491218962480}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -403,6 +405,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4684413927177033177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277914139191835658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08353304fc01e44ead9a6e51e71baf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3959382491218962480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277914139191835658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c4ce14d496cf6458a2a3225a18ffbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spread: 0
 --- !u!1 &2277914139534562787
 GameObject:
   m_ObjectHideFlags: 0
