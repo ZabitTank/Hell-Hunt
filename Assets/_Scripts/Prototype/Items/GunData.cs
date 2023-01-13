@@ -27,7 +27,7 @@ public class GunData : Item
     {
         return string.Concat(
             "Damage:    ", gunAttribute.bulletDamage, "\n",
-            "PerformReload:    ", gunAttribute.reloadSpeed, "\n",
+            "Reload:    ", gunAttribute.reloadSpeed, "\n",
             "Fire rate: ", gunAttribute.fireRate, "\n",
             "Accurate:  ", gunAttribute.reloadSpeed);
     }

@@ -15,6 +15,8 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     Transform meleePosition;
     LayerMask layerMask;
 
+    AudioClip meleeSound;
+
     public void Initialize(BaseWeapon _baseWeapon,MeleeWeaponData _meleeWeaponData)
     {
         Base = _baseWeapon;
@@ -30,6 +32,8 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         characterController.bodyAnimator.SetFloat("MeleeSpeed", meleeAttribute.attackRate);
 
         timeToMelee = Time.time;
+
+        meleeSound = GlobalAudio.Instance.weaponAudioClips.punch;
     }
 
     public Component Self()
@@ -68,11 +72,16 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         characterController.PerformMeleeAttackAniamtion();
         yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
         // detect in object in range
+        Base.audioSource.PlayOneShot(meleeSound);
         Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range, layerMask);
         //
         foreach (Collider2D enemy in hitobject)
         {
             enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
+
+            var baseAI = enemy.GetComponent<BaseEnemyAI>();
+            if (baseAI)
+                baseAI.TakeDamage(-(int)meleeAttribute.damage);
         }
     }
 

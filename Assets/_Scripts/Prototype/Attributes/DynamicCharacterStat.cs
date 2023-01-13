@@ -123,6 +123,7 @@ public class DynamicCharacterStat : Stats
         {
 
         }
+        GlobalAudio.Instance.PlayeEquipSound();
     }
 
     public int GetStatValue(EquipmentAttribute type)

@@ -186,6 +186,7 @@ MonoBehaviour:
   patrolBehaviour: {fileID: 8843056907617181444}
   characterController: {fileID: 0}
   detector: {fileID: 0}
+  weapon: {fileID: 0}
   characterStat:
     attributes:
     - type: 0
@@ -202,7 +203,7 @@ MonoBehaviour:
         modifiedValue: 0
     - type: 3
       value:
-        baseValue: 50
+        baseValue: 100
         modifiedValue: 0
     HP:
       baseValue: 100
@@ -211,7 +212,9 @@ MonoBehaviour:
       baseValue: 0
       modifiedValue: 0
     playerDefaultWeapon: {fileID: 11400000, guid: ad7d4f8129de5f7468069ff0a1de3ae1, type: 2}
-  weapon: {fileID: 0}
+  DropItems: []
+  EnemyUI: {fileID: 0}
+  HPSlider: {fileID: 0}
 --- !u!114 &8843056907617181445
 MonoBehaviour:
   m_ObjectHideFlags: 0

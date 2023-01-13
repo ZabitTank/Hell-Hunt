@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: ShotgunAmmoBox
   m_EditorClassIdentifier: 
   itemRef:
-    id: 13
+    id: 17
     name: Shotgun Bullet
-    stackLimit: 120
+    stackLimit: 30
   name: Shotgun Bullet
   type: 7
-  stackLimit: 120
-  prefabs: {fileID: 142991795840763554, guid: b62b0f0784779dd469fae35564a5d665, type: 3}
+  stackLimit: 30
+  prefabs: {fileID: 8253308763466139440, guid: fd9fc6278fbdcd24dbd77cedb94fe8fd, type: 3}
   sprite: {fileID: 21300000, guid: 03c23458bc4e5634789f52d92722153c, type: 3}
   description: Shotgun Bullet
   gunType: 0
