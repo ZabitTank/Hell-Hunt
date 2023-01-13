@@ -87,7 +87,7 @@ public class Inventory : ScriptableObject
 
     public void DropSlotInScene(InventorySlot slot)
     {
-        if (slot.itemRef.id < 0) return;
+        if (slot == null || slot.itemRef.id < 0) return;
         Instantiate(slot.Item.prefabs, parent.transform.position, Quaternion.identity, null);
         slot.UpdateSlot(new(), 0);
         GlobalAudio.Instance.PlayeDropItemSound();
