@@ -60,7 +60,17 @@ public class Player : MonoBehaviour
     {
         stats.HP.RegisterBaseModEvent(() =>
         {
-            if (stats.HP.BaseValue <= 0) Destroy(gameObject);
+            if (stats.HP.BaseValue <= 0)
+            {
+                var components = GetComponentsInChildren<Component>();
+                foreach(var component in components)
+                {
+                    if(component.GetType() != typeof(Transform))
+                    {
+                        Destroy(component);
+                    }
+                }
+            }
         });
         InitState();
     }
