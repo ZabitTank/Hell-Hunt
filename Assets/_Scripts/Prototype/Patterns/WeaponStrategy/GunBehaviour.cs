@@ -46,6 +46,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
 
+        //TODO: ???????
         if (characterController.bodyAnimator == null)
         {
             return;

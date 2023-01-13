@@ -16,8 +16,8 @@ public class BaseWeapon : MonoBehaviour
     [HideInInspector]
     public AudioSource audioSource;
     [HideInInspector]
-    public Animator muzzleAnimator;
 
+    public Animator muzzleAnimator;
     public Transform meleePosition;
     public Transform muzzlePosition;
 
@@ -54,7 +54,6 @@ public class BaseWeapon : MonoBehaviour
         switch (weapon.type)
         {
             case ItemType.Gun:
-     
                 gunBehaviour.Initialize(this,(GunData)weapon);
                 currentBehaviour = gunBehaviour;
                 break;

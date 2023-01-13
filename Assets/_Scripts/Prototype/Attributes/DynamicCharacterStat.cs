@@ -31,6 +31,7 @@ public class DynamicCharacterStat : Stats
     {
         character = _character;
 
+        //TODO: refactor this patch
         if (character.Equipment.GetSlots[2].itemRef.id < 0)
         {
             playerCurrentWeapon = playerDefaultWeapon;
@@ -96,6 +97,7 @@ public class DynamicCharacterStat : Stats
 
         var item = _slot.Item;
 
+        //TODO: refactor this patch
         if (item == null)
         {
             if(_slot.AllowedItems[0] == ItemType.Gun || _slot.AllowedItems[0] ==  ItemType.MeleeWeapon)
@@ -107,6 +109,7 @@ public class DynamicCharacterStat : Stats
             return;
         }
 
+        //TODO: refactor this patch
         if (item.type == ItemType.MeleeWeapon || item.type == ItemType.Gun)
         {
             playerCurrentWeapon = item;

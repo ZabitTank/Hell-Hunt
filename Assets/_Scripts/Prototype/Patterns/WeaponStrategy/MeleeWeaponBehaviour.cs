@@ -24,8 +24,9 @@ public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         meleePosition = Base.meleePosition;
         meleeWeaponData = _meleeWeaponData;
         characterController = Base.characterController;
-
         meleeAttribute = meleeWeaponData.attribute;
+
+        //TODO: ???????
         if (characterController.bodyAnimator == null)
         {
             return;
