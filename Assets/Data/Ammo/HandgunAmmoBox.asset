@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: HandgunAmmoBox
   m_EditorClassIdentifier: 
   itemRef:
-    id: 11
+    id: 15
     name: Handgun Bullet
-    stackLimit: 120
+    stackLimit: 60
   name: Handgun Bullet
   type: 7
-  stackLimit: 120
-  prefabs: {fileID: 4840918779527234945, guid: 6ab7f296f9733cb44b2a2fed8a9ed865, type: 3}
-  sprite: {fileID: 0}
+  stackLimit: 60
+  prefabs: {fileID: 3163473839680287298, guid: ab13a9f046f19e946b16ec2527e11fcd, type: 3}
+  sprite: {fileID: 21300000, guid: 73b10e659cfc31a4da412c5638ae6675, type: 3}
   description: Handgun Bullet
   gunType: 2

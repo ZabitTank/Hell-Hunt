@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3163473839680287359}
   - component: {fileID: 3163473839680287296}
   m_Layer: 9
-  m_Name: HandgunAmmoBox
+  m_Name: HandgunAmmoBox - 30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,3 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 1709e6b83c31f8a40b4ea3ea2ff90d31, type: 2}
+  amount: 30

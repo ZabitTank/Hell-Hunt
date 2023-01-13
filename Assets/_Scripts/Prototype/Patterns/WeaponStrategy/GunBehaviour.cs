@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
-    BaseWeapon parent;
+    BaseWeapon Base;
     // test
     public float spread;
 
@@ -22,7 +22,8 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     float timeToMelee;
     float timeToPlaySound = 1f;
     float currentSpread;
-    AudioClip soundEffect;
+    AudioClip shotAudioClip;
+    AudioClip meleeAudioClip;
     // Other
     LayerMask LayerMask;
     Transform meleePosition;
@@ -32,15 +33,15 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     public void Initialize(BaseWeapon _parent,GunData _gunData)
     {
-        parent = _parent;
+        Base = _parent;
 
-        LayerMask = parent.enemyLayer;
+        LayerMask = Base.enemyLayer;
 
-        meleePosition = parent.meleePosition;
+        meleePosition = Base.meleePosition;
         gunData = _gunData;
-        characterController = parent.characterController;
-        muzzleAnimator = parent.muzzleAnimator;
-        muzzleTranform = parent.muzzlePosition;
+        characterController = Base.characterController;
+        muzzleAnimator = Base.muzzleAnimator;
+        muzzleTranform = Base.muzzlePosition;
 
         gunAttribute = gunData.gunAttribute;
         meleeAttribute = gunData.meleeAttribute;
@@ -56,8 +57,8 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         muzzleAnimator.transform.localPosition = GlobalVariable.MUZZLE_FLASH_POSITION[gunData.gunType];
         muzzleTranform.transform.localPosition = GlobalVariable.MUZZLE_POSITION[gunData.gunType];
 
-        soundEffect = GlobalAudio.Instance.audioClips.GetAudioByGunType(gunData.gunType);
-
+        shotAudioClip = GlobalAudio.Instance.weaponAudioClips.GetAudioByGunType(gunData.gunType);
+        meleeAudioClip = GlobalAudio.Instance.weaponAudioClips.punch;
         currentAmmo = gunAttribute.ammoCap;
         totalAmmo = currentAmmo * 100;
         isReloading = false;
@@ -87,7 +88,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
         if(Time.time > timeToPlaySound)
         {
-            parent.audioSource.PlayOneShot(soundEffect);
+            Base.audioSource.PlayOneShot(shotAudioClip);
             timeToPlaySound = Time.time + 1f;
         }
 
@@ -139,13 +140,18 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         characterController.PerformMeleeAttackAniamtion();
 
         yield return new WaitForSeconds(3 / (4 * meleeAttribute.attackRate));
-
+        Base.audioSource.PlayOneShot(meleeAudioClip);
         // detect in object in range
         Collider2D[] hitobject = Physics2D.OverlapCircleAll(meleePosition.position, meleeAttribute.range, LayerMask);
         //
         foreach (Collider2D enemy in hitobject)
         {
             enemy.GetComponent<Rigidbody2D>().AddForce(transform.right * 500);
+
+            var baseAI = enemy.GetComponent<BaseEnemyAI>();
+            if (baseAI)
+                baseAI.TakeDamage(-(int)meleeAttribute.damage);
+
         }
     }
 

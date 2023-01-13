@@ -7,8 +7,8 @@ public class GlobalAudio : Singleton<GlobalAudio>
 {
     AudioSource audioSource;
     // Start is called before the first frame update
-    public WeaponAudioClip audioClips;
-
+    public WeaponAudioClip weaponAudioClips;
+    public IventorySoundEffect iventorySoundEffect;
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -17,6 +17,21 @@ public class GlobalAudio : Singleton<GlobalAudio>
     public void Play(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
+    }
+
+    public void PlaySwapSlot()
+    {
+        audioSource.PlayOneShot(iventorySoundEffect.swapItem);
+    }
+
+    public void PlayeEquipSound()
+    {
+        audioSource.PlayOneShot(iventorySoundEffect.EquipItem);
+    }
+
+    public void PlayeDropItemSound()
+    {
+        audioSource.PlayOneShot(iventorySoundEffect.dropItem);
     }
 }
 
@@ -43,4 +58,11 @@ public struct WeaponAudioClip
         }
         return null;
     }
+}
+[Serializable]
+public struct IventorySoundEffect
+{
+    public AudioClip swapItem;
+    public AudioClip EquipItem;
+    public AudioClip dropItem;
 }

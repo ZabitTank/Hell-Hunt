@@ -36,8 +36,8 @@ public class BaseEnemyAI : MonoBehaviour
 
         weapon = GetComponentInChildren<BaseWeapon>();
         weapon.characterController = characterController;
-        HPSlider.value = characterStat.HP.BaseValue;
         HPSlider.maxValue = characterStat.Attributes[3].value.BaseValue;
+        HPSlider.value = characterStat.HP.BaseValue;
     }
 
     private void Start()
@@ -48,6 +48,14 @@ public class BaseEnemyAI : MonoBehaviour
             HPSlider.value = characterStat.HP.BaseValue;
             if (characterStat.HP.BaseValue <= 0)
             {
+                Instantiate(characterStat.playerDefaultWeapon.prefabs,transform.position, Quaternion.identity, null);
+                for(int i = 0; i < DropItems.Length; i++)
+                {
+                    var randomPosition = Random.insideUnitCircle * 5 + (Vector2)transform.position;
+                    Instantiate(DropItems[i].prefabs, randomPosition, Quaternion.identity, null);
+
+                }
+
                 Destroy(EnemyUI.gameObject);
                 Destroy(gameObject);
             }
