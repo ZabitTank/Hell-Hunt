@@ -9,6 +9,9 @@ public class SceneSetting : Singleton<SceneSetting>
     public ModifiableInt enemyCount;
     public bool isPlayerDead;
 
+    public GameObject UIWin;
+    public GameObject UILose;
+
     private void Start()
     {
         var enemies = FindObjectsOfType<BaseEnemyAI>();
@@ -20,7 +23,10 @@ public class SceneSetting : Singleton<SceneSetting>
         enemyCount.RegisterBaseModEvent(() =>
         {
             if (enemyCount.BaseValue <= 0)
+            {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                UIWin.SetActive(true);
+            }
         });
     }
 }

@@ -64,6 +64,8 @@ public class Player : MonoBehaviour
                     {
                         Destroy(component);
                     }
+                    if (SceneSetting.Instance.isPlayerDead)
+                        SceneSetting.Instance.UILose.SetActive(true);
                 }
             }
         });
@@ -120,6 +122,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.E))
         {
             UseHightlightItem();
+        }
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            //GameManager.Instance.SwapPauseResumeGame();
+                        Time.timeScale = 0; // Pause
         }
     }
 

@@ -6,11 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
-
-    private void Start()
-    {
-
-    }
+    public bool isPause = false;
 
     public void SaveGame()
     {
@@ -35,4 +31,32 @@ public class GameManager : PersistentSingleton<GameManager>
         Application.Quit();
     }
 
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
+    }
+
+    public void SwapPauseResumeGame()
+    {
+        if (isPause)
+        {
+            Time.timeScale = 1;
+            isPause = false;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            isPause = true;
+        }
+    }
 }
