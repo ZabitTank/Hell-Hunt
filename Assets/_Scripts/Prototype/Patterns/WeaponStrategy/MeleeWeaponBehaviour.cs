@@ -5,22 +5,23 @@ using UnityEngine.EventSystems;
 
 public class MeleeWeaponBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
-    MeleeWeaponData meleeWeaponData;
+    BaseWeapon Base;
 
+    MeleeWeaponData meleeWeaponData;
     CharacterController characterController;
     MeleeWeaponAttribute meleeAttribute;
     float timeToMelee;
 
     Transform meleePosition;
-
     LayerMask layerMask;
 
-    public void Initialize(MeleeWeaponData _meleeWeaponData, CharacterController _characterController,Transform _meleePosition,LayerMask _layerMask)
+    public void Initialize(BaseWeapon _baseWeapon,MeleeWeaponData _meleeWeaponData)
     {
-        layerMask = _layerMask;
-        meleePosition = _meleePosition;
+        Base = _baseWeapon;
+        layerMask = Base.enemyLayer;
+        meleePosition = Base.meleePosition;
         meleeWeaponData = _meleeWeaponData;
-        characterController = _characterController;
+        characterController = Base.characterController;
 
         meleeAttribute = meleeWeaponData.attribute;
 

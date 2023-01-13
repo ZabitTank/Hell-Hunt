@@ -5,16 +5,26 @@ using UnityEngine.EventSystems;
 public class BaseWeapon : MonoBehaviour
 {
     public CharacterController characterController { get; set; }
-
     private IWeaponAttackBehaviour weaponBehavior;
 
-    [SerializeField] Animator muzzleAnimator;
-    [SerializeField] Transform meleePosition;
-    [SerializeField] Transform muzzlePosition;
+    [HideInInspector]
+    public DynamicCharacterStat playerAttribute;
+    [HideInInspector]
+    public AudioSource audioSource;
+    [HideInInspector]
+    public Animator muzzleAnimator;
+
+    public Transform meleePosition;
+    public Transform muzzlePosition;
 
     public float testAttackRange;
     public LayerMask enemyLayer;
 
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        muzzleAnimator = GetComponentInChildren<Animator>();
+    }
     public void DoPrimaryAttack()
     {
         if(weaponBehavior.CanDoPrimaryAttack())
@@ -40,12 +50,12 @@ public class BaseWeapon : MonoBehaviour
         {
             case ItemType.Gun:
                 GunBehaviour gunBehaviour = gameObject.AddComponent<GunBehaviour>();
-                gunBehaviour.Initialize((GunData)weapon, characterController, muzzleAnimator, muzzlePosition, meleePosition, enemyLayer);
+                gunBehaviour.Initialize(this,(GunData)weapon);
                 weaponBehavior = gunBehaviour;
                 break;
             case ItemType.MeleeWeapon:
                 MeleeWeaponBehaviour meleeWeaponBehaviour = gameObject.AddComponent<MeleeWeaponBehaviour>();
-                meleeWeaponBehaviour.Initialize((MeleeWeaponData)weapon, characterController, meleePosition, enemyLayer);
+                meleeWeaponBehaviour.Initialize(this,(MeleeWeaponData)weapon);
                 weaponBehavior = meleeWeaponBehaviour;
                 break;
         }

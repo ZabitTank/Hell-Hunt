@@ -58,7 +58,7 @@ public class ModifiableInt
     public void UpdateBaseValue(int valueToAdd)
     {
         baseValue += valueToAdd;
-        if (ValueModified != null)
+        if (BaseValueModifed != null)
             BaseValueModifed.Invoke();
     }
 

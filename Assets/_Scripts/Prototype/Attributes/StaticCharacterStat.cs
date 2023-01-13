@@ -37,13 +37,11 @@ public class StaticCharacterStat : Stats
 
             GetAttribute.Add(attribute.type, attribute);
         }
+    }
 
-        HP.RegisterBaseModEvent(() =>
-        {
-            GlobalVariable.Instance.playerReferences.UIHealthBar.SetValue(
-                HP.BaseValue / (float)GetAttribute[EquipmentAttribute.MaxHP].value.ModifiedValue);
-        });
-
+    public void RegisterHPEvent(ModifiedEvent die)
+    {
+        HP.RegisterBaseModEvent(die);
     }
 
     public int GetStatValue(EquipmentAttribute type)
