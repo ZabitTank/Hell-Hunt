@@ -28,6 +28,7 @@ public class BaseEnemyAI : MonoBehaviour
     {
         attackBehaviour.Parent = this;
         patrolBehaviour.Parent = this;
+        characterStat.SetParent(this);
 
         detector = GetComponentInChildren<AIDetector>();
 
@@ -36,6 +37,7 @@ public class BaseEnemyAI : MonoBehaviour
 
         weapon = GetComponentInChildren<BaseWeapon>();
         weapon.characterController = characterController;
+        weapon.characterStats = characterStat;
         HPSlider.maxValue = characterStat.Attributes[3].value.BaseValue;
         HPSlider.value = characterStat.HP.BaseValue;
     }

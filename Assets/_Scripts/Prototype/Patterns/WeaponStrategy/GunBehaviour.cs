@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 {
     BaseWeapon Base;
-    // test
-    public float spread;
 
     GunData gunData;
     CharacterController characterController;
@@ -29,8 +27,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     Transform meleePosition;
 
     int totalAmmo;
-    float playerAcurateState;
-
+    ModifiableInt playerAccurateStat;
     public void Initialize(BaseWeapon _parent,GunData _gunData)
     {
         Base = _parent;
@@ -71,6 +68,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         timeToFire = Time.time;
         timeToMelee = Time.time;
 
+        playerAccurateStat = Base.characterStats.GetAttribute[EquipmentAttribute.Dexterity].value;
     }
 
     public bool CanDoPrimaryAttack()
@@ -163,9 +161,9 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     float caculateSpread()
     {
-        float s = Random.Range(-spread, spread);
+        float s = Random.Range(-gunAttribute.accurateStat, gunAttribute.accurateStat);
 
-        return s - s/100*playerAcurateState;
+        return s - s / 10 * playerAccurateStat.BaseValue;
     }
 
     public Component Self()

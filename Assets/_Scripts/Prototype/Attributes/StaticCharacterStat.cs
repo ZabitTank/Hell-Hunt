@@ -8,28 +8,11 @@ public class StaticCharacterStat : Stats
     [NonSerialized]
     public BaseEnemyAI enemy;
 
-    // Equipment DynamicCharacterStat
-    [SerializeField]
-    private Attribute[] attributes;
-    public Attribute[] Attributes
-    {
-        get { return attributes; }
-        private set { attributes = value; }
-    }
-    public Dictionary<EquipmentAttribute, Attribute> GetAttribute = new();
-
-    // Other stat
-    public ModifiableInt HP;
-    public ModifiableInt MP;
-
-    public Item playerDefaultWeapon;
-
-
     public void SetParent(BaseEnemyAI _enemy)
     {
         enemy = _enemy;
 
-        foreach (var attribute in attributes)
+        foreach (var attribute in Attributes)
         {
             var tempValue = attribute.value.BaseValue;
             attribute.SetParent(this);

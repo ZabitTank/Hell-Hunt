@@ -12,7 +12,7 @@ public class BaseWeapon : MonoBehaviour
     private IWeaponAttackBehaviour currentBehaviour;
 
     [HideInInspector]
-    public DynamicCharacterStat playerAttribute;
+    public Stats characterStats;
     [HideInInspector]
     public AudioSource audioSource;
     [HideInInspector]

@@ -9,24 +9,6 @@ public class DynamicCharacterStat : Stats
     [NonSerialized]
     public Player character;
 
-    // Equipment DynamicCharacterStat
-    [SerializeField]
-    private Attribute[] attributes;
-    public Attribute[] Attributes
-    {
-        get { return attributes; }
-        private set { attributes = value; }
-    }
-    public Dictionary<EquipmentAttribute, Attribute> GetAttribute = new();
-
-    // Other stat
-    public ModifiableInt HP;
-    public ModifiableInt MP;
-
-    public Item playerCurrentWeapon;
-    public Item playerDefaultWeapon;
-
-
     public void SetParent(Player _character)
     {
         character = _character;
@@ -40,7 +22,7 @@ public class DynamicCharacterStat : Stats
             playerCurrentWeapon = character.Equipment.GetSlots[2].Item;
         }
 
-        foreach (var attribute in attributes)
+        foreach (var attribute in Attributes)
         {
             var tempValue = attribute.value.BaseValue;
             attribute.SetParent(this);
@@ -82,7 +64,7 @@ public class DynamicCharacterStat : Stats
             var equipment = (Equipment)item;
             foreach (var buff in equipment.buffs)
             {
-                foreach (var characterAttribute in attributes)
+                foreach (var characterAttribute in Attributes)
                 {
                     if (buff.type == characterAttribute.type)
                     {
@@ -121,7 +103,7 @@ public class DynamicCharacterStat : Stats
             var equipment = (Equipment)item;
             foreach (var buff in equipment.buffs)
             {
-                foreach (var characterAttribute in attributes)
+                foreach (var characterAttribute in Attributes)
                 {
                     if (buff.type == characterAttribute.type)
                     {
@@ -146,7 +128,7 @@ public class DynamicCharacterStat : Stats
     {
 
         var attributeTextUi = "";
-        foreach (var attribute in attributes)
+        foreach (var attribute in Attributes)
         {
             attributeTextUi += string.Concat(Enum.GetName(typeof(EquipmentAttribute), attribute.type), ": ", attribute.value.ModifiedValue, '\n');
         }
