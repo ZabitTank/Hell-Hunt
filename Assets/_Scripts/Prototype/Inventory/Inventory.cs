@@ -142,6 +142,8 @@ public class InventoryObject
     {
         foreach (var itemSlot in slots)
         {
+            itemSlot.onAfterUpdate = null;
+            itemSlot.onBeforeUpdate = null;
             itemSlot.UpdateSlot(new(), 0);
         }
     }
