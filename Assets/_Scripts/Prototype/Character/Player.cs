@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class Player : MonoBehaviour
 {
     // Character's Attributes
-    public DynamicCharacterStat stats;
+    public DynamicCharacterStat playerStats;
 
     // Input
     float horizontalInput;
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         private set { equipment = value; }
     }
 
-    public BaseWeapon playerWeapon;
+    public BaseWeapon weapon;
 
     private GameObject detectObject;
     public LayerMask detectableLayer;
@@ -47,14 +47,14 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         characterController = GetComponentInChildren<CharacterController>();
-        playerWeapon = GetComponentInChildren<BaseWeapon>();
+        weapon = GetComponentInChildren<BaseWeapon>();
     }
 
     public void Start()
     {
-        stats.HP.RegisterBaseModEvent(() =>
+        playerStats.HP.RegisterBaseModEvent(() =>
         {
-            if (stats.HP.BaseValue <= 0)
+            if (playerStats.HP.BaseValue <= 0)
             {
                 SceneSetting.Instance.isPlayerDead = true;
                 var components = GetComponentsInChildren<Component>();
@@ -78,17 +78,17 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            playerWeapon.DoPrimaryAttack();
+            weapon.DoPrimaryAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            playerWeapon.DoSeconddaryAttack();
+            weapon.DoSeconddaryAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            playerWeapon.PreparePrimaryAttack();
+            weapon.PreparePrimaryAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.Home))
@@ -103,12 +103,12 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            inventoryUI.SwapActiveUnActive();
+            GlobalVariable.Instance.playerReferences.inventoryUI.SwapActiveUnActive();
             MouseData.highLightSlot = null;
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            equipmentUI.SwapActiveUnActive();
+            GlobalVariable.Instance.playerReferences.equipmentUI.SwapActiveUnActive();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(stats.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * characterController.movingDirection, Space.World);
+        transform.Translate(playerStats.GetStatValue(EquipmentAttribute.Movement) * Time.fixedDeltaTime * characterController.movingDirection, Space.World);
         //rb.MovePosition(transform.position);
     }
 
@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamge(int damage)
     {
-        stats.HP.UpdateBaseValue(damage);
+        playerStats.HP.UpdateBaseValue(damage);
         Instantiate(GlobalVariable.Instance.bloodEffectPrefab, transform.position, transform.rotation, null);
     }
 
@@ -201,10 +201,19 @@ public class Player : MonoBehaviour
     {
         if (inventory.GetSlots.Contains(MouseData.highLightSlot))
         {
-            var item = MouseData.highLightSlot.Item;
+            var slots = MouseData.highLightSlot;
+            var item = slots.Item;
             if (!item) return;
             switch (item.type)
             {
+                case ItemType.Ammunition:
+                    var ammo = (Ammunition)item;
+                    var magazine = playerStats.GetMagazine[ammo.gunType];
+                    magazine.UpdateBaseValue(slots.amount);
+                    slots.UpdateSlot(new(), 0);
+                    MouseData.highLightSlot = null;
+                    break;
+
                 case ItemType.Gun:
                 case ItemType.MeleeWeapon:
                     var weaponSlot = equipment.GetSlots[2];
@@ -224,22 +233,19 @@ public class Player : MonoBehaviour
 
     private void InitState()
     {
-        inventoryUI = GlobalVariable.Instance.playerReferences.inventoryUI;
-        equipmentUI = GlobalVariable.Instance.playerReferences.equipmentUI;
-
         inventory = GlobalVariable.Instance.playerReferences.playerInventory;
         equipment = GlobalVariable.Instance.playerReferences.playerEquipment;
 
-        stats.SetParent(this);
+        playerStats.SetParent(this);
+        if (!playerStats.playerCurrentWeapon)
+            playerStats.playerCurrentWeapon = playerStats.playerDefaultWeapon;
+
         characterController.setParent(gameObject);
-        playerWeapon.characterController = characterController;
         inventory.setParent(gameObject);
 
-        if (!stats.playerCurrentWeapon)
-            stats.playerCurrentWeapon = stats.playerDefaultWeapon;
 
-        playerWeapon.ChangeWeapon(stats.playerCurrentWeapon);
-        inventoryUI.SwapActiveUnActive();
-        equipmentUI.SwapActiveUnActive();
+        weapon.characterController = characterController;
+        weapon.playerStats = playerStats;
+        weapon.ChangeWeapon(playerStats.playerCurrentWeapon);
     }
 }

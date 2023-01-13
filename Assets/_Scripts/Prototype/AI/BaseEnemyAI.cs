@@ -37,7 +37,7 @@ public class BaseEnemyAI : MonoBehaviour
 
         weapon = GetComponentInChildren<BaseWeapon>();
         weapon.characterController = characterController;
-        weapon.characterStats = characterStat;
+        weapon.playerStats = characterStat;
         HPSlider.maxValue = characterStat.Attributes[3].value.BaseValue;
         HPSlider.value = characterStat.HP.BaseValue;
     }

@@ -28,7 +28,7 @@ public class ModifiableInt
         private set { modifiedValue = value; }
     }
 
-    public List<IModifier> modifiers;
+    public List<IModifier> modifiers=new();
 
     public event ModifiedEvent ValueModified;
     public event ModifiedEvent BaseValueModifed;
@@ -58,6 +58,13 @@ public class ModifiableInt
     public void UpdateBaseValue(int valueToAdd)
     {
         baseValue += valueToAdd;
+        if (BaseValueModifed != null)
+            BaseValueModifed.Invoke();
+    }
+
+    public void SetBaseValue(int value)
+    {
+        baseValue = value;
         if (BaseValueModifed != null)
             BaseValueModifed.Invoke();
     }

@@ -467,7 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2207d1e008b384c962d33f196803cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
+  playerStats:
     attributes:
     - type: 0
       value:
@@ -501,7 +501,7 @@ MonoBehaviour:
     playerCurrentWeapon: {fileID: 0}
     playerDefaultWeapon: {fileID: 11400000, guid: 24a60a637b7cce24f921082b4687acf8, type: 2}
   characterController: {fileID: 0}
-  playerWeapon: {fileID: 0}
+  weapon: {fileID: 0}
   detectableLayer:
     serializedVersion: 2
     m_Bits: 512

@@ -90,7 +90,7 @@ public class DynamicCharacterStat : Stats
             {
                 playerCurrentWeapon = playerDefaultWeapon;
                 UpdateWeaponUI(item);
-                character.playerWeapon.ChangeWeapon(playerCurrentWeapon);
+                character.weapon.ChangeWeapon(playerCurrentWeapon);
             }
             return;
         }
@@ -100,7 +100,7 @@ public class DynamicCharacterStat : Stats
         {
             playerCurrentWeapon = item;
             UpdateWeaponUI(item);
-            character.playerWeapon.ChangeWeapon(playerCurrentWeapon);
+            character.weapon.ChangeWeapon(playerCurrentWeapon);
         }
         else if (item.type == ItemType.Armor || item.type == ItemType.Headgear)
         {

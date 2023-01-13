@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class BaseWeapon : MonoBehaviour
 {
     public CharacterController characterController;
+    public Stats playerStats;
 
     private GunBehaviour gunBehaviour;
     private MeleeWeaponBehaviour meleeWeaponBehaviour;
@@ -12,13 +13,12 @@ public class BaseWeapon : MonoBehaviour
     private IWeaponAttackBehaviour currentBehaviour;
 
     [HideInInspector]
-    public Stats characterStats;
-    [HideInInspector]
     public AudioSource audioSource;
     [HideInInspector]
-
     public Animator muzzleAnimator;
+    [HideInInspector]
     public Transform meleePosition;
+
     public Transform muzzlePosition;
 
     public float testAttackRange;

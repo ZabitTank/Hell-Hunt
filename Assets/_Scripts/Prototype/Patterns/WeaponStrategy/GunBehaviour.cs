@@ -18,15 +18,14 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     bool isReloading;
     float timeToFire;
     float timeToMelee;
-    float timeToPlaySound = 1f;
-    float currentSpread;
+    float timeToPlayShootSound = 1f;
     AudioClip shotAudioClip;
     AudioClip meleeAudioClip;
     // Other
     LayerMask LayerMask;
     Transform meleePosition;
 
-    int totalAmmo;
+    ModifiableInt totalAmmo;
     ModifiableInt playerAccurateStat;
     public void Initialize(BaseWeapon _parent,GunData _gunData)
     {
@@ -63,12 +62,12 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         shotAudioClip = GlobalAudio.Instance.weaponAudioClips.GetAudioByGunType(gunData.gunType);
         meleeAudioClip = GlobalAudio.Instance.weaponAudioClips.punch;
         currentAmmo = gunAttribute.ammoCap;
-        totalAmmo = currentAmmo * 100;
+        totalAmmo = Base.playerStats.GetMagazine[gunData.gunType];
         isReloading = false;
         timeToFire = Time.time;
         timeToMelee = Time.time;
 
-        playerAccurateStat = Base.characterStats.GetAttribute[EquipmentAttribute.Dexterity].value;
+        playerAccurateStat = Base.playerStats.GetAttribute[EquipmentAttribute.Dexterity].value;
     }
 
     public bool CanDoPrimaryAttack()
@@ -90,14 +89,13 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         }
         timeToFire = Time.time + 1 / gunAttribute.fireRate;
 
-        if(Time.time > timeToPlaySound)
+        if(Time.time > timeToPlayShootSound)
         {
             Base.audioSource.PlayOneShot(shotAudioClip);
-            timeToPlaySound = Time.time + 1f;
+            timeToPlayShootSound = Time.time + 1f;
         }
 
         characterController.PerformShootAnimation();
-
         SpawnBullet();
     }
 
@@ -111,8 +109,6 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         GameObject bullet = Instantiate(gunData.bulletPrefab, muzzleTranform.position, muzzleTranform.rotation);
 
         bullet.GetComponent<Bullet>().InitState(gunAttribute.fireForce, gunAttribute.bulletDamage, caculateSpread());
-
-        characterController.PerformShootAnimation();
         currentAmmo--;
     }
 
@@ -123,8 +119,17 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
     public void PreparePrimaryAttack()
     {
-        if(totalAmmo > 0)
+        if (totalAmmo.BaseValue > 0)
             StartCoroutine(Reload());
+        else
+        {
+            if (Time.time > timeToPlayShootSound)
+            {
+                Base.audioSource.PlayOneShot(GlobalAudio.Instance.weaponAudioClips.outAmmo);
+                timeToPlayShootSound = Time.time + 1f;
+            }
+        }
+
     }
 
     IEnumerator Reload()
@@ -132,8 +137,8 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
         isReloading = true;
         characterController.PerformReload();
         yield return new WaitForSeconds(1 / gunAttribute.reloadSpeed);
-        currentAmmo = (totalAmmo < gunAttribute.ammoCap) ? totalAmmo : gunAttribute.ammoCap;
-        totalAmmo = Mathf.Clamp(totalAmmo - gunAttribute.ammoCap, 0, int.MaxValue);
+        currentAmmo = (totalAmmo.BaseValue < gunAttribute.ammoCap) ? totalAmmo.BaseValue : gunAttribute.ammoCap;
+        totalAmmo.SetBaseValue(Mathf.Clamp(totalAmmo.BaseValue - gunAttribute.ammoCap, 0, int.MaxValue));
         isReloading = false;
     }
 
@@ -163,7 +168,7 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
     {
         float s = Random.Range(-gunAttribute.accurateStat, gunAttribute.accurateStat);
 
-        return s - s / 10 * playerAccurateStat.BaseValue;
+        return s - (s / 10) * playerAccurateStat.BaseValue;
     }
 
     public Component Self()
