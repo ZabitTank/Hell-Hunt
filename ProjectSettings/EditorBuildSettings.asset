@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level-4.unity
     guid: ae461d4b264f0e346ae45ba3968c66a8
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Boss.unity
+    guid: f762e9da6a1ad23449e3016a231fb887
   m_configObjects: {}
