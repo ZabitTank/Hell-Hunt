@@ -203,11 +203,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Armor:        5
+  m_text: 'Armor:        0
 
-    Movement: 6
+    Movement: 10
 
-    Dexterity:    5
+    Dexterity:    1
 
 '
   m_isRightToLeft: 0
@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Damage:\t3\nAttack Rate:\t3\nRange:        \t3"
+  m_text: "Damage:\t10\nAttack Rate:\t1\nRange:        \t1"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Damage:\t3\nFire Rate:\t3\nAccurate:\t3\nReload:\t3"
+  m_text: "Damage:\t0\nFire Rate:\t0\nAccurate:\t0\nReload:\t\t0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

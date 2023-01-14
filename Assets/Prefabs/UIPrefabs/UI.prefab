@@ -569,6 +569,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4637972074654927828}
     m_Modifications:
+    - target: {fileID: 1117952091405862165, guid: b104552bbd557ab44a5b053c4c211509, type: 3}
+      propertyPath: m_text
+      value: 'Armor:        0
+
+        Movement: 10
+
+        Dexterity:    1
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117952092287147426, guid: b104552bbd557ab44a5b053c4c211509, type: 3}
+      propertyPath: m_text
+      value: "Damage:\t10\nAttack Rate:\t0.5\nRange:        \t1"
+      objectReference: {fileID: 0}
     - target: {fileID: 1117952093393754369, guid: b104552bbd557ab44a5b053c4c211509, type: 3}
       propertyPath: infoUI
       value: 
