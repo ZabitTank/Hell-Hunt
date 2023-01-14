@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlobalPlayOneShot
       objectReference: {fileID: 0}
+    - target: {fileID: 5157486586028693916, guid: c9a9002468358514aae44ef1b6ea17a3, type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 8647852336290696362}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9a9002468358514aae44ef1b6ea17a3, type: 3}
 --- !u!4 &2377463961620455748 stripped
@@ -155,5 +159,10 @@ PrefabInstance:
 --- !u!4 &8647852336290696361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1869246003664880360, guid: 5f26d5759aaad2443b07f453c85f1ec7, type: 3}
+  m_PrefabInstance: {fileID: 7058181542230625857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8647852336290696362 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1869246003664880363, guid: 5f26d5759aaad2443b07f453c85f1ec7, type: 3}
   m_PrefabInstance: {fileID: 7058181542230625857}
   m_PrefabAsset: {fileID: 0}

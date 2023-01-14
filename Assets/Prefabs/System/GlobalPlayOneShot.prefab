@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f418316a94c9a8145af0bab5888b8c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 0}
   weaponAudioClips:
     handgun: {fileID: 8300000, guid: 25b86e20b42a94b4e9fa29ae7550e485, type: 3}
     rifle: {fileID: 8300000, guid: b2f2fedfd80b4e04a86d4df9405c4faa, type: 3}

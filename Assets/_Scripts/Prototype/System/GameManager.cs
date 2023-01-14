@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : PersistentSingleton<GameManager>
 {
     public bool isPause = false;
+    public float backgroundVolume = 0.3f;
+    public float characterSound = 0.3f;
 
     public void SaveGame()
     {
@@ -50,13 +52,33 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         if (isPause)
         {
-            Time.timeScale = 1;
-            isPause = false;
+            OptionMenu.Instance.gameObject.SetActive(false);
         }
         else
         {
-            Time.timeScale = 0;
-            isPause = true;
+            OptionMenu.Instance.gameObject.SetActive(true);
+        }
+        isPause = !isPause;
+    }
+
+    public void SetThemeVolume(float volume)
+    {
+        backgroundVolume = volume;
+        if (GlobalAudio.Instance)
+            GlobalAudio.Instance.background.volume = volume;
+    }
+
+    public void SetCharacterSound(float volume)
+    {
+        characterSound = volume;
+        var weapons = FindObjectsOfType<BaseWeapon>();
+        if (weapons.Length > 0)
+        {
+            foreach(var weapon in weapons)
+            {
+                weapon.audioSource.volume = volume;
+            }
         }
     }
+
 }

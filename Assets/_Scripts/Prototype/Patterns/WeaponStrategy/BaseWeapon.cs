@@ -31,6 +31,12 @@ public class BaseWeapon : MonoBehaviour
         gunBehaviour = GetComponent<GunBehaviour>();
         meleeWeaponBehaviour = GetComponent<MeleeWeaponBehaviour>();
     }
+
+    private void Start()
+    {
+        if(audioSource)
+            audioSource.volume = GameManager.Instance.characterSound;
+    }
     public void DoPrimaryAttack()
     {
         if(currentBehaviour.CanDoPrimaryAttack())

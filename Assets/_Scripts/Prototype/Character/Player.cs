@@ -125,8 +125,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.P))
         {
-            //GameManager.Instance.SwapPauseResumeGame();
-                        Time.timeScale = 0; // Pause
+            GameManager.Instance.SwapPauseResumeGame();
         }
     }
 

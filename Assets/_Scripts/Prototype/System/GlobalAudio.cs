@@ -6,12 +6,14 @@ using UnityEngine;
 public class GlobalAudio : Singleton<GlobalAudio>
 {
     AudioSource audioSource;
+    public AudioSource background;
     // Start is called before the first frame update
     public WeaponAudioClip weaponAudioClips;
     public IventorySoundEffect iventorySoundEffect;
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        SettingUpdate();
     }
 
     public void Play(AudioClip clip)
@@ -32,6 +34,12 @@ public class GlobalAudio : Singleton<GlobalAudio>
     public void PlayeDropItemSound()
     {
         audioSource.PlayOneShot(iventorySoundEffect.dropItem);
+    }
+
+    public void SettingUpdate()
+    {
+        if(background != null)
+            background.volume = GameManager.Instance.backgroundVolume;
     }
 }
 
