@@ -24,7 +24,6 @@ public class SceneSetting : Singleton<SceneSetting>
         {
             if (enemyCount.BaseValue <= 0)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 UIWin.SetActive(true);
             }
         });
