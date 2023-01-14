@@ -62,13 +62,14 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
 
         shotAudioClip = GlobalAudio.Instance.weaponAudioClips.GetAudioByGunType(gunData.gunType);
         meleeAudioClip = GlobalAudio.Instance.weaponAudioClips.punch;
-        totalAmmo = Base.playerStats.GetMagazine[gunData.gunType];
         isReloading = false;
         timeToFire = Time.time;
         timeToMelee = Time.time;
         playerAccurateStat = Base.playerStats.GetAttribute[EquipmentAttribute.Dexterity].value;
 
+        totalAmmo = Base.playerStats.GetMagazine[gunData.gunType];
         currentAmmo = new(null);
+        totalAmmo.UpdateBaseValue(totalAmmo.BaseValue);
         if (Base.gameObject.CompareTag("Player"))
         {
             currentAmmo.RegisterBaseModEvent(() =>
@@ -77,8 +78,6 @@ public class GunBehaviour : MonoBehaviour,IWeaponAttackBehaviour
                     " / ", totalAmmo.BaseValue.ToString());
             });
         }
-        currentAmmo.UpdateBaseValue(gunAttribute.ammoCap);
-        totalAmmo.UpdateBaseValue(gunAttribute.ammoCap);
     }
 
     public bool CanDoPrimaryAttack()

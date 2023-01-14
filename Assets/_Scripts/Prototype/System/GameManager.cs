@@ -50,15 +50,12 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void SwapPauseResumeGame()
     {
-        if (isPause)
+        if (OptionMenu.Instance)
         {
-            OptionMenu.Instance.gameObject.SetActive(false);
+            OptionMenu.Instance.gameObject.SetActive(isPause);
+            isPause = !isPause;
         }
-        else
-        {
-            OptionMenu.Instance.gameObject.SetActive(true);
-        }
-        isPause = !isPause;
+
     }
 
     public void SetThemeVolume(float volume)
