@@ -64,7 +64,6 @@ public class Player : MonoBehaviour
                     {
                         Destroy(component);
                     }
-                    if (SceneSetting.Instance.isPlayerDead)
                         SceneSetting.Instance.UILose.SetActive(true);
                 }
             }

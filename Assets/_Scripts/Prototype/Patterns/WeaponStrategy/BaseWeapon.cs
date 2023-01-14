@@ -34,7 +34,7 @@ public class BaseWeapon : MonoBehaviour
 
     private void Start()
     {
-        if(audioSource)
+        if(GameManager.Instance)
             audioSource.volume = GameManager.Instance.characterSound;
     }
     public void DoPrimaryAttack()

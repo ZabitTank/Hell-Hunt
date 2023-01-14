@@ -38,7 +38,7 @@ public class GlobalAudio : Singleton<GlobalAudio>
 
     public void SettingUpdate()
     {
-        if(background != null)
+        if(GameManager.Instance != null)
             background.volume = GameManager.Instance.backgroundVolume;
     }
 }
